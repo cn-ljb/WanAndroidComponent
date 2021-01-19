@@ -2,6 +2,7 @@
 <resources>
     <color name="bg_page">#F1384B</color>
     <color name="color_white">#fff</color>
+    <color name="color_black">#000</color>
     <color name="color_F2F2F2">#F2F2F2</color>
     <color name="color_333">#333</color>
 </resources>

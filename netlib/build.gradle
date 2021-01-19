@@ -1,10 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 def app = rootProject.ext.application
-def dependenciesImp = rootProject.ext.dependenciesImp
-def dependenciesAP = rootProject.ext.dependenciesAP
 
 android {
     compileSdkVersion app.compileSdkVersion
@@ -17,19 +14,6 @@ android {
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        //Java路由支持
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
-
-        //Kotlin路由支持
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
     }
 
     buildTypes {
@@ -43,13 +27,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.core:core-ktx:${rootProject.ext.androidx_ktx_version}"
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.androidx_appcompat_version}"
+    implementation "com.squareup.okhttp3:okhttp:${rootProject.ext.okhttp_version}"
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofir_version}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofir_gson_version}"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:${rootProject.ext.retrofir_adapter_version}"
+    implementation "io.reactivex.rxjava3:rxandroid:${rootProject.ext.rxandroid_version}"
+    implementation "io.reactivex.rxjava3:rxjava:${rootProject.ext.rxjava_version}"
 
-    // implementation
-    dependenciesImp.each { k, v -> implementation(v) }
-    // annotationProcessor
-    dependenciesAP.each { k, v -> annotationProcessor(v) }
-    //kapt
-    dependenciesKapt.each { k, v -> kapt(v) }
 
 }
 repositories {

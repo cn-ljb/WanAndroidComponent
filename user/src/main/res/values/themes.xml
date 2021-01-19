@@ -14,7 +14,4 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="AppTheme.Launcher" parent="Theme.DaRen">
-        <item name="android:windowBackground">@drawable/wel_bg</item>
-    </style>
 </resources>

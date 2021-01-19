@@ -1,8 +1,8 @@
 ext {
 
-    // true 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
-    // false 组件化环境，将所有Library组件化为可执行Module，供开发人员开发
-    isRelease = true
+    // true 组件化环境，将所有Library组件化为可执行Module，供开发人员开发
+    // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
+    isComponent = false
 
     // true : 测试环境
     // false: 线上环境
@@ -22,7 +22,7 @@ ext {
     glide_version = "4.11.0"
     okhttp_version = "4.9.0"
     retrofir_version = "2.9.0"
-    retrofir_gson_version = "2.4.0"
+    retrofir_gson_version = "2.6.2"
     retrofir_adapter_version = "2.9.0"
     rxandroid_version = "3.0.0"
     rxjava_version = "3.0.8"

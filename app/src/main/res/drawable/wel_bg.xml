@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape >
+            <solid android:color="@color/color_white"/>
+        </shape>
+    </item>
+    <item>
+        <!--            android:scaleType="fitCenter"-->
+        <bitmap android:src="@mipmap/ic_welcome"
+            android:gravity="center"/>
+    </item>
+</layer-list>

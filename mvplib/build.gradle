@@ -1,10 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 def app = rootProject.ext.application
-def dependenciesImp = rootProject.ext.dependenciesImp
-def dependenciesAP = rootProject.ext.dependenciesAP
 
 android {
     compileSdkVersion app.compileSdkVersion
@@ -17,19 +14,6 @@ android {
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        //Java路由支持
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
-
-        //Kotlin路由支持
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
     }
 
     buildTypes {
@@ -43,14 +27,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // implementation
-    dependenciesImp.each { k, v -> implementation(v) }
-    // annotationProcessor
-    dependenciesAP.each { k, v -> annotationProcessor(v) }
-    //kapt
-    dependenciesKapt.each { k, v -> kapt(v) }
-
+    implementation "androidx.core:core-ktx:${rootProject.ext.androidx_ktx_version}"
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.androidx_appcompat_version}"
 }
 repositories {
     mavenCentral()

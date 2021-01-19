@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-def isRelease = rootProject.ext.isRelease
+def isComponent = rootProject.ext.isComponent
 def application  = rootProject.ext.application
 def appId = rootProject.ext.appId
 
@@ -22,7 +22,7 @@ android {
         consumerProguardFiles "consumer-rules.pro"
 
         //将当前构建环境状态写入 BuildConfig 文件中
-        buildConfigField("boolean", "IS_RELEASE", String.valueOf(isRelease))
+        buildConfigField("boolean", "IS_COMPONENT", String.valueOf(isComponent))
         buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
 
         javaCompileOptions {
