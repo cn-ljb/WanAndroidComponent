@@ -1,8 +1,6 @@
 package mvp.ljb.kt.act
 
 import android.content.Intent
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.widget.Toast
 import mvp.ljb.kt.contract.IPresenterContract
