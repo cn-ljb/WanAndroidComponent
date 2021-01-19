@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+def isRelease = rootProject.ext.isRelease
+def application  = rootProject.ext.application
+def appId = rootProject.ext.appId
+
+android {
+    compileSdkVersion application.compileSdkVersion
+    buildToolsVersion application.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion application.minSdkVersion
+        targetSdkVersion application.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        //将当前构建环境状态写入 BuildConfig 文件中
+        buildConfigField("boolean", "IS_RELEASE", String.valueOf(isRelease))
+        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(path: ':mvplib')
+    api project(path: ':netlib')
+
+    dependenciesImp.each { k, v -> implementation(v) }
+    dependenciesKapt.each { k, v -> kapt(v) }
+   // dependenciesAP.each { k, v -> annotationProcessor(v) }
+}

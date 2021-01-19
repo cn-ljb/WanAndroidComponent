@@ -1,0 +1,108 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+//1、取出isRelease字段
+def isRelease = rootProject.ext.isRelease
+def isDebug = rootProject.ext.isDebug
+
+def appId = rootProject.ext.appId
+def application = rootProject.ext.application
+def dependenciesImp = rootProject.ext.dependenciesImp
+def dependenciesKapt = rootProject.ext.dependenciesKapt
+def dependenciesAP = rootProject.ext.dependenciesAP
+
+
+android {
+    compileSdkVersion application.compileSdkVersion
+    buildToolsVersion application.buildToolsVersion
+
+    defaultConfig {
+        applicationId appId.app
+        minSdkVersion application.minSdkVersion
+        targetSdkVersion application.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //将当前构建环境状态写入 BuildConfig 文件中
+        buildConfigField("boolean", "IS_RELEASE", String.valueOf(isRelease))
+        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+        if (isDebug) {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_DEBUG) + "\"")
+        } else {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
+        }
+
+        //Java路由支持
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        //kotlin路由支持
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+
+        //java EventBus索引
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: appId.app + ".MyEventBusIndex"]
+            }
+        }
+
+        // kotlin EventBus索引
+        kapt {
+            arguments {
+                arg('eventBusIndex', appId.app + ".MyEventBusIndex")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //公共模块所有子模块都引入
+    implementation project(path: ':comm')
+
+    dependencies {
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+    }
+
+    dependenciesImp.each { k, v -> implementation(v) }
+    dependenciesKapt.each { k, v -> kapt(v) }
+
+    //2、当前是发布环境，那么需要引入其它子模块的Library
+    if (isRelease) {
+//       implementation project(path: ':user')
+//        implementation project(path: ':shop')
+    }
+
+
+}

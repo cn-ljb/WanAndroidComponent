@@ -1,0 +1,114 @@
+// 取出isRelease字段
+def isRelease = rootProject.ext.isRelease
+def isDebug = rootProject.ext.isDebug
+
+// 根据isRelease字段，来确定当前是Library还是可执行Module
+if (isRelease) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+
+def appId = rootProject.ext.appId
+def application = rootProject.ext.application
+def dependenciesImp = rootProject.ext.dependenciesImp
+def dependenciesKapt = rootProject.ext.dependenciesKapt
+def dependenciesAP = rootProject.ext.dependenciesAP
+
+
+android {
+    compileSdkVersion application.compileSdkVersion
+    buildToolsVersion application.buildToolsVersion
+
+    defaultConfig {
+        if (!isRelease) {
+            applicationId appId.user
+        }
+        minSdkVersion application.minSdkVersion
+        targetSdkVersion application.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        //将当前构建环境状态写入 BuildConfig 文件中
+        buildConfigField("boolean", "IS_RELEASE", String.valueOf(isRelease))
+        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+        if (isDebug) {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_DEBUG) + "\"")
+        } else {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
+        }
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+
+        //java EventBus索引
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: appId.user + ".MyEventBusIndex"]
+            }
+        }
+
+        // kotlin EventBus索引
+        kapt {
+            arguments {
+                arg('eventBusIndex', appId.user + ".MyEventBusIndex")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main {
+            // 独立调试与集成调试时使用不同的 AndroidManifest.xml 文件
+            if (isRelease) {
+                manifest.srcFile 'src/main/_ReleaseManifest/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //公共模块所有子模块都引入
+    implementation project(path: ':comm')
+
+    dependenciesImp.each { k, v -> implementation(v) }
+    dependenciesKapt.each { k, v -> kapt(v) }
+
+}
