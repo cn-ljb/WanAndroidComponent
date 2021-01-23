@@ -1,5 +1,6 @@
 package com.ljb.android.comm.rx
 
+import com.ljb.android.comm.utils.XLog
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -24,6 +25,7 @@ open class BaseObserver<T> : Observer<T> {
     }
 
     override fun onError(e: Throwable) {
+        XLog.e(e)
         mOnErrorEx?.invoke(e)
         onErrorEx(e)
     }

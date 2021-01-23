@@ -16,25 +16,20 @@ open class BaseNetObserver<T>(var mContext: Context) : Observer<T> {
     private var mOnSubscribeEx: ((Disposable) -> Unit)? = null
 
     final override fun onSubscribe(d: Disposable) {
-//        onError(IllegalStateException("Not Net Link"))
-//        return
         mOnSubscribeEx?.invoke(d)
         onSubscribeEx(d)
     }
 
     final override fun onNext(response: T) {
-
         //TODO 公共代码处理
-
-
         mOnNextEx?.invoke(response)
         onNextEx(response)
     }
 
     final override fun onError(e: Throwable) {
+        XLog.e(e)
         mOnErrorEx?.invoke(e)
         onErrorEx(e)
-        XLog.e(e)
     }
 
     final override fun onComplete() {

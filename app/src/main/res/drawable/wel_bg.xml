@@ -2,12 +2,15 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape >
-            <solid android:color="@color/color_white"/>
+            <solid android:color="@color/color_39B6DF"/>
         </shape>
     </item>
-    <item>
-        <!--            android:scaleType="fitCenter"-->
-        <bitmap android:src="@mipmap/ic_welcome"
-            android:gravity="center"/>
-    </item>
+
+   <item
+      android:top="@dimen/dp_120">
+       <bitmap android:src="@mipmap/app_welcome_github"
+            android:gravity="top"
+          />
+   </item>
+
 </layer-list>

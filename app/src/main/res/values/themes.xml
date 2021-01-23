@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme.Launcher" parent="Theme.WanAndroidComponent">
+    <style name="Theme.Launcher" parent="Theme.WanAndroidComponent">
         <item name="android:windowBackground">@drawable/wel_bg</item>
     </style>
 

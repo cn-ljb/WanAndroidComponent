@@ -1,5 +1,7 @@
 package mvp.ljb.kt.contract
 
+import androidx.annotation.StringRes
+
 
 /**
  * View层公共契约接口
@@ -9,7 +11,7 @@ package mvp.ljb.kt.contract
  **/
 interface IViewContract {
 
-    fun showToast(resId: Int)
+    fun showToast(@StringRes resId: Int)
 
     fun showToast(text: String?)
 

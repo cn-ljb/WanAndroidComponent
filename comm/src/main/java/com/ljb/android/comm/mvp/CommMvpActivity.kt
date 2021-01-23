@@ -7,9 +7,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.viewbinding.ViewBinding
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.R
-import mvp.ljb.kt.act.BaseMvpActivity
 import mvp.ljb.kt.act.BaseMvpAppCompatActivity
 import mvp.ljb.kt.contract.IPresenterContract
 import org.greenrobot.eventbus.EventBus
@@ -20,15 +23,22 @@ import org.greenrobot.eventbus.EventBus
  * Time:2019/7/4
  * There is a lot of misery in life
  **/
-abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatActivity<P>() {
+abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> :
+    BaseMvpAppCompatActivity<P>() {
 
-    protected lateinit var mLoadingView: View
     protected lateinit var mParentView: RelativeLayout
+    protected lateinit var mLoadingView: View
     protected lateinit var mContentView: View
-    protected val mTitleView by lazy { findViewById<TextView>(R.id.tv_toolbar_title) }
+    protected val mTitleView by lazy { findViewById<View>(R.id.layout_toolbar) }
+    protected val mTvTitleCenter by lazy { findViewById<TextView>(R.id.tv_toolbar_title) }
     protected val mIvTitleLeft by lazy { findViewById<ImageView>(R.id.iv_toolbar_left) }
     protected val mIvTitleRight by lazy { findViewById<ImageView>(R.id.iv_toolbar_right) }
     protected val mTvTitleRight by lazy { findViewById<TextView>(R.id.tv_toolbar_right) }
+
+
+    protected val mBind by lazy { registerBinding() }
+
+    abstract fun registerBinding(): B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initStatusBar()
@@ -36,13 +46,13 @@ abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatAct
         initOther()
     }
 
-
     override fun initContentView() {
         // parentView
         mParentView = RelativeLayout(this)
 
         // content view
-        mContentView = layoutInflater.inflate(getLayoutId(), mParentView, false)
+        // mContentView = layoutInflater.inflate(getLayoutId(), mParentView, false)
+        mContentView = mBind.root
 
         // title view
         if (supportTitle()) {
@@ -61,13 +71,9 @@ abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatAct
 
         //loading view
         mLoadingView = layoutInflater.inflate(R.layout.coom_layout_loading, mParentView, false)
-        val loadingParams = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
-        loadingParams.addRule(RelativeLayout.CENTER_IN_PARENT)
-        mParentView.addView(mLoadingView, loadingParams)
+        mParentView.addView(mLoadingView)
         setContentView(mParentView)
+
     }
 
     override fun onDestroy() {
@@ -88,34 +94,44 @@ abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatAct
     }
 
 
-    protected fun showLoading() {
-        mLoadingView.visibility = View.VISIBLE
+    protected fun setLoading(isShow: Boolean) {
+        mLoadingView.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 
-    protected fun hideLoading() {
-        mLoadingView.visibility = View.GONE
-    }
-
-
-    fun setTitleText(resId: Int) {
+    protected fun setTitleText(
+        @StringRes resId: Int,
+        @ColorInt colorId: Int = resources.getColor(R.color.color_black)
+    ) {
         if (supportTitle()) {
-            mTitleView.setText(resId)
+            mTvTitleCenter.setText(resId)
+            mTvTitleCenter.setTextColor(colorId)
         }
     }
 
-    fun setTitleText(text: String) {
+    protected fun setTitleText(
+        text: String,
+        @ColorInt colorId: Int = resources.getColor(R.color.color_black)
+    ) {
         if (supportTitle()) {
-            mTitleView.text = text
+            mTvTitleCenter.text = text
+            mTvTitleCenter.setTextColor(colorId)
         }
     }
 
-    fun setTitleLeftImage(resId: Int) {
+    protected fun setTitleLeftImage(@DrawableRes resId: Int) {
         if (supportTitle()) {
             mIvTitleLeft.setImageResource(resId)
         }
     }
 
-    fun setTitleRightImage(resId: Int, listener: View.OnClickListener) {
+    protected fun setTitleLeftImage(@DrawableRes resId: Int, listener: View.OnClickListener) {
+        if (supportTitle()) {
+            mIvTitleLeft.setImageResource(resId)
+            mIvTitleLeft.setOnClickListener(listener)
+        }
+    }
+
+    protected fun setTitleRightImage(@DrawableRes resId: Int, listener: View.OnClickListener) {
         if (supportTitle()) {
             mIvTitleRight.setImageResource(resId)
             mIvTitleRight.setOnClickListener(listener)
@@ -125,11 +141,11 @@ abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatAct
         }
     }
 
-    fun setTitleRightText(resId: Int, listener: View.OnClickListener) {
+    protected fun setTitleRightText(@StringRes resId: Int, listener: View.OnClickListener) {
         setTitleRightText(getText(resId), listener)
     }
 
-    fun setTitleRightText(text: CharSequence, listener: View.OnClickListener) {
+    protected fun setTitleRightText(text: CharSequence, listener: View.OnClickListener) {
         if (supportTitle()) {
             mTvTitleRight.text = text
             mTvTitleRight.setOnClickListener(listener)
@@ -139,13 +155,18 @@ abstract class CommMvpActivity<out P : IPresenterContract> : BaseMvpAppCompatAct
         }
     }
 
+    protected fun setTitleBackgroundColor(@ColorInt resId: Int) {
+        if (supportTitle()) {
+            mTitleView.setBackgroundColor(resId)
+        }
+    }
+
     protected open fun initStatusBar() {
         ImmersionBar.with(this)
             .transparentStatusBar()     //透明状态栏，不写默认透明色
             .statusBarDarkFont(true) //状态栏字体是深色，不写默认为亮色
             .navigationBarDarkIcon(true) //导航栏图标是深色，不写默认为亮色
             .init()
-
 //            .transparentStatusBar() //透明状态栏，不写默认透明色
 //            .transparentNavigationBar() //透明导航栏，不写默认黑色(设置此方法，fullScreen()方法自动为true)
 //            .transparentBar() //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
