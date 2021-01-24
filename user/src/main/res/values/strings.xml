@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+<resources>
     <string name="app_name">用户子模块</string>
     <string name="user_register_password_hint">请输入密码</string>
     <string name="user_register_account_hint">邮箱 \\ 手机号</string>
@@ -8,4 +8,7 @@
     <string name="user_input_has_null">用户名或密码为空！</string>
     <string name="user_confirm_pwd_error">确认密码与原密码不相同！</string>
     <string name="user_register_success">注册成功！快去登录吧~</string>
+    <string name="user_login">登录</string>
+    <string name="user_go_register">还没账号，快去注册吧</string>
+    <string name="user_login_success">登陆成功</string>
 </resources>

@@ -55,8 +55,8 @@ public class LogInterceptor implements Interceptor {
             return response.newBuilder()
                     .body(okhttp3.ResponseBody.create(mediaType, content))
                     .build();
-        } catch (Exception e){
-            Log.e("net", "log err", e);
+        } catch (Exception e) {
+            NetLog.INSTANCE.e(e);
             throw e;
         }
     }

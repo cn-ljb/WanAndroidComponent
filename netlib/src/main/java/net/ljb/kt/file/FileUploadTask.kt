@@ -71,7 +71,7 @@ class FileUploadTask private constructor() {
      * */
     fun execute(): FileUploadTask {
         val builder = MultipartBody.Builder()
-            .setType(MultipartBody.ALTERNATIVE)
+            .setType(MultipartBody.FORM)
 
         val file = File(filePath)
 

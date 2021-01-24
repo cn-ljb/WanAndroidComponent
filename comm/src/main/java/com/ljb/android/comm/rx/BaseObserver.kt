@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 
 
 /**
- * 其他Rx订阅后公共代码
+ * 普通Rx订阅对象
  * */
 open class BaseObserver<T> : Observer<T> {
     private var mOnNextEx: ((T) -> Unit)? = null

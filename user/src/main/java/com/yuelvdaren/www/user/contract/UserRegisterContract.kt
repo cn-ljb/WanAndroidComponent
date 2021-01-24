@@ -1,5 +1,6 @@
 package com.yuelvdaren.www.user.contract
 
+import com.ljb.android.comm.mvp.ICommView
 import com.yuelvdaren.www.user.bean.LoginBean
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IPresenterContract
@@ -13,9 +14,7 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface UserRegisterContract {
 
-    interface IView : IViewContract {
-        fun showLoading()
-        fun hideLoading()
+    interface IView : ICommView {
         fun onRegisterUserSuccess(it: LoginBean)
     }
 

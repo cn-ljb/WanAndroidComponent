@@ -1,4 +1,4 @@
-package com.ljb.android.comm.utils
+package net.ljb.kt.utils
 
 import com.google.gson.Gson
 

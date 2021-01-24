@@ -5,6 +5,7 @@ package net.ljb.kt.client
 import net.ljb.kt.HttpConfig
 import net.ljb.kt.interceptor.AddGlobalParamInterceptor
 import net.ljb.kt.interceptor.LogInterceptor
+import net.ljb.kt.utils.JsonParser
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -16,7 +17,6 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
-import kotlin.jvm.Throws
 
 
 /**
@@ -56,19 +56,43 @@ object HttpClient {
     }
 
     private val mHttpClient by lazy {
-        OkHttpClient.Builder()
+
+        val builder = OkHttpClient.Builder()
             .sslSocketFactory(createSSLSocketFactory(), TrustAllCerts())
             .hostnameVerifier(HostnameVerifier { _, _ -> true })
             .addInterceptor(LogInterceptor())
             .addInterceptor(AddGlobalParamInterceptor())
             .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.MILLISECONDS)
-            .build()
+
+        //是否持久化cookie
+        mHttpConfig!!.commCookie?.run {
+            builder.cookieJar(object : CookieJar {
+                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+                    if (cookies.isNullOrEmpty()) {
+                        saveCookie(url.host, "")
+                        return
+                    }
+                    saveCookie(url.host, JsonParser.toJson(cookies))
+                }
+
+                override fun loadForRequest(url: HttpUrl): List<Cookie> {
+                    val loadCookie = loadCookie(url.host)
+                    if (loadCookie.isNullOrEmpty()) {
+                        return listOf()
+                    }
+                    return JsonParser.fromJsonArr(loadCookie, Cookie::class.java)
+                }
+            })
+        }
+
+        builder.build()
     }
 
     private val mLongTimeHttpClient by lazy {
         OkHttpClient.Builder()
             .sslSocketFactory(createSSLSocketFactory(), TrustAllCerts())
             .hostnameVerifier(HostnameVerifier { _, _ -> true })
+            .addInterceptor(LogInterceptor())
             .addInterceptor(AddGlobalParamInterceptor())
             .connectTimeout(DEFAULT_DOWN_TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(DEFAULT_DOWN_TIME_OUT, TimeUnit.MILLISECONDS)

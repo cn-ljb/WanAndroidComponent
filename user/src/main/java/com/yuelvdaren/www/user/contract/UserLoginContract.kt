@@ -1,8 +1,10 @@
 package com.yuelvdaren.www.user.contract
 
-import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
+import com.ljb.android.comm.mvp.ICommView
+import com.yuelvdaren.www.user.bean.LoginBean
+import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IModelContract
+import mvp.ljb.kt.contract.IPresenterContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -11,9 +13,15 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface UserLoginContract {
 
-    interface IView : IViewContract
+    interface IView : ICommView {
+        fun onLoginSuccess(loginBean: LoginBean)
+    }
 
-    interface IPresenter : IPresenterContract
+    interface IPresenter : IPresenterContract {
+        fun login(userName: String, pwd: String)
+    }
 
-    interface IModel : IModelContract
+    interface IModel : IModelContract {
+        fun login(userName: String, pwd: String):Observable<LoginBean>
+    }
 }

@@ -8,7 +8,7 @@
 
    <item
       android:top="@dimen/dp_120">
-       <bitmap android:src="@mipmap/app_welcome_github"
+       <bitmap android:src="@mipmap/comm_ic_github_white"
             android:gravity="top"
           />
    </item>

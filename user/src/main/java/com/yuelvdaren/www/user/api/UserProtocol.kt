@@ -11,23 +11,34 @@ import retrofit2.http.POST
  * Time:2021/1/23
  * There is a lot of misery in life
  **/
-interface UserProtocol{
+interface UserProtocol {
 
     /**
      * 注册
-     * http://www.wanandroid.com/user/register
+     * https://www.wanandroid.com/user/register
      *
      * @param username user name
      * @param password password
      * @param repassword re password
      * @return 注册数据
      */
-    @POST("user/register")
     @FormUrlEncoded
+    @POST("user/register")
     fun getRegisterData(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("repassword") repassword: String
+    ): Observable<LoginBean>
+
+
+    /**
+     * 登录
+     * */
+    @FormUrlEncoded
+    @POST("user/login")
+    fun getLoginData(
+        @Field("username") userName: String,
+        @Field("password") pwd: String
     ): Observable<LoginBean>
 
 }

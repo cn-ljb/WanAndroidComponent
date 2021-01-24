@@ -18,7 +18,6 @@ class UserApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        XLog.i("UserApp")
         initARoute()
         initSP()
         initHttp()
@@ -40,8 +39,19 @@ class UserApp : Application() {
 
     private fun initHttp() {
         HttpConfig.Builder(BuildConfig.HTTP_HOST)
-            .addCommHeader { headers ->
+            .addCommCookie(object : HttpConfig.ICommCookie {
+                //TODO Cookie 持久化
+                override fun saveCookie(host: String, cookie: String) {
+                    SPStaticUtils.put(host, cookie)
+                }
 
+                override fun loadCookie(host: String): String {
+                    return SPStaticUtils.getString(host)
+                }
+            }).addCommHeader {
+                //TODO 公共 Header
+            }.addCommParam {
+                //TODO 公共 Param
             }.openLog(true)
             .build()
     }

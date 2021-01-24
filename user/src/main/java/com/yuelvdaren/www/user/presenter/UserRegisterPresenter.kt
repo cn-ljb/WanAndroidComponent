@@ -30,11 +30,7 @@ class UserRegisterPresenter :
         getModel().registerUser(userName, pwd, confirmPwd)
             .compose(RxUtils.schedulerIO2Main())
             .compose(RxUtils.bindToLife(getMvpView()))
-            .subscribeNet(getContext()) {
-
-                onSubscribeEx {
-                    getMvpView().showLoading()
-                }
+            .subscribeNet(getMvpView(), true) {
 
                 onNextEx {
                     if ("0" == it.errorCode) {
@@ -44,14 +40,6 @@ class UserRegisterPresenter :
                     }
                 }
 
-                onCompleteEx {
-                    getMvpView().hideLoading()
-                }
-
-                onErrorEx {
-                    getMvpView().showToast(R.string.net_error)
-                    getMvpView().hideLoading()
-                }
             }
     }
 

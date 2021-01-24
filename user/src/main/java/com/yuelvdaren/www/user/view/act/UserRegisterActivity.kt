@@ -1,5 +1,6 @@
 package com.yuelvdaren.www.user.view.act
 
+import android.os.Bundle
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.yuelvdaren.www.user.contract.UserRegisterContract
 import com.yuelvdaren.www.user.presenter.UserRegisterPresenter
@@ -12,43 +13,54 @@ import com.yuelvdaren.www.user.databinding.ActivityUserregisterBinding
  * @Date 2021/01/23
  * @Description input description
  **/
-class UserRegisterActivity : CommMvpActivity<UserRegisterContract.IPresenter ,ActivityUserregisterBinding>() , UserRegisterContract.IView {
+class UserRegisterActivity :
+    CommMvpActivity<UserRegisterContract.IPresenter, ActivityUserregisterBinding>(),
+    UserRegisterContract.IView {
+
+    private var userName: String = ""
+
+    companion object {
+
+        const val KEY_USER_NAME = "key_user_name"
+
+    }
 
     override fun registerPresenter() = UserRegisterPresenter::class.java
 
     override fun getLayoutId() = R.layout.activity_userregister
 
     override fun registerBinding(): ActivityUserregisterBinding {
-        return ActivityUserregisterBinding.inflate(layoutInflater , mParentView , false)
+        return ActivityUserregisterBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun supportTitle() = true
 
+    override fun init(savedInstanceState: Bundle?) {
+        userName = intent.getStringExtra(KEY_USER_NAME) ?: ""
+    }
+
     override fun initView() {
-        setTitleText(R.string.user_register , resources.getColor(R.color.color_white))
+        setTitleText(R.string.user_register, resources.getColor(R.color.color_white))
         setTitleBackgroundColor(resources.getColor(R.color.color_39B6DF))
         setTitleLeftImage(R.mipmap.user_back_white)
-        mBind.registerBtn.setOnClickListener { registerUser()}
+        mBind.btnRegister.setOnClickListener { registerUser() }
+
+        mBind.etRegisterAccount.setText(userName)
     }
 
     private fun registerUser() {
-        val userName = mBind.registerAccountEdit.text.trim().toString()
-        val pwd = mBind.registerPasswordEdit.text.trim().toString()
-        val confirmPwd = mBind.registerConfirmPasswordEdit.text.trim().toString()
-        getPresenter().registerUser(userName , pwd , confirmPwd)
+        userName = mBind.etRegisterAccount.text.trim().toString()
+        val pwd = mBind.etRegisterPassword.text.trim().toString()
+        val confirmPwd = mBind.etRegisterConfirmPassword.text.trim().toString()
+        getPresenter().registerUser(userName, pwd, confirmPwd)
     }
 
-    override fun showLoading() {
-       setLoading(true)
-    }
-
-    override fun hideLoading() {
-        setLoading(false)
-    }
 
     override fun onRegisterUserSuccess(it: LoginBean) {
         showToast(R.string.user_register_success)
-        goActivity(UserLoginActivity::class.java)
+        val bundle = Bundle()
+        bundle.putString(UserLoginActivity.KEY_USER_NAME , userName)
+        goActivity(UserLoginActivity::class.java , bundle)
         finish()
     }
 

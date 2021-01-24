@@ -7,24 +7,32 @@ import java.util.Map;
 
 public class HttpConfig {
 
-    public interface CommHeader {
+    public interface ICommHeader {
         void addCommHeader(Map<String, String> headers);
     }
 
-    public interface CommParam {
+    public interface ICommParam {
         void addCommHeader(Map<String, String> params);
+    }
+
+    public interface ICommCookie {
+        void saveCookie(String host, String cookie);
+
+        String loadCookie(String host);
     }
 
     private final String baseUrl;
     private final boolean openLog;
-    private final CommHeader commHeader;
-    private final CommParam commParam;
+    private final ICommHeader commHeader;
+    private final ICommParam commParam;
+    private final ICommCookie commCookie;
 
 
-    private HttpConfig(String baseUrl, CommHeader header, CommParam param, boolean openLog) {
+    private HttpConfig(String baseUrl, ICommHeader header, ICommParam param, ICommCookie cookie, boolean openLog) {
         this.baseUrl = baseUrl;
         this.commHeader = header;
         this.commParam = param;
+        this.commCookie = cookie;
         this.openLog = openLog;
     }
 
@@ -32,7 +40,7 @@ public class HttpConfig {
         return baseUrl;
     }
 
-    public boolean isOpenLog(){
+    public boolean isOpenLog() {
         return openLog;
     }
 
@@ -51,23 +59,33 @@ public class HttpConfig {
     }
 
 
+    public ICommCookie getCommCookie() {
+        return commCookie;
+    }
+
     public static class Builder {
 
         private final String baseUrl;
         private boolean openLog;
-        private CommHeader commHeader;
-        private CommParam commParam;
+        private ICommHeader commHeader;
+        private ICommParam commParam;
+        private ICommCookie commCookie;
 
         public Builder(String baseUrl) {
             this.baseUrl = baseUrl;
         }
 
-        public Builder addCommHeader(CommHeader header) {
+        public Builder addCommCookie(ICommCookie cookie) {
+            this.commCookie = cookie;
+            return this;
+        }
+
+        public Builder addCommHeader(ICommHeader header) {
             this.commHeader = header;
             return this;
         }
 
-        public Builder addCommParam(CommParam param) {
+        public Builder addCommParam(ICommParam param) {
             this.commParam = param;
             return this;
         }
@@ -78,7 +96,7 @@ public class HttpConfig {
         }
 
         public void build() {
-            HttpConfig httpConfig = new HttpConfig(baseUrl, commHeader, commParam, openLog);
+            HttpConfig httpConfig = new HttpConfig(baseUrl, commHeader, commParam, commCookie, openLog);
             HttpClient.INSTANCE.init(httpConfig);
         }
 

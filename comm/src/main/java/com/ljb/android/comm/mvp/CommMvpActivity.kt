@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.EventBus
  * There is a lot of misery in life
  **/
 abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> :
-    BaseMvpAppCompatActivity<P>() {
+    BaseMvpAppCompatActivity<P>() , ICommView {
 
     protected lateinit var mParentView: RelativeLayout
     protected lateinit var mLoadingView: View
@@ -93,9 +93,16 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         }
     }
 
-
-    protected fun setLoading(isShow: Boolean) {
+    private fun setLoading(isShow: Boolean) {
         mLoadingView.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    override fun showLoading() {
+        setLoading(true)
+    }
+
+    override fun hideLoading() {
+        setLoading(false)
     }
 
     protected fun setTitleText(

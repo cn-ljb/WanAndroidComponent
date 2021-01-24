@@ -1,14 +1,17 @@
 package com.ljb.android.comm.rx
 
-import android.content.Context
+import com.blankj.utilcode.util.ToastUtils
+import com.ljb.android.comm.R
+import com.ljb.android.comm.mvp.ICommView
 import com.ljb.android.comm.utils.XLog
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import mvp.ljb.kt.contract.IViewContract
 
 /**
- * 网络请求公共代码
+ * 网络请求Rx订阅者
  */
-open class BaseNetObserver<T>(var mContext: Context) : Observer<T> {
+open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean) : Observer<T> {
 
     private var mOnNextEx: ((T) -> Unit)? = null
     private var mOnErrorEx: ((Throwable) -> Unit)? = null
@@ -16,23 +19,33 @@ open class BaseNetObserver<T>(var mContext: Context) : Observer<T> {
     private var mOnSubscribeEx: ((Disposable) -> Unit)? = null
 
     final override fun onSubscribe(d: Disposable) {
+        if (isLoading && mvpView is ICommView) {
+            (mvpView as ICommView).showLoading()
+        }
         mOnSubscribeEx?.invoke(d)
         onSubscribeEx(d)
     }
 
     final override fun onNext(response: T) {
-        //TODO 公共代码处理
+        //TODO 可以在此处编写网络请求结果的公共代码
         mOnNextEx?.invoke(response)
         onNextEx(response)
     }
 
     final override fun onError(e: Throwable) {
         XLog.e(e)
+        if (isLoading && mvpView is ICommView) {
+            (mvpView as ICommView).hideLoading()
+        }
         mOnErrorEx?.invoke(e)
         onErrorEx(e)
+        ToastUtils.showShort(R.string.net_error)
     }
 
     final override fun onComplete() {
+        if (isLoading && mvpView is ICommView) {
+            (mvpView as ICommView).hideLoading()
+        }
         mOnCompleteEx?.invoke()
         onCompleteEx()
     }

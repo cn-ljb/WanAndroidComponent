@@ -13,7 +13,7 @@ import net.ljb.kt.HttpConfig
  * Time:2021/1/19
  * There is a lot of misery in life
  **/
-class App :Application() {
+class App : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -43,8 +43,19 @@ class App :Application() {
 
     private fun initHttp() {
         HttpConfig.Builder(BuildConfig.HTTP_HOST)
-            .addCommHeader { headers ->
+            .addCommCookie(object : HttpConfig.ICommCookie {
+                //TODO Cookie 持久化
+                override fun saveCookie(host: String, cookie: String) {
+                    SPStaticUtils.put(host, cookie)
+                }
 
+                override fun loadCookie(host: String): String {
+                    return SPStaticUtils.getString(host)
+                }
+            }).addCommHeader {
+                //TODO 公共 Header
+            }.addCommParam {
+                //TODO 公共 Param
             }.openLog(true)
             .build()
     }
