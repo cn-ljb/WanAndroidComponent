@@ -11,4 +11,8 @@
     <string name="user_login">登录</string>
     <string name="user_go_register">还没账号，快去注册吧</string>
     <string name="user_login_success">登陆成功</string>
+    <string name="user_collect">收藏</string>
+    <string name="user_about">关于</string>
+    <string name="user_logout">退出</string>
+    <string name="user_logout_success">退出登录</string>
 </resources>

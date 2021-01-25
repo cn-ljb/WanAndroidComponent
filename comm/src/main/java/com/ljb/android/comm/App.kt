@@ -52,10 +52,10 @@ class App : Application() {
                 override fun loadCookie(host: String): String {
                     return SPStaticUtils.getString(host)
                 }
-            }).addCommHeader {
-                //TODO 公共 Header
-            }.addCommParam {
-                //TODO 公共 Param
+            }).addCommHeader { headers ->
+                //TODO 公共Header
+            }.addCommParam { params ->
+                //TODO 公共Param
             }.openLog(true)
             .build()
     }

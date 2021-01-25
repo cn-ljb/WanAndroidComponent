@@ -15,8 +15,8 @@ class AddGlobalParamInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
-            val paramMap = HttpClient.getHttpConfig()?.commParam
-            val headerMap = HttpClient.getHttpConfig()?.commHeader
+            val paramMap = HttpClient.getHttpConfig()?.getCommParam()
+            val headerMap = HttpClient.getHttpConfig()?.getCommHeader()
             val oldRequest = chain.request()
             val newRequestBuilder = oldRequest.newBuilder()
 

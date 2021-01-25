@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuelvdaren.www.user">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ljb.android.component.user">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DaRen">
+        android:theme="@style/Theme.WanAndroidComponent">
 
-<!--        <activity android:name=".view.act.UserMainActivity"-->
-<!--            android:launchMode="singleTask">-->
+        <activity
+            android:name=".view.act.UserRegisterActivity"
+            android:screenOrientation="portrait" />
 
-<!--            &lt;!&ndash; 供外部组件调用的 隐式意图 Action &ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="ACTION_ACTIVITY_USERMAIN"/>-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--            </intent-filter>-->
+        <activity
+            android:name=".view.act.UserLoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
 
 
-<!--        </activity>-->
     </application>
 
 </manifest>
