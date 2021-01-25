@@ -5,6 +5,8 @@ plugins {
 }
 
 def isComponent = rootProject.ext.isComponent
+def isDebug = rootProject.ext.isDebug
+
 def application  = rootProject.ext.application
 def appId = rootProject.ext.appId
 
@@ -22,8 +24,14 @@ android {
         consumerProguardFiles "consumer-rules.pro"
 
         //将当前构建环境状态写入 BuildConfig 文件中
+        //将当前构建环境状态写入 BuildConfig 文件中
         buildConfigField("boolean", "IS_COMPONENT", String.valueOf(isComponent))
         buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+        if (isDebug) {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_DEBUG) + "\"")
+        } else {
+            buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
+        }
 
         javaCompileOptions {
             annotationProcessorOptions {

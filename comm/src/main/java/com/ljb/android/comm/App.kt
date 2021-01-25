@@ -1,4 +1,4 @@
-package com.yuelvdaren.www.user
+package com.ljb.android.comm
 
 import android.app.Application
 import android.content.Context
@@ -6,10 +6,14 @@ import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
-import com.ljb.android.comm.utils.XLog
 import net.ljb.kt.HttpConfig
 
-class UserApp : Application() {
+/**
+ * Author:Ljb
+ * Time:2021/1/19
+ * There is a lot of misery in life
+ **/
+class App : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

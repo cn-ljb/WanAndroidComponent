@@ -2,6 +2,7 @@ package com.ljb.android.component.view.act
 
 import android.Manifest
 import android.os.Bundle
+import com.ljb.android.comm.fragment.CommNotFindFragment
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.R
@@ -28,6 +29,16 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityApph
 
     override fun init(savedInstanceState: Bundle?) {
         requestInitPermissions()
+    }
+
+    override fun initView() {
+        initLeftDrawView()
+    }
+
+    private fun initLeftDrawView() {
+        val beginTransaction = supportFragmentManager.beginTransaction()
+        beginTransaction.replace(R.id.fl_left_drawer ,  CommNotFindFragment())
+        beginTransaction.commit()
     }
 
     override fun initData() {

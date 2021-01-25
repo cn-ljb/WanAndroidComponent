@@ -1,54 +1,66 @@
 package com.ljb.android.comm.mvp
 
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.components.ImmersionOwner
+import com.gyf.immersionbar.components.ImmersionProxy
 import com.ljb.android.comm.R
-import mvp.ljb.kt.act.BaseMvpAppCompatActivity
 import mvp.ljb.kt.contract.IPresenterContract
+import mvp.ljb.kt.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 
 
-/**
- * Author:Ljb
- * Time:2019/7/4
- * There is a lot of misery in life
- **/
-abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> :
-    BaseMvpAppCompatActivity<P>() , ICommView {
+abstract class CommMvpFragment<out P : IPresenterContract, out B : ViewBinding> :
+    BaseMvpFragment<P>(), ICommView, ImmersionOwner {
+
+    /**
+     * ImmersionBar代理类
+     */
+    private val mImmersionProxy by lazy { ImmersionProxy(this) }
 
     protected lateinit var mParentView: RelativeLayout
     protected lateinit var mLoadingView: View
     protected lateinit var mContentView: View
-    protected val mTitleView by lazy { findViewById<View>(R.id.layout_toolbar) }
-    protected val mTvTitleCenter by lazy { findViewById<TextView>(R.id.tv_toolbar_title) }
-    protected val mIvTitleLeft by lazy { findViewById<ImageView>(R.id.iv_toolbar_left) }
-    protected val mIvTitleRight by lazy { findViewById<ImageView>(R.id.iv_toolbar_right) }
-    protected val mTvTitleRight by lazy { findViewById<TextView>(R.id.tv_toolbar_right) }
-
+    protected val mTitleView by lazy { mParentView.findViewById<View>(R.id.layout_toolbar) }
+    protected val mTvTitleCenter by lazy { mParentView.findViewById<TextView>(R.id.tv_toolbar_title) }
+    protected val mIvTitleLeft by lazy { mParentView.findViewById<ImageView>(R.id.iv_toolbar_left) }
+    protected val mIvTitleRight by lazy { mParentView.findViewById<ImageView>(R.id.iv_toolbar_right) }
+    protected val mTvTitleRight by lazy { mParentView.findViewById<TextView>(R.id.tv_toolbar_right) }
 
     protected val mBind by lazy { registerBinding() }
 
     abstract fun registerBinding(): B
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initStatusBar()
         super.onCreate(savedInstanceState)
+        mImmersionProxy.onCreate(savedInstanceState)
         initOther()
     }
 
-    override fun initContentView() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return initContentView(inflater, container)
+    }
+
+
+    protected fun initContentView(inflater: LayoutInflater, container: ViewGroup?): View {
         // parentView
-        mParentView = RelativeLayout(this)
+        mParentView = RelativeLayout(context)
 
         // content view
         // mContentView = layoutInflater.inflate(getLayoutId(), mParentView, false)
@@ -57,9 +69,9 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         // title view
         if (supportTitle()) {
             val titleView =
-                layoutInflater.inflate(R.layout.comm_layout_titlebar, mParentView, false)
+                inflater.inflate(R.layout.comm_layout_titlebar, mParentView, false)
             titleView.findViewById<View>(R.id.iv_toolbar_left)
-                .setOnClickListener { onBackPressed() }
+                .setOnClickListener { activity?.onBackPressed() }
             mParentView.addView(titleView)
 
             val layoutParams = mContentView.layoutParams as RelativeLayout.LayoutParams
@@ -72,12 +84,13 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         //loading view
         mLoadingView = layoutInflater.inflate(R.layout.coom_layout_loading, mParentView, false)
         mParentView.addView(mLoadingView)
-        setContentView(mParentView)
 
+        return mParentView
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        mImmersionProxy.onDestroy()
         unOther()
     }
 
@@ -168,6 +181,82 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         }
     }
 
+
+    protected open fun supportEventBus() = false
+
+    protected open fun supportTitle() = false
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        mImmersionProxy.isUserVisibleHint = isVisibleToUser
+    }
+
+    override fun onActivityCreated(@Nullable savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mImmersionProxy.onActivityCreated(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mImmersionProxy.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mImmersionProxy.onPause()
+    }
+
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        mImmersionProxy.onHiddenChanged(hidden)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mImmersionProxy.onConfigurationChanged(newConfig)
+    }
+
+    /**
+     * 懒加载，在view初始化完成之前执行
+     * On lazy after view.
+     */
+    override fun onLazyBeforeView() {}
+
+    /**
+     * 懒加载，在view初始化完成之后执行
+     * On lazy before view.
+     */
+    override fun onLazyAfterView() {}
+
+    /**
+     * Fragment用户可见时候调用
+     * On visible.
+     */
+    override fun onVisible() {}
+
+    /**
+     * Fragment用户不可见时候调用
+     * On invisible.
+     */
+    override fun onInvisible() {}
+
+    /**
+     * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
+     * Immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    override fun immersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        initStatusBar()
+    }
+
+
     protected open fun initStatusBar() {
         ImmersionBar.with(this)
             .transparentStatusBar()     //透明状态栏，不写默认透明色
@@ -218,17 +307,4 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
 //            .reset() //重置所以沉浸式参数
 //            .init() //必须调用方可应用以上所配置的参数
     }
-
-    override fun getResources(): Resources {
-        val res = super.getResources()
-        val newConfig = Configuration()
-        newConfig.setToDefaults()
-        res.updateConfiguration(newConfig, res.displayMetrics)
-        return res
-    }
-
-    protected open fun supportEventBus() = false
-
-    protected open fun supportTitle() = false
-
 }

@@ -1,8 +1,6 @@
 package com.yuelvdaren.www.user.view.act
 
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -10,7 +8,6 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
 import com.ljb.android.comm.mvp.CommMvpActivity
-import com.ljb.android.comm.utils.XLog
 import com.yuelvdaren.www.user.R
 import com.yuelvdaren.www.user.bean.LoginBean
 import com.yuelvdaren.www.user.contract.UserLoginContract

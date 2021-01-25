@@ -1,13 +1,12 @@
 package com.ljb.android.comm.common
 
 import android.content.Context
-import com.ljb.android.comm.bean.UserBean
 import com.ljb.android.comm.router.RouterManager
 
 object LocUser {
 
 
-    fun getUser(context: Context): UserBean {
+    fun getUser(context: Context): String {
         return RouterManager.getUserService().getUserInfo(context)
     }
 
