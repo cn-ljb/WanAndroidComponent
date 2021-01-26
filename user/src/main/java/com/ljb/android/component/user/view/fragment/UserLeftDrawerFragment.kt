@@ -9,10 +9,9 @@ import com.ljb.android.comm.img.ImageLoader
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
-import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLeftDrawerContract
-import com.ljb.android.component.user.databinding.FragmentUserleftdrawerBinding
+import com.ljb.android.component.user.databinding.FragmentUserLeftDrawerBinding
 import com.ljb.android.component.user.presenter.UserLeftDrawerPresenter
 import com.ljb.android.component.user.view.act.UserLoginActivity
 import org.greenrobot.eventbus.EventBus
@@ -26,15 +25,15 @@ import org.greenrobot.eventbus.ThreadMode
  **/
 @Route(path = RouterConfig.Fragment.USER_LEFT_DRAWER)
 class UserLeftDrawerFragment :
-    CommMvpFragment<UserLeftDrawerContract.IPresenter, FragmentUserleftdrawerBinding>(),
+    CommMvpFragment<UserLeftDrawerContract.IPresenter, FragmentUserLeftDrawerBinding>(),
     UserLeftDrawerContract.IView {
 
     override fun registerPresenter() = UserLeftDrawerPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_userleftdrawer
+    override fun getLayoutId() = R.layout.fragment_user_left_drawer
 
-    override fun registerBinding(): FragmentUserleftdrawerBinding {
-        return FragmentUserleftdrawerBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): FragmentUserLeftDrawerBinding {
+        return FragmentUserLeftDrawerBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -49,7 +48,6 @@ class UserLeftDrawerFragment :
         mBind.btnLogout.setOnClickListener { getPresenter().logout() }
         changeUserStatus()
     }
-
 
     private fun changeUserStatus() {
         val user = LocUser.getUser()
@@ -77,6 +75,8 @@ class UserLeftDrawerFragment :
         EventBus.getDefault().post(UserEvent(UserEvent.TYPE_LOGOUT))
     }
 
+    override fun supportEventBus() = true
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUserEvent(event: UserEvent) {
         when (event.type) {
@@ -84,5 +84,5 @@ class UserLeftDrawerFragment :
         }
     }
 
-    override fun supportEventBus() = true
+
 }

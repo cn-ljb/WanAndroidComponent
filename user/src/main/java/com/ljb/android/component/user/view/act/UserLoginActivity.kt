@@ -7,16 +7,14 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
-import com.blankj.utilcode.util.SPStaticUtils
 import com.ljb.android.comm.event.UserEvent
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.bean.LoginBean
-import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.contract.UserLoginContract
-import com.ljb.android.component.user.databinding.ActivityUserloginBinding
+import com.ljb.android.component.user.databinding.ActivityUserLoginBinding
 import com.ljb.android.component.user.presenter.UserLoginPresenter
 import org.greenrobot.eventbus.EventBus
 
@@ -26,7 +24,7 @@ import org.greenrobot.eventbus.EventBus
  * @Date 2021/01/23
  * @Description input description
  **/
-class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, ActivityUserloginBinding>(),
+class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, ActivityUserLoginBinding>(),
     UserLoginContract.IView {
 
     private var userName: String = ""
@@ -39,10 +37,10 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
 
     override fun registerPresenter() = UserLoginPresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_userlogin
+    override fun getLayoutId() = R.layout.activity_user_login
 
-    override fun registerBinding(): ActivityUserloginBinding {
-        return ActivityUserloginBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): ActivityUserLoginBinding {
+        return ActivityUserLoginBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun supportTitle() = true

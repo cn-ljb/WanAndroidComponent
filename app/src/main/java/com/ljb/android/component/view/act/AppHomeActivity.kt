@@ -8,7 +8,7 @@ import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppHomeContract
-import com.ljb.android.component.databinding.ActivityApphomeBinding
+import com.ljb.android.component.databinding.ActivityAppHomeBinding
 import com.ljb.android.component.presenter.AppHomePresenter
 import com.yanzhenjie.permission.AndPermission
 
@@ -18,15 +18,15 @@ import com.yanzhenjie.permission.AndPermission
  * @Description input description
  **/
 @Route(path = RouterConfig.Activity.APP_HOME)
-class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityApphomeBinding>(),
+class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppHomeBinding>(),
     AppHomeContract.IView {
 
     override fun registerPresenter() = AppHomePresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_apphome
+    override fun getLayoutId() = R.layout.activity_app_home
 
-    override fun registerBinding(): ActivityApphomeBinding {
-        return ActivityApphomeBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): ActivityAppHomeBinding {
+        return ActivityAppHomeBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun init(savedInstanceState: Bundle?) {

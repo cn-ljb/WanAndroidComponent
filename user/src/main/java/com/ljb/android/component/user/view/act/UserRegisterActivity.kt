@@ -6,7 +6,7 @@ import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserRegisterContract
 import com.ljb.android.component.user.presenter.UserRegisterPresenter
 import com.ljb.android.component.user.bean.LoginBean
-import com.ljb.android.component.user.databinding.ActivityUserregisterBinding
+import com.ljb.android.component.user.databinding.ActivityUserRegisterBinding
 
 /**
  * @Author Kotlin MVP Plugin
@@ -14,7 +14,7 @@ import com.ljb.android.component.user.databinding.ActivityUserregisterBinding
  * @Description input description
  **/
 class UserRegisterActivity :
-    CommMvpActivity<UserRegisterContract.IPresenter, ActivityUserregisterBinding>(),
+    CommMvpActivity<UserRegisterContract.IPresenter, ActivityUserRegisterBinding>(),
     UserRegisterContract.IView {
 
     private var userName: String = ""
@@ -27,10 +27,10 @@ class UserRegisterActivity :
 
     override fun registerPresenter() = UserRegisterPresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_userregister
+    override fun getLayoutId() = R.layout.activity_user_register
 
-    override fun registerBinding(): ActivityUserregisterBinding {
-        return ActivityUserregisterBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): ActivityUserRegisterBinding {
+        return ActivityUserRegisterBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun supportTitle() = true

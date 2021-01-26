@@ -35,8 +35,9 @@ ext {
     eventbus_version = "3.2.0"
     immersionbar_version = "3.0.0"
     immersionbar_components_version = "3.0.0"
-    version_permission = "2.0.3"
+    permission_version = "2.0.3"
     utils_code_version = "1.30.5"
+    easy_navigation_version = "2.0.5"
 
     //App编译环境 字典配置
     application = [
@@ -47,8 +48,8 @@ ext {
     ]
     //各模块AppId 字典配置
     appId = [
-            app : "com.ljb.android.component",
-            user: "com.ljb.android.component.user",
+            app  : "com.ljb.android.component",
+            user : "com.ljb.android.component.user",
             login: "com.ljb.android.component.login"
     ]
 
@@ -75,13 +76,17 @@ ext {
             glide_okhttp3          : "com.github.bumptech.glide:okhttp3-integration:$glide_okhttp3_version",
             glide_transformations  : "jp.wasabeef:glide-transformations:$glide_transformat",
             multidex               : "androidx.multidex:multidex:$multidex_version",
-            androidx_room          : "androidx.room:room-runtime:$androidx_room_version",
             eventbus               : "org.greenrobot:eventbus:$eventbus_version",
             immersionbar           : "com.gyf.immersionbar:immersionbar:$immersionbar_version",
             immersionbar_components: "com.gyf.immersionbar:immersionbar-components:$immersionbar_components_version",
-            permission             : "com.yanzhenjie:permission:$version_permission",
-            utils_code             : "com.blankj:utilcodex:$utils_code_version"
+            permission             : "com.yanzhenjie:permission:$permission_version",
+            utils_code             : "com.blankj:utilcodex:$utils_code_version",
 
+            //room数据库
+            androidx_room          : "androidx.room:room-runtime:$androidx_room_version",
+
+            //首页Tab栏
+            easy_navigation        : "com.github.Vincent7Wong:EasyNavigation:$easy_navigation_version"
     ]
 
     //注解处理器 - kotlin
