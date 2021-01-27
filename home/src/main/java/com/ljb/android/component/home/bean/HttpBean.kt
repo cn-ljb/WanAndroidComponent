@@ -5,9 +5,9 @@ package com.ljb.android.component.home.bean
  * Time:2021/1/23
  * There is a lot of misery in life
  **/
-open class HttpBean{
+open class HttpBean {
 
-    var errorCode : String = "0"
-    var errorMsg : String = ""
+    var errorCode: String = "0"
+    var errorMsg: String = ""
 
 }

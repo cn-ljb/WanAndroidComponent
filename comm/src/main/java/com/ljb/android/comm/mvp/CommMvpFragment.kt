@@ -82,7 +82,7 @@ abstract class CommMvpFragment<out P : IPresenterContract, out B : ViewBinding> 
         }
 
         //loading view
-        mLoadingView = layoutInflater.inflate(R.layout.coom_layout_loading, mParentView, false)
+        mLoadingView = layoutInflater.inflate(R.layout.comm_layout_loading_dialog, mParentView, false)
         mParentView.addView(mLoadingView)
 
         return mParentView
@@ -174,13 +174,6 @@ abstract class CommMvpFragment<out P : IPresenterContract, out B : ViewBinding> 
             }
         }
     }
-
-    protected fun setTitleBackgroundColor(@ColorInt resId: Int) {
-        if (supportTitle()) {
-            mTitleView.setBackgroundColor(resId)
-        }
-    }
-
 
     protected open fun supportEventBus() = false
 

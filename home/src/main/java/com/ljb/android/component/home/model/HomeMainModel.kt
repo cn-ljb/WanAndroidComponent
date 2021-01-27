@@ -1,9 +1,11 @@
 package  com.ljb.android.component.home.model
 
+import com.ljb.android.component.home.api.HomeProtocol
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.contract.HomeMainContract
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.model.BaseModel
+import net.ljb.kt.HttpFactory
 
 /**
  * @Author Kotlin MVP Plugin
@@ -13,6 +15,7 @@ import mvp.ljb.kt.model.BaseModel
 class HomeMainModel : BaseModel(), HomeMainContract.IModel {
 
     override fun getBanner(): Observable<BannerBean> {
-        TODO("Not yet implemented")
+        return HttpFactory.getProtocol(HomeProtocol::class.java)
+            .getBanner()
     }
 }

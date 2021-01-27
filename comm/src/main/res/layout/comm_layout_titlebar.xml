@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_70"
+    android:layout_height="@dimen/dp_75"
     android:paddingTop="@dimen/dp_20"
     android:background="#fff"
     android:gravity="center_vertical"
@@ -13,8 +13,8 @@
     <!--左边按钮-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_toolbar_left"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
+        android:layout_width="@dimen/dp_55"
+        android:layout_height="@dimen/dp_55"
         android:scaleType="center"
         android:src="@mipmap/comm_ic_back"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,8 +29,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dp_44"
-        android:layout_marginRight="@dimen/dp_44"
+        android:layout_marginLeft="@dimen/dp_55"
+        android:layout_marginRight="@dimen/dp_55"
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
@@ -44,8 +44,8 @@
     <!--右边按钮-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_toolbar_right"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
+        android:layout_width="@dimen/dp_55"
+        android:layout_height="@dimen/dp_55"
         android:scaleType="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

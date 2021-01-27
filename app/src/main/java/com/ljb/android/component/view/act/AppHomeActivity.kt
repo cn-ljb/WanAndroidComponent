@@ -54,7 +54,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
     )
 
     private val mFragments = listOf(
-        CommNotFoundFragment(),
+        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         CommNotFoundFragment(),
         CommNotFoundFragment(),
         CommNotFoundFragment(),

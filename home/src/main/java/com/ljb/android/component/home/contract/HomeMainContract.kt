@@ -13,7 +13,9 @@ import mvp.ljb.kt.contract.IPresenterContract
  **/
 interface HomeMainContract {
 
-    interface IView : ICommView
+    interface IView : ICommView {
+        fun onBannerSuccess(bannerBean: BannerBean)
+    }
 
     interface IPresenter : IPresenterContract {
         fun getBannerAndList()

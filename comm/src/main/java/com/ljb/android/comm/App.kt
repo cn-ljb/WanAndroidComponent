@@ -52,14 +52,14 @@ class App : Application() {
                     SPStaticUtils.put(host, cookie)
                 }
 
-                override fun loadCookie(host: String): String {
+                override fun loadCookie(host: String): String? {
                     return SPStaticUtils.getString(host)
                 }
             }).addCommHeader { headers ->
                 //TODO 公共Header
             }.addCommParam { params ->
                 //TODO 公共Param
-            }.openLog(true)
+            }.openLog(BuildConfig.DEBUG)
             .build()
     }
 }

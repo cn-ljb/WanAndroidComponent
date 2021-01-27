@@ -13,7 +13,7 @@ class HttpConfig private constructor(
 
     interface ICommCookie {
         fun saveCookie(host: String, cookie: String)
-        fun loadCookie(host: String): String
+        fun loadCookie(host: String): String?
     }
 
     fun getCommParam(): Map<String, String>? {

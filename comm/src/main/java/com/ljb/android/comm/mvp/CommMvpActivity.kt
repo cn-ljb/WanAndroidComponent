@@ -70,7 +70,7 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         }
 
         //loading view
-        mLoadingView = layoutInflater.inflate(R.layout.coom_layout_loading, mParentView, false)
+        mLoadingView = layoutInflater.inflate(R.layout.comm_layout_loading_dialog, mParentView, false)
         mParentView.addView(mLoadingView)
         setContentView(mParentView)
 

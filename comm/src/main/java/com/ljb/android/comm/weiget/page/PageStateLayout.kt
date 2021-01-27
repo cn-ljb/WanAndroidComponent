@@ -26,10 +26,10 @@ class PageStateLayout : FrameLayout {
     private var mErrorResId: Int = -1
     private var mEmptyResId: Int = -1
     private var mContentResId: Int = -1
-    private var mLoadingView: View? = null
-    private var mErrorView: View? = null
-    private var mEmptyView: View? = null
-    private var mContentView: View? = null
+    private lateinit var mLoadingView: View
+    private lateinit var mErrorView: View
+    private lateinit var mEmptyView: View
+    private lateinit var mContentView: View
 
 
     constructor(context: Context) : super(context) {
@@ -63,24 +63,22 @@ class PageStateLayout : FrameLayout {
         initEmptyView()
         initErrorView()
         initContentView()
-
-        //setPage(PageState.STATE_SUCCESS)
+        //默认成功页面
+        setPage(PageState.STATE_SUCCESS)
     }
 
     /**
      * 初始化内容页面
      * */
     private fun initContentView() {
-        if (mContentView == null) {
-            if (mContentResId != -1) {
-                mContentView = LayoutInflater.from(context).inflate(mContentResId, this, false)
-            } else {
-                val defContentView = getDefTextView()
-                defContentView.text = context.resources.getString(R.string.page_content_msg)
-                mContentView = defContentView
-            }
+        if (mContentResId != -1) {
+            mContentView = LayoutInflater.from(context).inflate(mContentResId, this, false)
+        } else {
+            val defContentView = getDefTextView()
+            defContentView.text = context.resources.getString(R.string.page_content_msg)
+            mContentView = defContentView
         }
-        mContentView!!.visibility =
+        mContentView.visibility =
             if (mCurPageState == PageState.STATE_SUCCESS) View.VISIBLE else View.GONE
         //addView(mContentView)
     }
@@ -90,18 +88,14 @@ class PageStateLayout : FrameLayout {
      * 初始化错误界面
      */
     private fun initErrorView() {
-        if (mErrorView == null) {
-            if (mErrorResId != -1) {
-                mErrorView = LayoutInflater.from(context).inflate(mErrorResId, this, false)
-            } else {
-                val defErrorView = getDefTextView()
-//                defErrorView.id = R.id.page_error_reload
-                defErrorView.text = context.resources.getString(R.string.page_error_msg)
-                mErrorView = defErrorView
-            }
+        if (mErrorResId != -1) {
+            mErrorView = LayoutInflater.from(context).inflate(mErrorResId, this, false)
+        } else {
+            val defErrorView = getDefTextView()
+            defErrorView.text = context.resources.getString(R.string.page_error_msg)
+            mErrorView = defErrorView
         }
-//        mErrorView!!.findViewById<View>(R.id.page_error_reload)?.setOnClickListener { onPageErrorClick() }
-        mErrorView!!.visibility =
+        mErrorView.visibility =
             if (mCurPageState == PageState.STATE_ERROR) View.VISIBLE else View.GONE
         //   addView(mErrorView)
     }
@@ -110,16 +104,14 @@ class PageStateLayout : FrameLayout {
      * 初始化空界面
      */
     private fun initEmptyView() {
-        if (mEmptyView == null) {
-            if (mEmptyResId != -1) {
-                mEmptyView = LayoutInflater.from(context).inflate(mEmptyResId, this, false)
-            } else {
-                val defEmptyView = getDefTextView()
-                defEmptyView.text = context.resources.getString(R.string.page_empty_msg)
-                mEmptyView = defEmptyView
-            }
+        if (mEmptyResId != -1) {
+            mEmptyView = LayoutInflater.from(context).inflate(mEmptyResId, this, false)
+        } else {
+            val defEmptyView = getDefTextView()
+            defEmptyView.text = context.resources.getString(R.string.page_empty_msg)
+            mEmptyView = defEmptyView
         }
-        mEmptyView!!.visibility =
+        mEmptyView.visibility =
             if (mCurPageState == PageState.STATE_EMPTY) View.VISIBLE else View.GONE
         //    addView(mEmptyView)
     }
@@ -128,20 +120,17 @@ class PageStateLayout : FrameLayout {
      * 初始化加载中界面
      */
     private fun initLoadingView() {
-        if (mLoadingView == null) {
-            if (mLoadingResId != -1) {
-                mLoadingView = LayoutInflater.from(context).inflate(mLoadingResId, this, false)
-            } else {
-                val defLoadingView = ProgressBar(context)
-                val widthAndHeight = dip2px(context, 40f)
-                val layoutParams = FrameLayout.LayoutParams(widthAndHeight, widthAndHeight)
-                layoutParams.gravity = Gravity.CENTER
-                defLoadingView.layoutParams = layoutParams
-                mLoadingView = defLoadingView
-            }
+        if (mLoadingResId != -1) {
+            mLoadingView = LayoutInflater.from(context).inflate(mLoadingResId, this, false)
+        } else {
+            val defLoadingView = ProgressBar(context)
+            val widthAndHeight = dip2px(context, 40f)
+            val layoutParams = FrameLayout.LayoutParams(widthAndHeight, widthAndHeight)
+            layoutParams.gravity = Gravity.CENTER
+            defLoadingView.layoutParams = layoutParams
+            mLoadingView = defLoadingView
         }
-
-        mLoadingView!!.visibility =
+        mLoadingView.visibility =
             if (mCurPageState == PageState.STATE_LOADING) View.VISIBLE else View.GONE
         //   addView(mLoadingView)
     }
@@ -156,11 +145,6 @@ class PageStateLayout : FrameLayout {
         changePageStatus(pageState, mErrorView, PageState.STATE_ERROR)
         changePageStatus(pageState, mEmptyView, PageState.STATE_EMPTY)
         changePageStatus(pageState, mLoadingView, PageState.STATE_LOADING)
-
-        //  mContentView?.visibility = if (pageState == PageState.STATE_SUCCESS) View.VISIBLE else View.INVISIBLE
-//        mErrorView?.visibility = if (pageState == PageState.STATE_ERROR) View.VISIBLE else View.GONE
-//        mEmptyView?.visibility = if (pageState == PageState.STATE_EMPTY) View.VISIBLE else View.GONE
-//        mLoadingView?.visibility = if (pageState == PageState.STATE_LOADING) View.VISIBLE else View.GONE
 
         mCurPageState = pageState
 
@@ -194,7 +178,6 @@ class PageStateLayout : FrameLayout {
 
     fun setContentView(resId: Int) {
         checkPreViewInParent(mContentView)
-        mContentView = null
         mContentResId = resId
         initContentView()
         updatePage(mCurPageState)
@@ -205,13 +188,12 @@ class PageStateLayout : FrameLayout {
         checkPreViewInParent(mContentView)
         mContentResId = -1
         mContentView = view
-        initContentView()
+//        initContentView()
         updatePage(mCurPageState)
     }
 
     fun setErrorView(resId: Int) {
         checkPreViewInParent(mErrorView)
-        mErrorView = null
         mErrorResId = resId
         initErrorView()
         updatePage(mCurPageState)
@@ -221,13 +203,12 @@ class PageStateLayout : FrameLayout {
         checkPreViewInParent(mErrorView)
         mErrorResId = -1
         mErrorView = view
-        initErrorView()
+//        initErrorView()
         updatePage(mCurPageState)
     }
 
     fun setLoadView(resId: Int) {
         checkPreViewInParent(mLoadingView)
-        mLoadingView = null
         mLoadingResId = resId
         initLoadingView()
         updatePage(mCurPageState)
@@ -237,13 +218,12 @@ class PageStateLayout : FrameLayout {
         checkPreViewInParent(mLoadingView)
         mLoadingResId = -1
         mLoadingView = view
-        initLoadingView()
+//        initLoadingView()
         updatePage(mCurPageState)
     }
 
     fun setEmptyView(resId: Int) {
         checkPreViewInParent(mEmptyView)
-        mEmptyView = null
         mEmptyResId = resId
         initEmptyView()
         updatePage(mCurPageState)
@@ -253,12 +233,12 @@ class PageStateLayout : FrameLayout {
         checkPreViewInParent(mEmptyView)
         mEmptyResId = -1
         mEmptyView = view
-        initEmptyView()
+//        initEmptyView()
         updatePage(mCurPageState)
     }
 
 
-    fun getPageView(page: PageState): View? {
+    fun getPageView(page: PageState): View {
         return when (page) {
             PageState.STATE_SUCCESS -> mContentView
             PageState.STATE_LOADING -> mLoadingView

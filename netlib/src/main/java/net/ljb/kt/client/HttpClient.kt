@@ -4,9 +4,10 @@ package net.ljb.kt.client
 
 import net.ljb.kt.HttpConfig
 import net.ljb.kt.interceptor.AddGlobalParamInterceptor
-import net.ljb.kt.interceptor.LogInterceptor
 import net.ljb.kt.utils.JsonParser
+import net.ljb.kt.utils.NetLog
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -60,7 +61,9 @@ object HttpClient {
         val builder = OkHttpClient.Builder()
             .sslSocketFactory(createSSLSocketFactory(), TrustAllCerts())
             .hostnameVerifier(HostnameVerifier { _, _ -> true })
-            .addInterceptor(LogInterceptor())
+            .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
+                NetLog.i(it)
+            }).setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(AddGlobalParamInterceptor())
             .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.MILLISECONDS)
 
@@ -84,7 +87,6 @@ object HttpClient {
                 }
             })
         }
-
         builder.build()
     }
 
@@ -92,7 +94,6 @@ object HttpClient {
         OkHttpClient.Builder()
             .sslSocketFactory(createSSLSocketFactory(), TrustAllCerts())
             .hostnameVerifier(HostnameVerifier { _, _ -> true })
-            .addInterceptor(LogInterceptor())
             .addInterceptor(AddGlobalParamInterceptor())
             .connectTimeout(DEFAULT_DOWN_TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(DEFAULT_DOWN_TIME_OUT, TimeUnit.MILLISECONDS)

@@ -1,6 +1,8 @@
 package com.ljb.android.component.home.presenter
 
 import com.ljb.android.comm.rx.subscribeNet
+import com.ljb.android.comm.utils.XLog
+import com.ljb.android.comm.weiget.page.PageState
 import mvp.ljb.kt.presenter.BaseMvpPresenter
 import com.ljb.android.component.home.contract.HomeMainContract
 import com.ljb.android.component.home.model.HomeMainModel
@@ -23,6 +25,12 @@ class HomeMainPresenter :
             .compose(RxUtils.schedulerIO2Main())
             .subscribeNet(getMvpView(), true) {
 
+                onNextEx {
+                    getMvpView().onBannerSuccess(it)
+                }
+
+                onErrorEx {
+                }
             }
     }
 
