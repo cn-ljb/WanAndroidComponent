@@ -19,7 +19,7 @@ object RouterManager {
 //            service = navigation
 //        }
 //        return service
-        return ARouter.getInstance().build(RouterConfig.Service.USER_GET_USER_INFO)
+        return ARouter.getInstance().build(RouterConfig.Service.USER)
             .navigation() as IUserRouterService
     }
 

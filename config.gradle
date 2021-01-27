@@ -2,7 +2,7 @@ ext {
 
     // true 组件化环境，将所有Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
-    isComponent = false
+    isComponent = true
 
     // true : 测试环境
     // false: 线上环境
@@ -38,6 +38,8 @@ ext {
     permission_version = "2.0.3"
     utils_code_version = "1.30.5"
     easy_navigation_version = "2.0.5"
+    banner_version = "2.1.0"
+    swipe_refresh_version = "1.1.0"
 
     //App编译环境 字典配置
     application = [
@@ -48,9 +50,9 @@ ext {
     ]
     //各模块AppId 字典配置
     appId = [
-            app  : "com.ljb.android.component",
-            user : "com.ljb.android.component.user",
-            login: "com.ljb.android.component.login"
+            app : "com.ljb.android.component",
+            user: "com.ljb.android.component.user",
+            home: "com.ljb.android.component.home"
     ]
 
     //依赖库
@@ -84,9 +86,12 @@ ext {
 
             //room数据库
             androidx_room          : "androidx.room:room-runtime:$androidx_room_version",
-
             //首页Tab栏
-            easy_navigation        : "com.github.Vincent7Wong:EasyNavigation:$easy_navigation_version"
+            easy_navigation        : "com.github.Vincent7Wong:EasyNavigation:$easy_navigation_version",
+            //banner
+            banner                 : "com.youth.banner:banner:$banner_version",
+            //SwipeRefreshLayout
+            swipe_refresh_layout     : "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
     ]
 
     //注解处理器 - kotlin

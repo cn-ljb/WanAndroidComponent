@@ -3,19 +3,31 @@ package com.ljb.android.comm.router
 object RouterConfig {
 
     object Activity {
-
-        const val APP_HOME = "/app/AppHomeActivity"
+        /**
+         * 壳App 主界面
+         * */
+        const val APP_MAIN = "/app/AppHomeActivity"
 
         const val USER_MAIN = "/user/UserMainActivity"
 
     }
 
     object Fragment {
+        /**
+         * 壳App 左侧抽屉Fragment
+         * */
         const val USER_LEFT_DRAWER = "/user/UserLeftDrawerFragment"
     }
 
     object Service {
-        const val USER_GET_USER_INFO = "/user/UserRouterService"
+        /**
+         * 用户模块服务路由
+         * */
+        const val USER = "/user/UserRouterService"
+        /**
+         * 首页模块服务路由
+         * */
+        const val HOME = "/user/HomeRouterService"
     }
 
 

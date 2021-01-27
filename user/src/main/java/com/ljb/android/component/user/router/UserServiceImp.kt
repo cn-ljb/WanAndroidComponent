@@ -7,11 +7,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SPStaticUtils
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.service.IUserRouterService
-import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
-@Route(path = RouterConfig.Service.USER_GET_USER_INFO)
+@Route(path = RouterConfig.Service.USER)
 class UserServiceImp : IUserRouterService {
 
     override fun init(context: Context?) {

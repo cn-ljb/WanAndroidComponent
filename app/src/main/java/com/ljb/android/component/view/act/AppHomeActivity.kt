@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.UiMessageUtils
 import com.ljb.android.comm.fragment.CommNotFoundFragment
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
@@ -25,7 +23,7 @@ import com.yanzhenjie.permission.AndPermission
  * @Date 2021/01/23
  * @Description input description
  **/
-@Route(path = RouterConfig.Activity.APP_HOME)
+@Route(path = RouterConfig.Activity.APP_MAIN)
 class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppHomeBinding>(),
     AppHomeContract.IView {
 
