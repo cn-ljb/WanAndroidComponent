@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.ljb.android.comm.R
 
-class CommNotFindFragment : Fragment() {
+class CommNotFoundFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

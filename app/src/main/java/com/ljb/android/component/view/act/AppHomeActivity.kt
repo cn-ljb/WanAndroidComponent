@@ -2,7 +2,13 @@ package com.ljb.android.component.view.act
 
 import android.Manifest
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.UiMessageUtils
+import com.ljb.android.comm.fragment.CommNotFoundFragment
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
@@ -10,7 +16,9 @@ import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppHomeContract
 import com.ljb.android.component.databinding.ActivityAppHomeBinding
 import com.ljb.android.component.presenter.AppHomePresenter
+import com.next.easynavigation.view.EasyNavigationBar.OnTabClickListener
 import com.yanzhenjie.permission.AndPermission
+
 
 /**
  * @Author Kotlin MVP Plugin
@@ -20,6 +28,41 @@ import com.yanzhenjie.permission.AndPermission
 @Route(path = RouterConfig.Activity.APP_HOME)
 class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppHomeBinding>(),
     AppHomeContract.IView {
+
+    private val mTabText by lazy {
+        arrayOf(
+            resources.getString(R.string.app_home),
+            resources.getString(R.string.app_setup),
+            resources.getString(R.string.app_public_wchat),
+            resources.getString(R.string.app_navigation),
+            resources.getString(R.string.app_project)
+        )
+    }
+
+    private val mIconNormal = intArrayOf(
+        R.mipmap.app_icon_home_normal,
+        R.mipmap.app_icon_setup_normal,
+        R.mipmap.app_icon_wechat_normal,
+        R.mipmap.app_icon_nav_normal,
+        R.mipmap.app_icon_project_normal
+    )
+
+    private val mIconSelected = intArrayOf(
+        R.mipmap.app_icon_home_selected,
+        R.mipmap.app_icon_setup_selected,
+        R.mipmap.app_icon_wechat_selected,
+        R.mipmap.app_icon_nav_selected,
+        R.mipmap.app_icon_project_selected
+    )
+
+    private val mFragments = listOf(
+        CommNotFoundFragment(),
+        CommNotFoundFragment(),
+        CommNotFoundFragment(),
+        CommNotFoundFragment(),
+        CommNotFoundFragment()
+    )
+
 
     override fun registerPresenter() = AppHomePresenter::class.java
 
@@ -35,6 +78,40 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
 
     override fun initView() {
         initLeftDrawView()
+        initCenterView()
+    }
+
+    override fun initData() {
+
+    }
+
+    private fun initCenterView() {
+        mBind.navContent.defaultSetting() //恢复默认配置、可用于重绘导航栏
+            .titleItems(mTabText) //  Tab文字集合  只传文字则只显示文字
+            .normalIconItems(mIconNormal) //  Tab未选中图标集合
+            .selectIconItems(mIconSelected) //  Tab选中图标集合
+            .fragmentList(mFragments) //  fragment集合
+            .fragmentManager(supportFragmentManager)
+            .iconSize(30f) //Tab图标大小
+            .tabTextSize(10) //Tab文字大小
+            .tabTextTop(2) //Tab文字距Tab图标的距离
+            .normalTextColor(resources.getColor(R.color.color_BFBFBF)) //Tab未选中时字体颜色
+            .selectTextColor(resources.getColor(R.color.color_39B6DF))//Tab选中时字体颜色
+            .scaleType(ImageView.ScaleType.CENTER_INSIDE) //同 ImageView的ScaleType
+            .navigationBackground(resources.getColor(R.color.color_white))
+            .setOnTabClickListener(object : OnTabClickListener {
+                override fun onTabSelectEvent(view: View?, position: Int): Boolean {
+                    //Tab点击事件  return true 页面不会切换
+                    return false
+                }
+
+                override fun onTabReSelectEvent(view: View?, position: Int): Boolean {
+                    //Tab重复点击事件
+                    return false
+                }
+            }).canScroll(false)
+            .lineHeight(SizeUtils.dp2px(0.5f))
+            .build()
     }
 
     private fun initLeftDrawView() {
@@ -44,10 +121,6 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             RouterManager.getFragment(RouterConfig.Fragment.USER_LEFT_DRAWER)
         )
         beginTransaction.commit()
-    }
-
-    override fun initData() {
-
     }
 
     private fun requestInitPermissions() {

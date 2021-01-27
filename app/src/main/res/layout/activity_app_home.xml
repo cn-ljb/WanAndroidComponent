@@ -4,18 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fl_content"
+    <com.next.easynavigation.view.EasyNavigationBar
+        android:id="@+id/nav_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tools:text="中间内容" />
-
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
 
     <FrameLayout

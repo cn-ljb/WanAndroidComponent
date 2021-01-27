@@ -1,10 +1,9 @@
 package com.ljb.android.comm.router
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
-import com.ljb.android.comm.fragment.CommNotFindFragment
+import com.ljb.android.comm.fragment.CommNotFoundFragment
 import com.ljb.android.comm.router.service.IUserRouterService
 
 object RouterManager {
@@ -30,7 +29,7 @@ object RouterManager {
     fun getFragment(path: String): Fragment {
         val navigation = ARouter.getInstance().build(path)
             .navigation()
-        var fragment: Fragment = CommNotFindFragment()
+        var fragment: Fragment = CommNotFoundFragment()
         if (navigation != null && navigation is Fragment) {
             fragment = navigation
         }

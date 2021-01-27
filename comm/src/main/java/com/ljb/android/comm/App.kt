@@ -6,6 +6,7 @@ import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
+import com.ljb.android.comm.utils.XLog
 import net.ljb.kt.HttpConfig
 
 /**
@@ -32,7 +33,9 @@ class App : Application() {
             ARouter.openDebug()
             ARouter.openLog()
         }
+        XLog.i("ARouter.init before")
         ARouter.init(this)
+        XLog.i("ARouter.init after")
     }
 
     private fun initSP() {

@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SPStaticUtils
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.service.IUserRouterService
+import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
