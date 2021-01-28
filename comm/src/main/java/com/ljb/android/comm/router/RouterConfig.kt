@@ -25,6 +25,10 @@ object RouterConfig {
 
     object Service {
         /**
+         * APP壳模块服务路由
+         * */
+        const val APP = "/app/AppRouterService"
+        /**
          * 用户模块服务路由
          * */
         const val USER = "/user/UserRouterService"

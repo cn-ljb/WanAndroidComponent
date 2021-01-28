@@ -14,10 +14,11 @@ object LocUser {
      * 获取登录User
      * */
     fun getUser(): UserBean? {
-        val userInfo = RouterManager.getUserService().getUserInfo()
-        XLog.i("用户信息：$userInfo")
+        val service = RouterManager.getUserService() ?: return null
+        val userInfo = service.getUserInfo()
         if (userInfo.isEmpty()) return null
         try {
+            XLog.i("用户信息：$userInfo")
             return JsonParser.fromJsonObj(userInfo, UserBean::class.java)
         } catch (e: Exception) {
             XLog.e(e)
@@ -31,7 +32,7 @@ object LocUser {
      * @param needLogin 是否弹出登陆页面
      */
     fun isLogIn(act: Activity, needLogin: Boolean = false): Boolean {
-        return RouterManager.getUserService().isLogin(act, needLogin)
+        return RouterManager.getUserService()?.isLogin(act, needLogin) ?: false
     }
 
 }

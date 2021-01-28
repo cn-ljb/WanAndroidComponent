@@ -1,15 +1,20 @@
 package com.ljb.android.component.home.view.fragment
 
+import android.annotation.SuppressLint
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
+import com.ljb.android.comm.router.RouterManager
+import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.home.R
 import com.ljb.android.component.home.adapter.HomeBannerAdapter
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.contract.HomeMainContract
 import com.ljb.android.component.home.databinding.FragmentHomeMainFragmentBinding
 import com.ljb.android.component.home.presenter.HomeMainPresenter
+import com.youth.banner.listener.OnBannerListener
 
 /**
  * @Author Kotlin MVP Plugin
@@ -46,7 +51,16 @@ class HomeMainFragment :
         mBind.banner.apply {
             addBannerLifecycleObserver(this@HomeMainFragment)
             adapter = mBannerAdapter
+            setOnBannerListener(OnBannerListener<BannerBean.DataBean> { data, position ->
+                XLog.i("postion:" + position)
+                changeBannerBottomView(data, position)
+            })
         }
+    }
+
+    private fun changeBannerBottomView(data: BannerBean.DataBean, position: Int) {
+        mBind.tvBannerDesc.text = data.desc
+        mBind.tvBannerPage.text = "${position + 1}/${mBannerAdapter.itemCount}"
     }
 
     override fun initData() {
@@ -55,6 +69,17 @@ class HomeMainFragment :
 
     private fun initTitleView() {
         mTitleView.setBackgroundResource(R.drawable.comm_shape_blue_gradient)
+        setTitleText(R.string.home_main, resources.getColor(R.color.color_white))
+        setTitleLeftImage(R.mipmap.home_icon_home_left_menu, View.OnClickListener {
+            openOrCloseDrawerLeft()
+        })
+        setTitleRightImage(R.mipmap.home_icon_search, View.OnClickListener {
+            //TODO  go search
+        })
+    }
+
+    private fun openOrCloseDrawerLeft() {
+        RouterManager.getAppService()?.openOrCloseDrawerLeft(activity!!)
     }
 
 

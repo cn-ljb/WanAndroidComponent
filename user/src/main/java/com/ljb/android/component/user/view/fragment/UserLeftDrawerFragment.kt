@@ -1,5 +1,6 @@
 package com.ljb.android.component.user.view.fragment
 
+import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
@@ -54,6 +55,9 @@ class UserLeftDrawerFragment :
         if (user != null) {
             mBind.btnLogout.visibility = View.VISIBLE
             mBind.tvName.text = user.nickname
+            if (user.icon.isEmpty()) {
+                user.icon = "https://scpic.chinaz.net/files/pic/pic9/202101/apic30409.jpg"
+            }
             ImageLoader.Builder(user.icon, mBind.ivHeader)
                 .format(ImgFormatEvent.Circle)
                 .build(this)

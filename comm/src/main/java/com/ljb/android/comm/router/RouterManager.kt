@@ -3,25 +3,14 @@ package com.ljb.android.comm.router
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.ToastUtils
+import com.ljb.android.comm.R
 import com.ljb.android.comm.fragment.CommNotFoundFragment
+import com.ljb.android.comm.router.service.IAppRouterService
 import com.ljb.android.comm.router.service.IUserRouterService
+import com.ljb.android.comm.utils.XLog
 
 object RouterManager {
-
-    /**
-     *  通过ARouter获取User模块数据
-     */
-    fun getUserService(): IUserRouterService {
-//        val navigation = ARouter.getInstance().build(RouterConfig.Service.USER_GET_USER_INFO)
-//            .navigation()
-//        var service: IUserRouterService? = null
-//        if (navigation != null && navigation is IUserRouterService) {
-//            service = navigation
-//        }
-//        return service
-        return ARouter.getInstance().build(RouterConfig.Service.USER)
-            .navigation() as IUserRouterService
-    }
 
     /**
      * 获得Fragment
@@ -44,6 +33,56 @@ object RouterManager {
         ARouter.getInstance().build(path)
             .with(bundle)
             .navigation()
+    }
+
+
+    /**
+     * 通过ARouter获取User模块数据
+     */
+    fun getUserService(): IUserRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.USER)
+            .navigation()
+
+        if (!checkService(service, IUserRouterService::class.java)) {
+            return null
+        }
+
+        return service as IUserRouterService
+    }
+
+    /**
+     * 通过ARouter获取App模块数据
+     */
+    fun getAppService(): IAppRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.APP)
+            .navigation()
+
+        if (!checkService(service, IAppRouterService::class.java)) {
+            return null
+        }
+
+        return service as IAppRouterService
+    }
+
+
+    /**
+     * 校验服务
+     * */
+    private fun <I : Class<*>> checkService(service: Any?, superClass: I): Boolean {
+        if (service == null) {
+            val msg = "not found service: ${superClass.simpleName}"
+            XLog.e(msg)
+            ToastUtils.showShort(msg)
+            return false
+        }
+
+        if (!superClass.isAssignableFrom(service::class.java)) {
+            val msg = "service found is error:  ${service::class.java.simpleName} not is ${superClass.simpleName}"
+            XLog.e(msg)
+            ToastUtils.showShort(msg)
+            return false
+        }
+        return true
     }
 
 }

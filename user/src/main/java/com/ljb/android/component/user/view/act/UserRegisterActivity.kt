@@ -40,12 +40,15 @@ class UserRegisterActivity :
     }
 
     override fun initView() {
-        setTitleText(R.string.user_register, resources.getColor(R.color.color_white))
-        setTitleBackgroundColor(resources.getColor(R.color.color_39B6DF))
-        setTitleLeftImage(R.mipmap.user_back_white)
+        initTitleView()
         mBind.btnRegister.setOnClickListener { registerUser() }
-
         mBind.etRegisterAccount.setText(userName)
+    }
+
+    private fun initTitleView() {
+        setTitleText(R.string.user_register, resources.getColor(R.color.color_white))
+        setTitleLeftImage(R.mipmap.user_back_white)
+        mTitleView.setBackgroundColor(resources.getColor(R.color.color_6385F8))
     }
 
     private fun registerUser() {

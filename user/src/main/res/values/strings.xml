@@ -15,4 +15,5 @@
     <string name="user_about">关于</string>
     <string name="user_logout">退出</string>
     <string name="user_logout_success">退出登录</string>
+    <string name="user_comm_web">常用网站</string>
 </resources>

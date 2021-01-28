@@ -2,6 +2,7 @@ package com.ljb.android.component.view.act
 
 import android.Manifest
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -132,6 +133,15 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             ).onDenied {
                 showToast("为了您的应用体验，请给予权限！")
             }.start()
+    }
+
+
+    fun openOrCloseDrawerLeft() {
+        if (mBind.dlDrawer.isDrawerOpen(Gravity.LEFT)) {
+            mBind.dlDrawer.closeDrawer(Gravity.LEFT, true)
+        } else {
+            mBind.dlDrawer.openDrawer(Gravity.LEFT, true)
+        }
     }
 
 }

@@ -162,11 +162,6 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         }
     }
 
-    protected fun setTitleBackgroundColor(@ColorInt resId: Int) {
-        if (supportTitle()) {
-            mTitleView.setBackgroundColor(resId)
-        }
-    }
 
     protected open fun initStatusBar() {
         ImmersionBar.with(this)
