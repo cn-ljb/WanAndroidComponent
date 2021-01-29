@@ -2,6 +2,7 @@ package com.ljb.android.component.home.view.fragment
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
@@ -51,16 +52,7 @@ class HomeMainFragment :
         mBind.banner.apply {
             addBannerLifecycleObserver(this@HomeMainFragment)
             adapter = mBannerAdapter
-            setOnBannerListener(OnBannerListener<BannerBean.DataBean> { data, position ->
-                XLog.i("postion:" + position)
-                changeBannerBottomView(data, position)
-            })
         }
-    }
-
-    private fun changeBannerBottomView(data: BannerBean.DataBean, position: Int) {
-        mBind.tvBannerDesc.text = data.desc
-        mBind.tvBannerPage.text = "${position + 1}/${mBannerAdapter.itemCount}"
     }
 
     override fun initData() {

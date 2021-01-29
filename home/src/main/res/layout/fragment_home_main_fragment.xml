@@ -11,54 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200">
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            banner:banner_radius="@dimen/dp_8" />
 
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
-                android:layout_marginHorizontal="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                banner:banner_auto_loop="true"
-                banner:banner_infinite_loop="true"
-                banner:banner_loop_time="3000"
-                banner:banner_orientation="horizontal"
-                banner:banner_radius="@dimen/dp_8" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:layout_gravity="bottom"
-                android:layout_marginHorizontal="@dimen/dp_10"
-                android:background="@color/color_9000">
-
-                <TextView
-                    android:id="@+id/tv_banner_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/dp_5"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/sp_16"
-                    tools:text="一起来做个app" />
-
-
-                <TextView
-                    android:id="@+id/tv_banner_page"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:layout_marginHorizontal="@dimen/dp_5"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/sp_14"
-                    tools:text="1/4" />
-
-            </FrameLayout>
-
-        </FrameLayout>
 
     </LinearLayout>
 

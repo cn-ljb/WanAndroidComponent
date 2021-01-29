@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_height="@dimen/dp_200">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="bottom"
+        android:background="@drawable/home_shape_round_bottom_color6000_8">
+
+        <TextView
+            android:id="@+id/tv_banner_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp_16"
+            tools:text="一起来做个app" />
+
+
+        <TextView
+            android:id="@+id/tv_banner_page"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp_14"
+            tools:text="1/4" />
+
+    </FrameLayout>
+
+</FrameLayout>

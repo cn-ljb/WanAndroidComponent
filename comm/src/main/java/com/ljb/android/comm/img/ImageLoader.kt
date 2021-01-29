@@ -1,5 +1,6 @@
 package com.ljb.android.comm.img
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -8,12 +9,16 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ljb.android.comm.R
+import com.ljb.android.comm.img.format.ImgScaleType
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import java.lang.RuntimeException
 
 class ImageLoader private constructor() {
 
@@ -28,6 +33,7 @@ class ImageLoader private constructor() {
     private var bitmapListener: BitmapListener? = null
 
     private lateinit var format: ImgFormatEvent
+    private lateinit var scaleType: ImgScaleType
 
     private var defResId = R.color.bg_page
     private var preDrawable: Drawable? = null
@@ -120,6 +126,7 @@ class ImageLoader private constructor() {
     /**
      * 开始加载图片
      * */
+    @SuppressLint("CheckResult")
     fun load() {
 
         val format = getFormatRequest(format)
@@ -249,27 +256,37 @@ class ImageLoader private constructor() {
         format: RequestOptions
     ) {
         context?.run {
-
-            if (!TextUtils.isEmpty(url)) {
-                Glide.with(this).load(url).apply(format).into(imageView)
-            } else if (resId != 0) {
-                Glide.with(this).load(resId).apply(format).into(imageView)
-            }
-
+            next(Glide.with(this), format , imageView)
             return@load2ImageView
         }
 
         fragment?.run {
-
-            if (!TextUtils.isEmpty(url)) {
-                Glide.with(this).load(url).apply(format).into(imageView)
-            } else if (resId != 0) {
-                Glide.with(this).load(resId).apply(format).into(imageView)
-            }
-
+            next(Glide.with(this), format , imageView)
             return@load2ImageView
         }
 
+    }
+
+    private fun next(glide: RequestManager, format: RequestOptions, imageView: ImageView) {
+
+        var builder: RequestBuilder<Drawable> = if (!TextUtils.isEmpty(url)) {
+            glide.load(url)
+        } else if (resId != 0) {
+            glide.load(resId)
+        } else {
+            throw RuntimeException("img url or resId is null")
+        }
+
+        builder =  builder.apply(format)
+
+        when (scaleType) {
+            ImgScaleType.CenterCrop -> builder.centerCrop()
+            ImgScaleType.CenterInside -> builder.centerInside()
+            ImgScaleType.CircleCrop -> builder.circleCrop()
+            ImgScaleType.FitCenter -> builder.fitCenter()
+        }
+
+        builder.into(imageView)
     }
 
 
@@ -287,13 +304,14 @@ class ImageLoader private constructor() {
      * */
     class Builder {
 
-
+        private var scaleType: ImgScaleType = ImgScaleType.CenterCrop
         private var format: ImgFormatEvent = ImgFormatEvent.Default
         private var preDrawable: Drawable? = null
         private var errorDrawable: Drawable? = null
 
         private var resId: Int = 0
         private var url: String? = null
+
         private var imageView: ImageView? = null
         private var listener: BitmapListener? = null
 
@@ -338,6 +356,14 @@ class ImageLoader private constructor() {
             return this
         }
 
+        /**
+         * scale模式
+         * */
+        fun scaleType(type: ImgScaleType): Builder {
+            this.scaleType = type
+            return this
+        }
+
 
         fun build(context: Context): ImageLoader {
             val loader = ImageLoader()
@@ -354,13 +380,14 @@ class ImageLoader private constructor() {
         }
 
         private fun build(loader: ImageLoader) {
-            loader.format = format
+            loader.resId = resId
             loader.url = url
             loader.imageView = imageView
             loader.preDrawable = preDrawable
             loader.errorDrawable = errorDrawable
             loader.bitmapListener = listener
-            loader.resId = resId
+            loader.scaleType = scaleType
+            loader.format = format
         }
     }
 

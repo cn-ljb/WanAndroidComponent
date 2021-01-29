@@ -1,10 +1,15 @@
 package com.ljb.android.component.home.adapter
 
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ljb.android.comm.img.ImageLoader
+import com.ljb.android.component.home.R
 import com.ljb.android.component.home.bean.BannerBean
+import com.ljb.android.component.home.databinding.HomeLayoutItemHomeBannerBinding
 import com.youth.banner.adapter.BannerAdapter
 
 /**
@@ -15,28 +20,29 @@ import com.youth.banner.adapter.BannerAdapter
 class HomeBannerAdapter(list: MutableList<BannerBean.DataBean>) :
     BannerAdapter<BannerBean.DataBean, HomeBannerAdapter.ViewHolder>(list) {
 
-    class ViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView)
+    class ViewHolder(var bind: HomeLayoutItemHomeBannerBinding) : RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        val imageView = ImageView(parent.context).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+        return ViewHolder(
+            HomeLayoutItemHomeBannerBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
-            scaleType = ImageView.ScaleType.CENTER_CROP
-        }
-        return ViewHolder(imageView)
+        )
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindView(
         holder: ViewHolder,
         data: BannerBean.DataBean,
         position: Int,
         size: Int
     ) {
-        ImageLoader.Builder(data.imagePath, holder.itemView as ImageView)
+        ImageLoader.Builder(data.imagePath, holder.bind.ivImg as ImageView)
             .build(holder.itemView.context)
             .load()
+        holder.bind.tvBannerDesc.text = data.title
+        holder.bind.tvBannerPage.text = "${position + 1}/${realCount}"
     }
 }
