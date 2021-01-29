@@ -40,6 +40,7 @@ ext {
     banner_version = "2.1.0"
     swipe_refresh_version = "1.1.0"
     log_interceptor_version = "3.9.0"
+    rv_adapter_version = "3.0.4"
 
     //App编译环境 字典配置
     application = [
@@ -91,7 +92,9 @@ ext {
             //banner
             banner                 : "com.youth.banner:banner:$banner_version",
             //SwipeRefreshLayout
-            swipe_refresh_layout     : "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
+            swipe_refresh_layout   : "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version",
+
+            rv_adapter             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rv_adapter_version"
     ]
 
     //注解处理器 - kotlin
