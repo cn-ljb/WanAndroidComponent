@@ -2,11 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout_height="@dimen/dp_200">
+    android:layout_height="@dimen/dp_189"
+    android:layout_marginTop="@dimen/dp_10">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_img"
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:layout_gravity="bottom"
-        android:background="@drawable/home_shape_round_bottom_color6000_8">
+        android:background="@drawable/home_shape_bottom_color_6000">
 
         <TextView
             android:id="@+id/tv_banner_desc"

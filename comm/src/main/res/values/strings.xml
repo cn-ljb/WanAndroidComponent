@@ -3,5 +3,5 @@
     <string name="comm_loading">加载中...</string>
     <string name="comm_page_error">网络异常，点击重试</string>
     <string name="comm_page_empty">暂无数据</string>
-    <string name="comm_not_found_service">未找到服务</string>
+    <string name="comm_not_found_service">未找到路由服务</string>
 </resources>

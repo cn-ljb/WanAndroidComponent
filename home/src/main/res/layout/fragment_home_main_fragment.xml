@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:banner="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sw_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
 
-
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <com.youth.banner.Banner
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
-            android:layout_marginHorizontal="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            banner:banner_radius="@dimen/dp_8" />
-
-
-    </LinearLayout>
-
+        android:paddingHorizontal="@dimen/dp_10" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

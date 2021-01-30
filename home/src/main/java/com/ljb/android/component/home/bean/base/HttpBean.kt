@@ -1,4 +1,4 @@
-package com.ljb.android.component.home.bean
+package com.ljb.android.component.home.bean.base
 
 /**
  * Author:Ljb

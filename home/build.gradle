@@ -12,7 +12,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 
-
 def appId = rootProject.ext.appId
 def application = rootProject.ext.application
 def dependenciesImp = rootProject.ext.dependenciesImp
@@ -105,6 +104,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //公共模块所有子模块都引入
     implementation project(path: ':comm')
+
+    // Maven仓库前提下，组件化状态下，可根据自身开发模块的实际业务需求，引入其它模块进行调试
+    //    if(isComponent){
+    //        implementation project(path: ':user')
+    //    }
 
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }

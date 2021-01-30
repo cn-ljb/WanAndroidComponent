@@ -1,48 +1,40 @@
 package com.ljb.android.component.home.adapter
 
-import android.annotation.SuppressLint
-import android.view.LayoutInflater
-import android.view.View
+import android.content.Context
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.res.ResourcesCompat
+import com.blankj.utilcode.util.SizeUtils
 import com.ljb.android.comm.img.ImageLoader
-import com.ljb.android.component.home.R
+import com.ljb.android.comm.img.format.ImgFormatEvent
+import com.ljb.android.comm.img.format.ImgScaleType
+import com.ljb.android.comm.utils.DefResUtils
 import com.ljb.android.component.home.bean.BannerBean
-import com.ljb.android.component.home.databinding.HomeLayoutItemHomeBannerBinding
-import com.youth.banner.adapter.BannerAdapter
+import com.youth.banner.loader.ImageLoaderInterface
 
 /**
  * Author:Ljb
  * Time:2021/1/28
  * There is a lot of misery in life
  **/
-class HomeBannerAdapter(list: MutableList<BannerBean.DataBean>) :
-    BannerAdapter<BannerBean.DataBean, HomeBannerAdapter.ViewHolder>(list) {
+class HomeBannerAdapter : ImageLoaderInterface<ImageView> {
 
-    class ViewHolder(var bind: HomeLayoutItemHomeBannerBinding) : RecyclerView.ViewHolder(bind.root)
-
-    override fun onCreateHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            HomeLayoutItemHomeBannerBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun createImageView(context: Context?): ImageView {
+        val imageView = ImageView(context)
+        imageView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
+        return imageView
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindView(
-        holder: ViewHolder,
-        data: BannerBean.DataBean,
-        position: Int,
-        size: Int
-    ) {
-        ImageLoader.Builder(data.imagePath, holder.bind.ivImg as ImageView)
-            .build(holder.itemView.context)
-            .load()
-        holder.bind.tvBannerDesc.text = data.title
-        holder.bind.tvBannerPage.text = "${position + 1}/${realCount}"
+    override fun displayImage(context: Context, data: Any, imageView: ImageView) {
+        if (data is BannerBean.DataBean) {
+            ImageLoader.Builder(data.imagePath, imageView)
+                .preDrawable(DefResUtils.getDefImg(context))
+                .errorDrawable(DefResUtils.getDefImg(context))
+                .build(context)
+                .load()
+        }
     }
 }
