@@ -3,5 +3,4 @@
     <string name="home_main">首页</string>
     <string name="home_new">New</string>
     <string name="home_collect_success">收藏成功</string>
-    <string name="home_collect_error">收藏失败，请稍后再试</string>
 </resources>

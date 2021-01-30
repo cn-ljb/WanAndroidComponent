@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
@@ -16,9 +15,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ljb.android.comm.R
+import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.img.format.ImgScaleType
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
-import java.lang.RuntimeException
 
 class ImageLoader private constructor() {
 
@@ -256,12 +255,12 @@ class ImageLoader private constructor() {
         format: RequestOptions
     ) {
         context?.run {
-            next(Glide.with(this), format , imageView)
+            next(Glide.with(this), format, imageView)
             return@load2ImageView
         }
 
         fragment?.run {
-            next(Glide.with(this), format , imageView)
+            next(Glide.with(this), format, imageView)
             return@load2ImageView
         }
 
@@ -277,14 +276,14 @@ class ImageLoader private constructor() {
             throw RuntimeException("img url or resId is null")
         }
 
-        builder =  builder.apply(format)
-
-        when (scaleType) {
+        builder = when (scaleType) {
             ImgScaleType.CenterCrop -> builder.centerCrop()
             ImgScaleType.CenterInside -> builder.centerInside()
             ImgScaleType.CircleCrop -> builder.circleCrop()
             ImgScaleType.FitCenter -> builder.fitCenter()
         }
+
+        builder = builder.apply(format)
 
         builder.into(imageView)
     }

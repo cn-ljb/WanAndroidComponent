@@ -30,4 +30,9 @@ class HomeMainModel : BaseModel(), HomeMainContract.IModel {
         return HttpFactory.getProtocol(HomeProtocol::class.java)
             .doCollect(id)
     }
+
+    override fun cancelCollect(id: String): Observable<HttpBean> {
+        return HttpFactory.getProtocol(HomeProtocol::class.java)
+            .cancelCollect(id)
+    }
 }

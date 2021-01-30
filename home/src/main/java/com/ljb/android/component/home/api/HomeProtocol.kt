@@ -32,4 +32,10 @@ interface HomeProtocol {
      * */
     @POST("lg/collect/{id}/json")
     fun doCollect(@Path("id") id: String): Observable<HttpBean>
+
+    /***
+     * 取消收藏
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    fun cancelCollect(@Path("id") id: String): Observable<HttpBean>
 }

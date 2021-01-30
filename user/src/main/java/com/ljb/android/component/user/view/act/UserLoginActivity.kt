@@ -7,7 +7,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
-import com.ljb.android.comm.event.UserEvent
+import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
@@ -93,7 +93,11 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
     }
 
     private fun goHome() {
-        EventBus.getDefault().post(UserEvent(UserEvent.TYPE_LOGIN))
+        EventBus.getDefault().post(
+            UserEvent(
+                UserEvent.TYPE_LOGIN
+            )
+        )
         RouterManager.goActivity(RouterConfig.Activity.APP_MAIN)
         finish()
     }

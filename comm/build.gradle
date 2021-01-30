@@ -66,7 +66,6 @@ android {
 }
 
 dependencies {
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(path: ':mvplib')
     api project(path: ':netlib')

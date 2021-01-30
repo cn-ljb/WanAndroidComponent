@@ -1,11 +1,10 @@
 package com.ljb.android.component.user.view.fragment
 
-import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.common.LocUser
-import com.ljb.android.comm.event.UserEvent
+import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.img.ImageLoader
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
@@ -76,7 +75,11 @@ class UserLeftDrawerFragment :
     override fun onLogoutSuccess() {
         showToast(R.string.user_logout_success)
         changeUserStatus()
-        EventBus.getDefault().post(UserEvent(UserEvent.TYPE_LOGOUT))
+        EventBus.getDefault().post(
+            UserEvent(
+                UserEvent.TYPE_LOGOUT
+            )
+        )
     }
 
     override fun supportEventBus() = true

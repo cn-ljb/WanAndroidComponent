@@ -19,18 +19,20 @@ interface HomeMainContract {
         fun onBannerSuccess(bannerBean: BannerBean)
         fun onHomeListSuccess( homeListBean: HomeListBean)
         fun onLoadPageError()
-        fun onCollectSuccess(position: Int)
+        fun onCollectStatus(position: Int , status: Boolean)
     }
 
     interface IPresenter : IPresenterContract {
         fun getBannerAndHomeList(page: Int)
         fun getHomeList(page: Int)
         fun doCollect(position:Int , id: String)
+        fun cancelCollect(position: Int, id: String)
     }
 
     interface IModel : IModelContract {
         fun getBanner():Observable<BannerBean>
         fun getHomeList(page: Int): Observable<HomeListBean>
         fun doCollect(id: String): Observable<HttpBean>
+        fun cancelCollect(id: String): Observable<HttpBean>
     }
 }

@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
 import com.ljb.android.comm.utils.XLog
+import com.tencent.smtt.sdk.QbSdk
 import net.ljb.kt.HttpConfig
 
 /**
@@ -26,6 +27,7 @@ class App : Application() {
         initARoute()
         initSP()
         initHttp()
+        initWebX5()
     }
 
     private fun initARoute() {
@@ -61,5 +63,19 @@ class App : Application() {
                 //TODO 公共Param
             }.openLog(BuildConfig.DEBUG)
             .build()
+    }
+
+    private fun initWebX5() {
+        QbSdk.initX5Environment(this , object: QbSdk.PreInitCallback{
+
+            override fun onCoreInitFinished() {
+                XLog.i("WebView X5内核初始化完毕")
+            }
+
+            override fun onViewInitFinished(p0: Boolean) {
+                XLog.i("X5 WebView验证完毕：$p0" )
+            }
+
+        })
     }
 }

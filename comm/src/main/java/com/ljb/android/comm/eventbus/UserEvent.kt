@@ -1,4 +1,4 @@
-package com.ljb.android.comm.event
+package com.ljb.android.comm.eventbus
 
 class UserEvent(val type: Int) {
 

@@ -11,6 +11,7 @@ import com.ljb.android.comm.common.LocUser
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
+import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.component.home.R
 import com.ljb.android.component.home.adapter.HomeBannerAdapter
 import com.ljb.android.component.home.adapter.HomeListAdapter
@@ -110,6 +111,10 @@ class HomeMainFragment :
             mListAdapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false
             mListAdapter.loadMoreModule.setOnLoadMoreListener { getPresenter().getHomeList(mPage) }
             mListAdapter.mCollectListener = { doCollect(it) }
+            mListAdapter.setOnItemClickListener { _, _, position ->
+                val url = mListAdapter.data[position].link
+                goWebView(url)
+            }
         }
     }
 
@@ -123,7 +128,9 @@ class HomeMainFragment :
             setDelayTime(2500)
             setImageLoader(HomeBannerAdapter())
             setOnBannerListener { position ->
-                // TODO banner 被点击
+                mBannerBean?.run {
+                    goWebView(data[position].url)
+                }
             }
             setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {}
@@ -142,6 +149,7 @@ class HomeMainFragment :
             mListAdapter.addHeaderView(mBannerBind!!.root)
         }
     }
+
 
     override fun onBannerSuccess(bannerBean: BannerBean) {
         mBannerBean = bannerBean
@@ -170,17 +178,21 @@ class HomeMainFragment :
         }
     }
 
-    override fun onCollectSuccess(position: Int) {
-        mListAdapter.data[mListAdapter.getRealPosition(position)].collect = true
+    override fun onCollectStatus(position: Int, status: Boolean) {
+        mListAdapter.data[mListAdapter.getRealPosition(position)].collect = status
         mListAdapter.notifyItemChanged(position)
     }
 
     private fun doCollect(position: Int) {
-        val item = mListAdapter.data[position]
-        if (!LocUser.isLogIn(activity!!, true) || item.collect) {
+        if (!LocUser.isLogIn(activity!!, true)) {
             return
         }
-        getPresenter().doCollect(position, item.id)
+        val item = mListAdapter.data[mListAdapter.getRealPosition(position)]
+        if (item.collect) {
+            getPresenter().cancelCollect(position, item.id)
+        } else {
+            getPresenter().doCollect(position, item.id)
+        }
     }
 
     private fun openOrCloseDrawerLeft() {
@@ -196,5 +208,8 @@ class HomeMainFragment :
         }
     }
 
+    private fun goWebView(url: String) {
+        CommWebViewActivity.startActivity(activity!!, url)
+    }
 
 }

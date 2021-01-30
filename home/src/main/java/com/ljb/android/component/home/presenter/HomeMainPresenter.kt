@@ -64,18 +64,36 @@ class HomeMainPresenter :
             .compose(RxUtils.bindToLife(getMvpView()))
             .compose(RxUtils.schedulerIO2Main())
             .subscribeNet(getMvpView(), true) {
-
                 onNextEx {
                     if (it.errorCode != "-1") {
                         getMvpView().showToast(R.string.home_collect_success)
-                        getMvpView().onCollectSuccess(position)
+                        getMvpView().onCollectStatus(position ,true)
                     } else {
                         getMvpView().showToast(it.errorMsg)
                     }
                 }
 
                 onErrorEx {
-                    getMvpView().showToast(R.string.home_collect_error)
+                    getMvpView().showToast(R.string.net_error)
+                }
+            }
+    }
+
+    override fun cancelCollect(position: Int, id: String) {
+        getModel().cancelCollect(id)
+            .compose(RxUtils.bindToLife(getMvpView()))
+            .compose(RxUtils.schedulerIO2Main())
+            .subscribeNet(getMvpView(), true) {
+                onNextEx {
+                    if (it.errorCode != "-1") {
+                        getMvpView().onCollectStatus(position ,false)
+                    } else {
+                        getMvpView().showToast(it.errorMsg)
+                    }
+                }
+
+                onErrorEx {
+                    getMvpView().showToast(R.string.net_error)
                 }
             }
     }

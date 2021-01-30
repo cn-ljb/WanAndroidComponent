@@ -8,8 +8,6 @@ object RouterConfig {
          * */
         const val APP_MAIN = "/app/AppHomeActivity"
 
-        const val USER_MAIN = "/user/UserMainActivity"
-
     }
 
     object Fragment {
