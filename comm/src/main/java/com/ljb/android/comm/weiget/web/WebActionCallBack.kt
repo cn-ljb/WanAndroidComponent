@@ -27,7 +27,7 @@ interface WebActionCallBack {
     /**
      * 是否拦截Url
      * */
-    fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean
+    fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean
 
     /**
      * 页面加载完毕

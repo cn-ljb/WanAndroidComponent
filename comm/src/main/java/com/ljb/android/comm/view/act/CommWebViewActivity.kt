@@ -27,7 +27,8 @@ import com.tencent.smtt.sdk.WebView
  * @Date 2021/01/30
  * @Description input description
  **/
-class CommWebViewActivity : CommMvpActivity<CommWebViewContract.IPresenter, ActivityWebViewBinding>(),
+class CommWebViewActivity :
+    CommMvpActivity<CommWebViewContract.IPresenter, ActivityWebViewBinding>(),
     CommWebViewContract.IView {
 
     companion object {
@@ -97,7 +98,10 @@ class CommWebViewActivity : CommMvpActivity<CommWebViewContract.IPresenter, Acti
                 }
             }
 
-            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                if (url.startsWith("jianshu://")) {
+                    return true
+                }
                 return false
             }
 

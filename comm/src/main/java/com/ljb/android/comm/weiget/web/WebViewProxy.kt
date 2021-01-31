@@ -140,6 +140,7 @@ class WebViewProxy(
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                XLog.d("shouldOverrideUrlLoading: $url")
                 if (mWebAction != null && mWebAction.shouldOverrideUrlLoading(view, url)) {
                     return true
                 } else if (url.startsWith("http")) {
@@ -247,7 +248,9 @@ class WebViewProxy(
         try {
             val uri = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, uri)
-            mContext.startActivity(intent)
+            if (intent.resolveActivity(mContext.packageManager) != null) {
+                mContext.startActivity(intent)
+            }
         } catch (e: Exception) {
             XLog.e(e)
         }
