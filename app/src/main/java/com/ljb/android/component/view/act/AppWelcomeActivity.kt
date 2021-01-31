@@ -1,5 +1,6 @@
 package com.ljb.android.component.view.act
 
+import android.annotation.SuppressLint
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.component.R
@@ -13,7 +14,8 @@ import java.util.concurrent.TimeUnit
  * @Date 2021/01/23
  * @Description input description
  **/
-class AppWelcomeActivity : CommMvpActivity<AppWelcomeContract.IPresenter, ActivityAppWelcomeBinding>(),
+class AppWelcomeActivity :
+    CommMvpActivity<AppWelcomeContract.IPresenter, ActivityAppWelcomeBinding>(),
     AppWelcomeContract.IView {
 
     override fun registerPresenter() = AppWelcomePresenter::class.java
@@ -32,12 +34,26 @@ class AppWelcomeActivity : CommMvpActivity<AppWelcomeContract.IPresenter, Activi
             .init()
     }
 
+    override fun initView() {
+        mBind.tvMsg.text = ""
+    }
+
     override fun initData() {
-        getPresenter().delayGoHome(2000, TimeUnit.MILLISECONDS)
+//        getPresenter().delayGoHome(2500, TimeUnit.MILLISECONDS)
+        getPresenter().timer(350L, TimeUnit.MILLISECONDS)
     }
 
     override fun goHome() {
         goActivity(AppHomeActivity::class.java)
         finish()
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun setWelcomeText(result: String) {
+        if (result.isEmpty()) {
+            goHome()
+            return
+        }
+        mBind.tvMsg.text = "${mBind.tvMsg.text}$result"
     }
 }

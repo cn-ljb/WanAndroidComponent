@@ -77,7 +77,7 @@ class UserLeftDrawerFragment :
         changeUserStatus()
         EventBus.getDefault().post(
             UserEvent(
-                UserEvent.TYPE_LOGOUT
+                UserEvent.EventType.TYPE_LOGOUT
             )
         )
     }
@@ -87,7 +87,10 @@ class UserLeftDrawerFragment :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUserEvent(event: UserEvent) {
         when (event.type) {
-            UserEvent.TYPE_LOGIN -> changeUserStatus()
+            UserEvent.EventType.TYPE_LOGOUT,
+            UserEvent.EventType.TYPE_LOGIN -> {
+                changeUserStatus()
+            }
         }
     }
 

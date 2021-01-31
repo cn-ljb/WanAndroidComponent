@@ -1,6 +1,7 @@
 package com.ljb.android.component.view.act
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -17,6 +18,7 @@ import com.ljb.android.component.databinding.ActivityAppHomeBinding
 import com.ljb.android.component.presenter.AppHomePresenter
 import com.next.easynavigation.view.EasyNavigationBar.OnTabClickListener
 import com.yanzhenjie.permission.AndPermission
+import org.w3c.dom.Text
 
 
 /**
@@ -56,10 +58,10 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
 
     private val mFragments = listOf(
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
-        CommNotFoundFragment(),
-        CommNotFoundFragment(),
-        CommNotFoundFragment(),
-        CommNotFoundFragment()
+        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
     )
 
 
@@ -136,6 +138,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
     }
 
 
+    @SuppressLint("RtlHardcoded")
     fun openOrCloseDrawerLeft() {
         if (mBind.dlDrawer.isDrawerOpen(Gravity.LEFT)) {
             mBind.dlDrawer.closeDrawer(Gravity.LEFT, true)

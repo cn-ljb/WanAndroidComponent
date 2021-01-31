@@ -15,13 +15,17 @@ interface AppWelcomeContract {
 
     interface IView : IViewContract {
         fun goHome()
+        fun setWelcomeText(result: String)
     }
 
     interface IPresenter : IPresenterContract {
         fun delayGoHome(time: Long, unit: TimeUnit)
+        fun timer(time: Long, unit: TimeUnit)
     }
 
     interface IModel : IModelContract {
         fun delayGoHome(time: Long, unit: TimeUnit): Observable<Long>
+        fun timer(time: Long, unit: TimeUnit): Observable<Long>
+        fun getText(): String
     }
 }

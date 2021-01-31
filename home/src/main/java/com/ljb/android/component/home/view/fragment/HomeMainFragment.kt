@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.common.LocUser
+import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
@@ -22,6 +23,7 @@ import com.ljb.android.component.home.databinding.FragmentHomeMainFragmentBindin
 import com.ljb.android.component.home.databinding.HomeLayoutBannerBinding
 import com.ljb.android.component.home.presenter.HomeMainPresenter
 import com.youth.banner.BannerConfig
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * @Author Kotlin MVP Plugin
@@ -210,6 +212,18 @@ class HomeMainFragment :
 
     private fun goWebView(url: String) {
         CommWebViewActivity.startActivity(activity!!, url)
+    }
+
+    override fun supportEventBus() = true
+
+    @Subscribe
+    fun onUserEvent(event: UserEvent) {
+        when (event.type) {
+            UserEvent.EventType.TYPE_LOGOUT,
+            UserEvent.EventType.TYPE_LOGIN -> {
+                onRefresh()
+            }
+        }
     }
 
 }

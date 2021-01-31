@@ -94,9 +94,7 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
 
     private fun goHome() {
         EventBus.getDefault().post(
-            UserEvent(
-                UserEvent.TYPE_LOGIN
-            )
+            UserEvent(UserEvent.EventType.TYPE_LOGIN)
         )
         RouterManager.goActivity(RouterConfig.Activity.APP_MAIN)
         finish()
