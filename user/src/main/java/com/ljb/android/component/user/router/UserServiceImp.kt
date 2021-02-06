@@ -8,15 +8,19 @@ import com.blankj.utilcode.util.SPStaticUtils
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.service.IUserRouterService
 import com.ljb.android.comm.utils.XLog
+import com.ljb.android.component.user.UserInit
 import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
 @Route(path = RouterConfig.Service.USER)
 class UserServiceImp : IUserRouterService {
 
-    override fun init(context: Context?) {
+    override fun init(context: Context) {
         //初始化工作，服务注入时会调用
-        XLog.d("=== UserServiceImp init ===")
+        val start = System.currentTimeMillis()
+        UserInit.init(context)
+        val end = System.currentTimeMillis()
+        XLog.d("=== UserServiceImp  init:${end - start}ms ===")
     }
 
     override fun getUserInfo(): String {

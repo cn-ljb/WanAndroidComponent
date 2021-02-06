@@ -6,14 +6,18 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.service.IAppRouterService
 import com.ljb.android.comm.utils.XLog
+import com.ljb.android.component.AppInit
 import com.ljb.android.component.view.act.AppHomeActivity
 
 @Route(path = RouterConfig.Service.APP)
 class AppServiceImp : IAppRouterService {
 
-    override fun init(context: Context?) {
+    override fun init(context: Context) {
         //初始化工作，服务注入时会调用，可忽略
-        XLog.d("=== AppServiceImp init ===")
+        val start = System.currentTimeMillis()
+        AppInit.init(context)
+        val end = System.currentTimeMillis()
+        XLog.d("=== AppServiceImp   init:${end - start}ms ===")
     }
 
 
