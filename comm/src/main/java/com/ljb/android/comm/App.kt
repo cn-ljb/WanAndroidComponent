@@ -4,8 +4,11 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.Utils
+import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.comm.utils.XLog
 import com.tencent.smtt.sdk.QbSdk
 import net.ljb.kt.HttpConfig
@@ -24,10 +27,15 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initUtils()
         initARoute()
         initSP()
         initHttp()
         initWebX5()
+    }
+
+    private fun initUtils() {
+        Utils.init(this)
     }
 
     private fun initARoute() {
@@ -37,6 +45,7 @@ class App : Application() {
         }
         XLog.i("ARouter.init before")
         ARouter.init(this)
+        RouterManager.init(this)
         XLog.i("ARouter.init after")
     }
 

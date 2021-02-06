@@ -43,7 +43,6 @@ android {
             buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
         }
 
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -61,7 +60,6 @@ android {
                 arguments = [eventBusIndex: appId.home + ".MyEventBusIndex"]
             }
         }
-
         // kotlin EventBus索引
         kapt {
             arguments {

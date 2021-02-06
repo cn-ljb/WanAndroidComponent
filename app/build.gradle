@@ -38,30 +38,43 @@ android {
             buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
         }
 
-        //Java路由支持
+        //Java路由APT 传参
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        //kotlin路由支持
+        //kotlin路由APT 传参
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
 
-        //java EventBus索引
+        //java EventBus索引APT 传参
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [eventBusIndex: appId.app + ".MyEventBusIndex"]
             }
         }
 
-        // kotlin EventBus索引
+        // kotlin EventBus索引APT 传参
         kapt {
             arguments {
                 arg('eventBusIndex', appId.app + ".MyEventBusIndex")
+            }
+        }
+
+        //Java项目初始化APT 传参
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [initPath: appId.app + ".InitComponent"]
+            }
+        }
+        //kotlin项目初始化APT 传参
+        kapt {
+            arguments {
+                arg("initPath", appId.app + ".InitComponent")
             }
         }
     }
@@ -97,6 +110,9 @@ dependencies {
 
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }
+
+    implementation project(path: ':apt_annotation')
+    kapt project(path: ':apt_compiler')
 
     //2、集成化环境，那么需要引入其它子模块的Library
     if (!isComponent) {

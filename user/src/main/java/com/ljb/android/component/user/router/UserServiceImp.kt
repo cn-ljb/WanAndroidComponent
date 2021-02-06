@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SPStaticUtils
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.service.IUserRouterService
+import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
@@ -14,7 +15,8 @@ import com.ljb.android.component.user.view.act.UserLoginActivity
 class UserServiceImp : IUserRouterService {
 
     override fun init(context: Context?) {
-        //初始化工作，服务注入时会调用，可忽略
+        //初始化工作，服务注入时会调用
+        XLog.d("=== UserServiceImp init ===")
     }
 
     override fun getUserInfo(): String {

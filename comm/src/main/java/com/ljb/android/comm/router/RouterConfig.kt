@@ -33,7 +33,7 @@ object RouterConfig {
         /**
          * 首页模块服务路由
          * */
-        const val HOME = "/user/HomeRouterService"
+        const val HOME = "/home/HomeRouterService"
     }
 
 

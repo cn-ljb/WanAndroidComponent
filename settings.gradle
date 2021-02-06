@@ -1,3 +1,5 @@
+include ':apt_compiler'
+include ':apt_annotation'
 include ':home'
 include ':user'
 include ':app'

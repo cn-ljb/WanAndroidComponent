@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.view.ViewGroup
 import com.ljb.android.comm.BuildConfig
 import com.ljb.android.comm.utils.XLog
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
@@ -218,6 +219,10 @@ class WebViewProxy(
     fun onDestroy() {
         try {
             mWebView.stopLoading()
+            val group =  mWebView.parent
+            if(group!=null){
+                (group as ViewGroup).removeView(mWebView)
+            }
             mWebView.webChromeClient = null
             mWebView.webViewClient = null
             mWebView.settings.javaScriptEnabled = false
@@ -226,6 +231,9 @@ class WebViewProxy(
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 mWebView.clearCache(true)
             }
+            mWebView.clearHistory()
+            mWebView.clearView()
+            mWebView.removeAllViewsInLayout()
             mWebView.removeAllViews()
             mWebView.destroy()
         } catch (t: Throwable) {
