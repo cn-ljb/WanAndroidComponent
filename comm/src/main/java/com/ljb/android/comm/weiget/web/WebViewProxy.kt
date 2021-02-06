@@ -15,10 +15,7 @@ import com.ljb.android.comm.utils.XLog
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
-import com.tencent.smtt.sdk.WebChromeClient
-import com.tencent.smtt.sdk.WebSettings
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
+import com.tencent.smtt.sdk.*
 
 
 /**
@@ -236,6 +233,9 @@ class WebViewProxy(
             mWebView.removeAllViewsInLayout()
             mWebView.removeAllViews()
             mWebView.destroy()
+
+            //清除cookie
+            QbSdk.clearAllWebViewCache(mContext,true)
         } catch (t: Throwable) {
             XLog.e(t)
         }
