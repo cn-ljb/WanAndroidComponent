@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.ljb.android.component.knowledge.view.fragment.KnowMainFragment
+import com.ljb.android.component.knowledge.R
 
 class MainActivity : AppCompatActivity() {
 

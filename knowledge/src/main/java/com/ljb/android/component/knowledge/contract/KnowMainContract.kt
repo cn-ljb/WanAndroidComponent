@@ -1,8 +1,10 @@
 package com.ljb.android.component.knowledge.contract
 
+import com.ljb.android.component.knowledge.bean.KnowMainListBean
+import io.reactivex.rxjava3.core.Observable
+import mvp.ljb.kt.contract.IModelContract
 import mvp.ljb.kt.contract.IPresenterContract
 import mvp.ljb.kt.contract.IViewContract
-import mvp.ljb.kt.contract.IModelContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -11,9 +13,17 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface KnowMainContract {
 
-    interface IView : IViewContract
+    interface IView : IViewContract {
+        fun onLoadPageError()
+        fun onKnowMainListSuccess(data: KnowMainListBean)
+    }
 
-    interface IPresenter : IPresenterContract
+    interface IPresenter : IPresenterContract {
+        fun getKnowMainList()
+    }
 
-    interface IModel : IModelContract
+    interface IModel : IModelContract {
+        fun getKnowMainList(): Observable<KnowMainListBean>
+        fun countChildrenName(bean: KnowMainListBean): KnowMainListBean
+    }
 }

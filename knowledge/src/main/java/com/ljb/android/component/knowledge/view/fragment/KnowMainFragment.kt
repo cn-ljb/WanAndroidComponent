@@ -1,6 +1,8 @@
 package com.ljb.android.component.knowledge.view.fragment
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
@@ -9,6 +11,8 @@ import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.knowledge.contract.KnowMainContract
 import com.ljb.android.component.knowledge.presenter.KnowMainPresenter
 import com.ljb.android.component.knowledge.R
+import com.ljb.android.component.knowledge.adapter.KnowMainListAdapter
+import com.ljb.android.component.knowledge.bean.KnowMainListBean
 import com.ljb.android.component.knowledge.databinding.FragmentKnowMainBinding
 
 /**
@@ -17,7 +21,10 @@ import com.ljb.android.component.knowledge.databinding.FragmentKnowMainBinding
  * @Description input description
  **/
 @Route(path = RouterConfig.Fragment.KNOW_MAIN)
-class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentKnowMainBinding>(), KnowMainContract.IView {
+class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentKnowMainBinding>(), KnowMainContract.IView,
+    SwipeRefreshLayout.OnRefreshListener {
+
+    private val mListAdapter = KnowMainListAdapter()
 
     override fun registerPresenter() = KnowMainPresenter::class.java
 
@@ -39,6 +46,12 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
 
     override fun initView() {
         initTitleView()
+        initRecyclerView()
+    }
+
+    override fun initData() {
+        mBind.swRefresh.isRefreshing = true
+        getPresenter().getKnowMainList()
     }
 
     private fun initTitleView() {
@@ -53,8 +66,44 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
         })
     }
 
+    private fun initRecyclerView() {
+        mBind.swRefresh.apply {
+            setColorSchemeResources(
+                R.color.color_FD7A04,
+                R.color.color_FEC896
+            )
+            setOnRefreshListener(this@KnowMainFragment)
+        }
+
+        mBind.rvList.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = mListAdapter
+            mListAdapter.setOnItemClickListener { _, _, position ->
+//                val url = mListAdapter.data[position].link
+//                goWebView(url)
+            }
+        }
+    }
+
     private fun openOrCloseDrawerLeft() {
         RouterManager.getAppService()?.openOrCloseDrawerLeft(activity!!)
+    }
+
+    override fun onRefresh() {
+        getPresenter().getKnowMainList()
+    }
+
+
+    override fun onKnowMainListSuccess(data: KnowMainListBean) {
+        mBind.swRefresh.isRefreshing = false
+        mListAdapter.data.clear()
+        mListAdapter.data.addAll(data.data)
+        mListAdapter.notifyDataSetChanged()
+    }
+
+    override fun onLoadPageError() {
+        mBind.swRefresh.isRefreshing = false
+        showToast(R.string.net_error)
     }
 
 }

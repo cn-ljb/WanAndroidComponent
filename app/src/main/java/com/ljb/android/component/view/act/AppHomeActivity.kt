@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
-import com.ljb.android.comm.fragment.CommNotFoundFragment
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
+import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppHomeContract
 import com.ljb.android.component.databinding.ActivityAppHomeBinding
 import com.ljb.android.component.presenter.AppHomePresenter
 import com.next.easynavigation.view.EasyNavigationBar.OnTabClickListener
 import com.yanzhenjie.permission.AndPermission
-import org.w3c.dom.Text
 
 
 /**
@@ -58,7 +58,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
 
     private val mFragments = listOf(
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
-        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.KNOW_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
@@ -101,8 +101,9 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             .scaleType(ImageView.ScaleType.CENTER_INSIDE) //同 ImageView的ScaleType
             .navigationBackground(resources.getColor(R.color.color_white))
             .setOnTabClickListener(object : OnTabClickListener {
-                override fun onTabSelectEvent(view: View?, position: Int): Boolean {
+                override fun onTabSelectEvent(view: View, position: Int): Boolean {
                     //Tab点击事件  return true 页面不会切换
+                    changeTabTextUI(position)
                     return false
                 }
 
@@ -113,6 +114,19 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             }).canScroll(false)
             .lineHeight(SizeUtils.dp2px(0.5f))
             .build()
+    }
+
+    private fun changeTabTextUI(position: Int) {
+        var colorId = resources.getColor(R.color.color_39B6DF)
+        when (position) {
+            0 -> {
+                colorId = resources.getColor(R.color.color_39B6DF)
+            }
+            1 -> {
+                colorId = resources.getColor(R.color.color_FD7A04)
+            }
+        }
+        mBind.navContent.selectTextColor(colorId)
     }
 
     private fun initLeftDrawView() {

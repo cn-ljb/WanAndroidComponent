@@ -118,6 +118,7 @@ dependencies {
     if (!isComponent) {
         implementation project(path: ':user')
         implementation project(path: ':home')
+        implementation project(path: ':knowledge')
     }
 
 
