@@ -22,6 +22,7 @@
       <module name="WanAndroidComponent.apt_compiler" target="1.8" />
       <module name="WanAndroidComponent.comm" target="1.8" />
       <module name="WanAndroidComponent.home" target="1.8" />
+      <module name="WanAndroidComponent.knowledge" target="1.8" />
       <module name="WanAndroidComponent.mvplib" target="1.8" />
       <module name="WanAndroidComponent.netlib" target="1.8" />
       <module name="WanAndroidComponent.user" target="1.8" />

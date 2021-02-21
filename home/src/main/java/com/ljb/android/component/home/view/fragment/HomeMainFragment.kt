@@ -88,10 +88,10 @@ class HomeMainFragment :
         mTitleView.setBackgroundResource(R.drawable.comm_shape_blue_gradient)
         mTitleView.setOnClickListener { mBind.rvList.scrollToPosition(0) }
         setTitleText(R.string.home_main, resources.getColor(R.color.color_white))
-        setTitleLeftImage(R.mipmap.home_icon_home_left_menu, View.OnClickListener {
+        setTitleLeftImage(R.mipmap.comm_icon_home_left_menu, View.OnClickListener {
             openOrCloseDrawerLeft()
         })
-        setTitleRightImage(R.mipmap.home_icon_search, View.OnClickListener {
+        setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
             //TODO  go search
         })
     }

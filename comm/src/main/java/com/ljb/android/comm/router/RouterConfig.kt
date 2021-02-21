@@ -12,28 +12,38 @@ object RouterConfig {
 
     object Fragment {
         /**
-         * 壳App 左侧抽屉Fragment
+         * 左侧抽屉Fragment
          * */
         const val USER_LEFT_DRAWER = "/user/UserLeftDrawerFragment"
         /**
-         * 壳App 首页主页
+         * 首页主页
          * */
         const val HOME_MAIN = "/home/HomeMainFragment"
+
+        /**
+         * 知识体系主页
+         */
+        const val KNOW_MAIN = "/know/KnowMainFragment"
+
     }
 
     object Service {
         /**
-         * APP壳模块服务路由
+         * APP壳模块 服务路由
          * */
         const val APP = "/app/AppRouterService"
         /**
-         * 用户模块服务路由
+         * 用户模块 服务路由
          * */
         const val USER = "/user/UserRouterService"
         /**
-         * 首页模块服务路由
+         * 首页模块 服务路由
          * */
         const val HOME = "/home/HomeRouterService"
+        /**
+         * 知识体系模块 服务路由
+         */
+        const val KNOW = "/know/KnowRouterService"
     }
 
 
