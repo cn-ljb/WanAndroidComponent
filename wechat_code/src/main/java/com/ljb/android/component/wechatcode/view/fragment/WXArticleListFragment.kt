@@ -4,9 +4,13 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.gyf.immersionbar.ImmersionBar
+import com.ljb.android.comm.common.LocUser
 import com.ljb.android.comm.mvp.CommMvpFragment
+import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.comm.weiget.page.PageState
 import com.ljb.android.component.wechatcode.R
+import com.ljb.android.component.wechatcode.adapter.WXArticleListAdapter
+import com.ljb.android.component.wechatcode.bean.WXArticleListBean
 import com.ljb.android.component.wechatcode.contract.WXArticleListContract
 import com.ljb.android.component.wechatcode.databinding.FragmentWxArticleListBinding
 import com.ljb.android.component.wechatcode.databinding.WechatLayoutArticleListContentBinding
@@ -31,6 +35,9 @@ class WXArticleListFragment :
 
     private var mId: String = "0"
     private var mName: String = ""
+    private var mPage: Int = 1
+
+    private val mListAdapter = WXArticleListAdapter()
 
     override fun registerPresenter() = WXArticleListPresenter::class.java
 
@@ -57,6 +64,11 @@ class WXArticleListFragment :
         initRecyclerView()
     }
 
+    override fun initData() {
+        mBindContentView.swRefresh.isRefreshing = true
+        onRefresh()
+    }
+
     private fun initSearchView() {
         mBindContentView.btnSearch.setOnClickListener {
             goSearch()
@@ -76,24 +88,63 @@ class WXArticleListFragment :
 
         mBindContentView.rvList.apply {
             layoutManager = LinearLayoutManager(activity)
-//            adapter = mListAdapter
-//            mListAdapter.loadMoreModule.isEnableLoadMore = true
-//            mListAdapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false
-//            mListAdapter.loadMoreModule.setOnLoadMoreListener { getPresenter().getHomeList(mPage) }
-//            mListAdapter.mCollectListener = { doCollect(it) }
-//            mListAdapter.setOnItemClickListener { _, _, position ->
-//                val url = mListAdapter.data[position].link
-//                goWebView(url)
-//            }
+            adapter = mListAdapter
+            mListAdapter.loadMoreModule.isEnableLoadMore = true
+            mListAdapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false
+            mListAdapter.loadMoreModule.setOnLoadMoreListener { onLoadMore() }
+            mListAdapter.mCollectListener = { doCollect(it) }
+            mListAdapter.setOnItemClickListener { _, _, position ->
+                val url = mListAdapter.data[position].link
+                goWebView(url)
+            }
         }
     }
 
-    override fun onRefresh() {
 
+    override fun onRefresh() {
+        mPage = 1
+        getPresenter().getArticleList(mId, mPage)
+    }
+
+    private fun onLoadMore() {
+        getPresenter().getArticleList(mId, mPage)
     }
 
     private fun goSearch() {
+        //TODO 搜索公众号文章
+    }
 
+    override fun onArticleListSuccess(data: WXArticleListBean) {
+        if (mPage == 1) {
+            mBindContentView.swRefresh.isRefreshing = false
+            mListAdapter.data.clear()
+        } else {
+            mListAdapter.loadMoreModule.loadMoreComplete()
+        }
+        mListAdapter.data.addAll(data.data.datas)
+        mListAdapter.notifyDataSetChanged()
+        mPage++
+    }
+
+    private fun goWebView(url: String) {
+        CommWebViewActivity.startActivity(activity!!, url)
+    }
+
+    private fun doCollect(position: Int) {
+        if (!LocUser.isLogIn(activity!!, true)) {
+            return
+        }
+        val item = mListAdapter.data[position]
+        if (item.collect) {
+            getPresenter().cancelCollect(position, item.id)
+        } else {
+            getPresenter().doCollect(position, item.id)
+        }
+    }
+
+    override fun onCollectStatus(position: Int, status: Boolean) {
+        mListAdapter.data[position].collect = status
+        mListAdapter.notifyItemChanged(position)
     }
 }
 

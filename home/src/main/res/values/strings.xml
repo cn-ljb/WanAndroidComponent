@@ -2,5 +2,4 @@
     <string name="app_name">首页子模块</string>
     <string name="home_main">首页</string>
     <string name="home_new">New</string>
-    <string name="home_collect_success">收藏成功</string>
 </resources>

@@ -84,6 +84,10 @@ class HomeMainFragment :
         getPresenter().getBannerAndHomeList(mPage)
     }
 
+    private fun onLoadMore() {
+        getPresenter().getHomeList(mPage)
+    }
+
     private fun initTitleView() {
         mTitleView.setBackgroundResource(R.drawable.comm_shape_blue_gradient)
         mTitleView.setOnClickListener { mBind.rvList.scrollToPosition(0) }
@@ -111,7 +115,7 @@ class HomeMainFragment :
             adapter = mListAdapter
             mListAdapter.loadMoreModule.isEnableLoadMore = true
             mListAdapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false
-            mListAdapter.loadMoreModule.setOnLoadMoreListener { getPresenter().getHomeList(mPage) }
+            mListAdapter.loadMoreModule.setOnLoadMoreListener { onLoadMore() }
             mListAdapter.mCollectListener = { doCollect(it) }
             mListAdapter.setOnItemClickListener { _, _, position ->
                 val url = mListAdapter.data[position].link

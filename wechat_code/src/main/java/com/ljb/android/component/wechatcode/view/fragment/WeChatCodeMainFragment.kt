@@ -99,6 +99,7 @@ class WeChatCodeMainFragment :
             }
         }
 
+        mBind.viewPage.offscreenPageLimit = 1
         mBind.tabLayout.setupWithViewPager(mBind.viewPage)
 
     }

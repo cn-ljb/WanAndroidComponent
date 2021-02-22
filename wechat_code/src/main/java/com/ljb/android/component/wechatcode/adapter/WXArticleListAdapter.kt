@@ -1,4 +1,4 @@
-package com.ljb.android.component.home.adapter
+package com.ljb.android.component.wechatcode.adapter
 
 import android.view.View
 import android.widget.ImageView
@@ -6,23 +6,19 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.ljb.android.component.home.R
-import com.ljb.android.component.home.bean.HomeListBean
+import com.ljb.android.component.wechatcode.R
+import com.ljb.android.component.wechatcode.bean.WXArticleListBean
 import kotlin.math.max
 
-/**
- * Author:Ljb
- * Time:2021/1/30
- * There is a lot of misery in life
- **/
-class HomeListAdapter : BaseQuickAdapter<HomeListBean.ListBean, BaseViewHolder>(
-    R.layout.home_item_home_list,
+class WXArticleListAdapter: BaseQuickAdapter<WXArticleListBean.ListBean, BaseViewHolder>(
+    R.layout.wechat_item_wx_article_list,
     mutableListOf()
 ), LoadMoreModule {
 
+
     var mCollectListener: ((position: Int) -> Unit)? = null
 
-    override fun convert(holder: BaseViewHolder, item: HomeListBean.ListBean) {
+    override fun convert(holder: BaseViewHolder, item: WXArticleListBean.ListBean) {
         //此处建议复用Holder里的View，BaseViewHolder中对View进行了缓存，避免重新findViewById（ViewBinding会重新findViewById）
         // val bind = HomeItemHomeListBinding.bind(holder.itemView)
         val tvUser = holder.getView<TextView>(R.id.tv_user)
@@ -59,8 +55,5 @@ class HomeListAdapter : BaseQuickAdapter<HomeListBean.ListBean, BaseViewHolder>(
         }
     }
 
-    fun getRealPosition(position: Int): Int {
-        return position - headerLayoutCount
-    }
 
 }

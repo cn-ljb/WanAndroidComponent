@@ -114,6 +114,8 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             }).canScroll(false)
             .lineHeight(SizeUtils.dp2px(0.5f))
             .build()
+
+        mBind.navContent.viewPager.offscreenPageLimit = 1
     }
 
     private fun changeTabTextUI(position: Int) {
