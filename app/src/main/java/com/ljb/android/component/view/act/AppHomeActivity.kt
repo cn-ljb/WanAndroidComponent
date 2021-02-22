@@ -59,7 +59,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
     private val mFragments = listOf(
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.KNOW_MAIN),
-        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.WECHAT_CODE_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
     )
@@ -124,6 +124,9 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             }
             1 -> {
                 colorId = resources.getColor(R.color.color_FD7A04)
+            }
+            2 -> {
+                colorId = resources.getColor(R.color.color_22DD6D)
             }
         }
         mBind.navContent.selectTextColor(colorId)

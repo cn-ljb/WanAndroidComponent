@@ -1,9 +1,8 @@
 package  com.ljb.android.component.user.model
 
 import com.blankj.utilcode.util.SPStaticUtils
-import com.blankj.utilcode.util.SPUtils
+import com.ljb.android.comm.bean.base.HttpBean
 import com.ljb.android.component.user.api.UserProtocol
-import com.ljb.android.component.user.bean.HttpBean
 import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.contract.UserLeftDrawerContract
 import io.reactivex.rxjava3.core.Observable

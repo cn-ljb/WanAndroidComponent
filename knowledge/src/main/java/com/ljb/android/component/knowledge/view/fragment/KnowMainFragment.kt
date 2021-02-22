@@ -103,7 +103,6 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
 
     override fun onLoadPageError() {
         mBind.swRefresh.isRefreshing = false
-        showToast(R.string.net_error)
     }
 
 }

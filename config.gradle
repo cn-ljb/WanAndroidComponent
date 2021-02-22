@@ -51,10 +51,11 @@ ext {
     ]
     //各模块AppId 字典配置
     appId = [
-            app : "com.ljb.android.component",
-            user: "com.ljb.android.component.user",
-            home: "com.ljb.android.component.home",
-            konw: "com.ljb.android.component.knowledge"
+            app       : "com.ljb.android.component",
+            user      : "com.ljb.android.component.user",
+            home      : "com.ljb.android.component.home",
+            konw      : "com.ljb.android.component.knowledge",
+            wechat_code: "com.ljb.android.component.wechatcode"
     ]
 
     //依赖库

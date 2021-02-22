@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/bg_page">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="@dimen/dp_10" />
+
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

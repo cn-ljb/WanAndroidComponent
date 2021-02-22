@@ -29,12 +29,8 @@ class UserLoginPresenter : BaseMvpPresenter<UserLoginContract.IView, UserLoginCo
             .subscribeNet(getMvpView(), true) {
 
                 onNextEx {
-                    if ("0" == it.errorCode) {
-                        getMvpView().showToast(R.string.user_login_success)
-                        getMvpView().onLoginSuccess(it)
-                    } else {
-                        getMvpView().showToast(it.errorMsg)
-                    }
+                    getMvpView().showToast(R.string.user_login_success)
+                    getMvpView().onLoginSuccess(it)
                 }
 
             }

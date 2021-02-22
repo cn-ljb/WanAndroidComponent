@@ -1,10 +1,11 @@
+include ':wechat_code'
 include ':knowledge'
-include ':apt_compiler'
-include ':apt_annotation'
 include ':home'
 include ':user'
 include ':app'
 include ':comm'
 include ':netlib'
 include ':mvplib'
+include ':apt_compiler'
+include ':apt_annotation'
 rootProject.name = "WanAndroidComponent"

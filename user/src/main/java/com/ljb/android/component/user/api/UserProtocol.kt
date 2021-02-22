@@ -1,6 +1,6 @@
 package com.ljb.android.component.user.api
 
-import com.ljb.android.component.user.bean.HttpBean
+import com.ljb.android.comm.bean.base.HttpBean
 import com.ljb.android.component.user.bean.LoginBean
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.Field

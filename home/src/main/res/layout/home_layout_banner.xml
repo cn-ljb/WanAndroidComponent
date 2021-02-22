@@ -18,10 +18,12 @@
 
         <TextView
             android:id="@+id/tv_banner_desc"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_320"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/dp_5"
+            android:ellipsize="end"
             android:gravity="center_vertical"
+            android:lines="1"
             android:textColor="@color/color_white"
             android:textSize="@dimen/sp_16"
             tools:text="一起来做个app" />

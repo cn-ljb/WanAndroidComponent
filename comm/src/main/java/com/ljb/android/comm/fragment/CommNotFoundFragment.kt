@@ -23,7 +23,7 @@ class CommNotFoundFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT)
             gravity = Gravity.CENTER
             setTextSize(TypedValue.COMPLEX_UNIT_SP , 16f)
-            setBackgroundColor(resources.getColor(R.color.color_white))
+            setBackgroundColor(resources.getColor(R.color.bg_page))
             text = "未找到页面"
         }
     }

@@ -1,4 +1,4 @@
-package com.ljb.android.component.knowledge.bean.base
+package com.ljb.android.comm.bean.base
 
 /**
  * Author:Ljb

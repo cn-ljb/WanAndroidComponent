@@ -1,6 +1,7 @@
 package com.ljb.android.component.knowledge.bean
 
-import com.ljb.android.component.knowledge.bean.base.HttpBean
+import com.ljb.android.comm.bean.base.HttpBean
+
 
 /**
  * Author:Ljb

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">公众号模块</string>
+    <string name="wechat_code_main">公众号</string>
+    <string name="wechat_search">搜索</string>
+    <string name="wechat_search_hint"><![CDATA[搜索<%s>公众号下的文章…]]></string>
+</resources>

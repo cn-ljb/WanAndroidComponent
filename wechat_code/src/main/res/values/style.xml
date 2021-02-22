@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="WechatEditText" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/color_999</item>
+        <item name="colorControlActivated">@color/color_22DD6D</item>
+    </style>
+
+</resources>

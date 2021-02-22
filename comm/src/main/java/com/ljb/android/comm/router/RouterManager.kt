@@ -5,11 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
-import com.ljb.android.comm.App
 import com.ljb.android.comm.fragment.CommNotFoundFragment
-import com.ljb.android.comm.router.service.IAppRouterService
-import com.ljb.android.comm.router.service.IHomeRouterService
-import com.ljb.android.comm.router.service.IUserRouterService
+import com.ljb.android.comm.router.service.*
 import com.ljb.android.comm.utils.XLog
 
 object RouterManager {
@@ -18,6 +15,8 @@ object RouterManager {
         getAppService()
         getUserService()
         getHomeService()
+        getKnowledgeService()
+        getWeChatCodeService()
     }
 
     /**
@@ -45,21 +44,29 @@ object RouterManager {
 
 
     /**
-     * 通过ARouter获取User模块数据
-     */
-    fun getUserService(): IUserRouterService? {
-        val service = ARouter.getInstance().build(RouterConfig.Service.USER)
-            .navigation()
-
-        if (!checkService(service, IUserRouterService::class.java)) {
-            return null
+     * 校验服务
+     * */
+    private fun <I : Class<*>> checkService(service: Any?, superClass: I): Boolean {
+        if (service == null) {
+            val msg = "not found service: ${superClass.simpleName}"
+            XLog.e(msg)
+            ToastUtils.showShort(msg)
+            return false
         }
 
-        return service as IUserRouterService
+        if (!superClass.isAssignableFrom(service::class.java)) {
+            val msg =
+                "service found is error:  ${service::class.java.simpleName} not is ${superClass.simpleName}"
+            XLog.e(msg)
+            ToastUtils.showShort(msg)
+            return false
+        }
+        return true
     }
 
+
     /**
-     * 通过ARouter获取App模块数据
+     * 获取App模块服务
      */
     fun getAppService(): IAppRouterService? {
         val service = ARouter.getInstance().build(RouterConfig.Service.APP)
@@ -73,7 +80,21 @@ object RouterManager {
     }
 
     /**
-     * 通过ARouter获取Home模块数据
+     * 获取User模块服务 - 用户信息
+     */
+    fun getUserService(): IUserRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.USER)
+            .navigation()
+
+        if (!checkService(service, IUserRouterService::class.java)) {
+            return null
+        }
+
+        return service as IUserRouterService
+    }
+
+    /**
+     * 获取Home模块服务 - 首页
      */
     fun getHomeService(): IHomeRouterService? {
         val service = ARouter.getInstance().build(RouterConfig.Service.HOME)
@@ -87,23 +108,35 @@ object RouterManager {
     }
 
     /**
-     * 校验服务
+     * 获取Know模块服务 - 知识体系
      * */
-    private fun <I : Class<*>> checkService(service: Any?, superClass: I): Boolean {
-        if (service == null) {
-            val msg = "not found service: ${superClass.simpleName}"
-            XLog.e(msg)
-            ToastUtils.showShort(msg)
-            return false
+    fun getKnowledgeService(): IKnowRouterService? {
+
+        val service = ARouter.getInstance().build(RouterConfig.Service.KNOW)
+            .navigation()
+
+        if (!checkService(service, IKnowRouterService::class.java)) {
+            return null
         }
 
-        if (!superClass.isAssignableFrom(service::class.java)) {
-            val msg = "service found is error:  ${service::class.java.simpleName} not is ${superClass.simpleName}"
-            XLog.e(msg)
-            ToastUtils.showShort(msg)
-            return false
+        return service as IKnowRouterService
+
+    }
+
+    /**
+     * 获取WeChatCode模块服务 - 公众号
+     * */
+    fun getWeChatCodeService(): IWeChatCodeRouterService? {
+
+        val service = ARouter.getInstance().build(RouterConfig.Service.WECHAT_CODE)
+            .navigation()
+
+        if (!checkService(service, IWeChatCodeRouterService::class.java)) {
+            return null
         }
-        return true
+
+        return service as IWeChatCodeRouterService
+
     }
 
 

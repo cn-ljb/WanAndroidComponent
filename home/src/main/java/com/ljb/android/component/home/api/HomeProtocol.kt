@@ -1,8 +1,8 @@
 package com.ljb.android.component.home.api
 
+import com.ljb.android.comm.bean.base.HttpBean
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.bean.HomeListBean
-import com.ljb.android.component.home.bean.base.HttpBean
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.POST

@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/mvplib" />
             <option value="$PROJECT_DIR$/netlib" />
             <option value="$PROJECT_DIR$/user" />
+            <option value="$PROJECT_DIR$/wechat_code" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

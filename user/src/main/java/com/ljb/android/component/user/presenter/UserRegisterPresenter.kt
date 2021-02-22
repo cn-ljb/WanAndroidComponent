@@ -33,11 +33,7 @@ class UserRegisterPresenter :
             .subscribeNet(getMvpView(), true) {
 
                 onNextEx {
-                    if ("0" == it.errorCode) {
-                        getMvpView().onRegisterUserSuccess(it)
-                    } else {
-                        getMvpView().showToast(it.errorMsg)
-                    }
+                    getMvpView().onRegisterUserSuccess(it)
                 }
 
             }

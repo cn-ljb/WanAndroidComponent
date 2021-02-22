@@ -2,6 +2,7 @@ package com.ljb.android.comm.rx
 
 import com.blankj.utilcode.util.ToastUtils
 import com.ljb.android.comm.R
+import com.ljb.android.comm.bean.base.HttpBean
 import com.ljb.android.comm.mvp.ICommView
 import com.ljb.android.comm.utils.XLog
 import io.reactivex.rxjava3.core.Observer
@@ -28,18 +29,31 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
 
     final override fun onNext(response: T) {
         //TODO 可以在此处编写网络请求结果的公共代码
+        if (response is HttpBean) {
+            if (response.errorCode != "0") {
+                onError(CustomNetThrowable(response.errorCode, response.errorMsg))
+                return
+            }
+        }
+
         mOnNextEx?.invoke(response)
         onNextEx(response)
     }
 
     final override fun onError(e: Throwable) {
+        //TODO 可以在此处编写网络请求错误的公共代码
         XLog.e(e)
+        if (e is CustomNetThrowable) {
+            ToastUtils.showShort(e.errMsg)
+        } else {
+            ToastUtils.showShort(R.string.net_error)
+        }
+
         if (isLoading && mvpView is ICommView) {
             (mvpView as ICommView).hideLoading()
         }
         mOnErrorEx?.invoke(e)
         onErrorEx(e)
-        ToastUtils.showShort(R.string.net_error)
     }
 
     final override fun onComplete() {

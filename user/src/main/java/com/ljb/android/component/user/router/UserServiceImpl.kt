@@ -13,7 +13,7 @@ import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
 @Route(path = RouterConfig.Service.USER)
-class UserServiceImp : IUserRouterService {
+class UserServiceImpl : IUserRouterService {
 
     override fun init(context: Context) {
         //初始化工作，服务注入时会调用

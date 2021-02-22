@@ -1,5 +1,7 @@
 package com.ljb.android.component.user.bean
 
+import com.ljb.android.comm.bean.base.HttpBean
+
 /**
  * Author:Ljb
  * Time:2021/1/23

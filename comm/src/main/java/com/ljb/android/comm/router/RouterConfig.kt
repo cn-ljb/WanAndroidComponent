@@ -15,15 +15,21 @@ object RouterConfig {
          * 左侧抽屉Fragment
          * */
         const val USER_LEFT_DRAWER = "/user/UserLeftDrawerFragment"
+
         /**
-         * 首页主页
+         * 首页模块主页
          * */
         const val HOME_MAIN = "/home/HomeMainFragment"
 
         /**
-         * 知识体系主页
+         * 知识体系模块主页
          */
         const val KNOW_MAIN = "/know/KnowMainFragment"
+
+        /**
+         * 公众号模块主页
+         * */
+        const val WECHAT_CODE_MAIN = "/wechat/WeChatCodeMainFragment"
 
     }
 
@@ -32,18 +38,26 @@ object RouterConfig {
          * APP壳模块 服务路由
          * */
         const val APP = "/app/AppRouterService"
+
         /**
          * 用户模块 服务路由
          * */
         const val USER = "/user/UserRouterService"
+
         /**
          * 首页模块 服务路由
          * */
         const val HOME = "/home/HomeRouterService"
+
         /**
          * 知识体系模块 服务路由
          */
         const val KNOW = "/know/KnowRouterService"
+
+        /**
+         * 公众号 服务路由
+         * */
+        const val WECHAT_CODE = "/wechat/WeChatCodeRouterService"
     }
 
 

@@ -1,6 +1,7 @@
 package com.ljb.android.component.home.bean
 
-import com.ljb.android.component.home.bean.base.HttpBean
+import com.ljb.android.comm.bean.base.HttpBean
+
 
 class BannerBean(var data: List<DataBean>) : HttpBean() {
 

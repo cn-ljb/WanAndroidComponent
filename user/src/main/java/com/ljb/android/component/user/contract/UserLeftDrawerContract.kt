@@ -1,6 +1,6 @@
 package com.ljb.android.component.user.contract
 
-import com.ljb.android.component.user.bean.HttpBean
+import com.ljb.android.comm.bean.base.HttpBean
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IPresenterContract
 import mvp.ljb.kt.contract.IViewContract
