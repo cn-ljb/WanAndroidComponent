@@ -3,16 +3,17 @@ package com.ljb.android.comm.mvp
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.R
+import com.ljb.android.comm.databinding.CommLayoutLoadingDialogBinding
+import com.ljb.android.comm.databinding.CommLayoutTitlebarBinding
 import mvp.ljb.kt.act.BaseMvpAppCompatActivity
 import mvp.ljb.kt.contract.IPresenterContract
 import org.greenrobot.eventbus.EventBus
@@ -23,20 +24,30 @@ import org.greenrobot.eventbus.EventBus
  * Time:2019/7/4
  * There is a lot of misery in life
  **/
-abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> :
-    BaseMvpAppCompatActivity<P>() , ICommView {
+abstract class CommMvpActivity<out P : IPresenterContract, B : ViewBinding> :
+    BaseMvpAppCompatActivity<P>(), ICommView {
 
-    protected lateinit var mParentView: RelativeLayout
-    protected lateinit var mLoadingView: View
-    protected lateinit var mContentView: View
-    protected val mTitleView by lazy { findViewById<View>(R.id.layout_toolbar) }
-    protected val mTvTitleCenter by lazy { findViewById<TextView>(R.id.tv_toolbar_title) }
-    protected val mIvTitleLeft by lazy { findViewById<ImageView>(R.id.iv_toolbar_left) }
-    protected val mIvTitleRight by lazy { findViewById<ImageView>(R.id.iv_toolbar_right) }
-    protected val mTvTitleRight by lazy { findViewById<TextView>(R.id.tv_toolbar_right) }
+    /**
+     * 父View
+     * */
+    protected var mParentView: RelativeLayout? = null
+
+    /**
+     * Title布局 ViewBind
+     * @需要: supportTitle() return true
+     * */
+    protected lateinit var mBindTitleBar: CommLayoutTitlebarBinding
+
+    /**
+     * Loading布局 ViewBind
+     * */
+    protected lateinit var mBindLoading: CommLayoutLoadingDialogBinding
 
 
-    protected val mBind by lazy { registerBinding() }
+    /**
+     * 业务布局 ViewBind
+     * */
+    protected lateinit var mBind: B
 
     abstract fun registerBinding(): B
 
@@ -51,29 +62,36 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         mParentView = RelativeLayout(this)
 
         // content view
-        // mContentView = layoutInflater.inflate(getLayoutId(), mParentView, false)
-        mContentView = mBind.root
+        mBind = registerBinding()
 
         // title view
         if (supportTitle()) {
-            val titleView =
-                layoutInflater.inflate(R.layout.comm_layout_titlebar, mParentView, false)
-            titleView.findViewById<View>(R.id.iv_toolbar_left)
-                .setOnClickListener { onBackPressed() }
-            mParentView.addView(titleView)
 
-            val layoutParams = mContentView.layoutParams as RelativeLayout.LayoutParams
+            initTitleBar(layoutInflater)
+
+            val layoutParams = mBind.root.layoutParams as RelativeLayout.LayoutParams
             layoutParams.addRule(RelativeLayout.BELOW, R.id.layout_toolbar)
-            mParentView.addView(mContentView, layoutParams)
+            mParentView?.addView(mBind.root, layoutParams)
         } else {
-            mParentView.addView(mContentView)
+            mParentView?.addView(mBind.root)
         }
 
         //loading view
-        mLoadingView = layoutInflater.inflate(R.layout.comm_layout_loading_dialog, mParentView, false)
-        mParentView.addView(mLoadingView)
+        initLoadingView(layoutInflater)
+
         setContentView(mParentView)
 
+    }
+
+    private fun initLoadingView(inflater: LayoutInflater) {
+        mBindLoading = CommLayoutLoadingDialogBinding.inflate(inflater, mParentView, false)
+        mParentView?.addView(mBindLoading.root)
+    }
+
+    private fun initTitleBar(inflater: LayoutInflater) {
+        mBindTitleBar = CommLayoutTitlebarBinding.inflate(inflater, mParentView, false)
+        mBindTitleBar.ivToolbarLeft.setOnClickListener { onBackPressed() }
+        mParentView?.addView(mBindTitleBar.root)
     }
 
     override fun onDestroy() {
@@ -94,7 +112,7 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
     }
 
     private fun setLoading(isShow: Boolean) {
-        mLoadingView.visibility = if (isShow) View.VISIBLE else View.GONE
+        mBindLoading.root.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 
     override fun showLoading() {
@@ -110,8 +128,8 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         @ColorInt colorId: Int = resources.getColor(R.color.color_333)
     ) {
         if (supportTitle()) {
-            mTvTitleCenter.setText(resId)
-            mTvTitleCenter.setTextColor(colorId)
+            mBindTitleBar.tvToolbarCenter.setText(resId)
+            mBindTitleBar.tvToolbarCenter.setTextColor(colorId)
         }
     }
 
@@ -120,30 +138,30 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
         @ColorInt colorId: Int = resources.getColor(R.color.color_333)
     ) {
         if (supportTitle()) {
-            mTvTitleCenter.text = text
-            mTvTitleCenter.setTextColor(colorId)
+            mBindTitleBar.tvToolbarCenter.text = text
+            mBindTitleBar.tvToolbarCenter.setTextColor(colorId)
         }
     }
 
     protected fun setTitleLeftImage(@DrawableRes resId: Int) {
         if (supportTitle()) {
-            mIvTitleLeft.setImageResource(resId)
+            mBindTitleBar.ivToolbarLeft.setImageResource(resId)
         }
     }
 
     protected fun setTitleLeftImage(@DrawableRes resId: Int, listener: View.OnClickListener) {
         if (supportTitle()) {
-            mIvTitleLeft.setImageResource(resId)
-            mIvTitleLeft.setOnClickListener(listener)
+            mBindTitleBar.ivToolbarLeft.setImageResource(resId)
+            mBindTitleBar.ivToolbarLeft.setOnClickListener(listener)
         }
     }
 
     protected fun setTitleRightImage(@DrawableRes resId: Int, listener: View.OnClickListener) {
         if (supportTitle()) {
-            mIvTitleRight.setImageResource(resId)
-            mIvTitleRight.setOnClickListener(listener)
-            if (View.VISIBLE != mIvTitleRight.visibility) {
-                mIvTitleRight.visibility = View.VISIBLE
+            mBindTitleBar.ivToolbarRight.setImageResource(resId)
+            mBindTitleBar.ivToolbarRight.setOnClickListener(listener)
+            if (View.VISIBLE != mBindTitleBar.ivToolbarRight.visibility) {
+                mBindTitleBar.ivToolbarRight.visibility = View.VISIBLE
             }
         }
     }
@@ -154,10 +172,10 @@ abstract class CommMvpActivity<out P : IPresenterContract, out B : ViewBinding> 
 
     protected fun setTitleRightText(text: CharSequence, listener: View.OnClickListener) {
         if (supportTitle()) {
-            mTvTitleRight.text = text
-            mTvTitleRight.setOnClickListener(listener)
-            if (View.VISIBLE != mIvTitleRight.visibility) {
-                mTvTitleRight.visibility = View.VISIBLE
+            mBindTitleBar.tvToolbarRight.text = text
+            mBindTitleBar.tvToolbarRight.setOnClickListener(listener)
+            if (View.VISIBLE != mBindTitleBar.tvToolbarRight.visibility) {
+                mBindTitleBar.tvToolbarRight.visibility = View.VISIBLE
             }
         }
     }

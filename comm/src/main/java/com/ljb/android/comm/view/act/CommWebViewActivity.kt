@@ -120,7 +120,7 @@ class CommWebViewActivity :
                 view: View?,
                 callback: IX5WebChromeClient.CustomViewCallback?
             ) {
-                mTitleView.visibility = View.GONE
+                mBindTitleBar.layoutToolbar.visibility = View.GONE
                 mBind.webView.visibility = View.GONE
                 mBind.flVideo.visibility = View.VISIBLE
                 mBind.flVideo.addView(view)
@@ -128,7 +128,7 @@ class CommWebViewActivity :
             }
 
             override fun onHideCustomView() {
-                mTitleView.visibility = View.VISIBLE
+                mBindTitleBar.layoutToolbar.visibility = View.VISIBLE
                 mBind.webView.visibility = View.VISIBLE
                 mBind.flVideo.visibility = View.GONE
                 mBind.flVideo.removeAllViews()

@@ -5,10 +5,9 @@
     android:id="@+id/layout_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_75"
-    android:paddingTop="@dimen/dp_20"
     android:background="#fff"
     android:gravity="center_vertical"
-    tools:viewBindingIgnore="true">
+    android:paddingTop="@dimen/dp_20">
 
     <!--左边按钮-->
     <androidx.appcompat.widget.AppCompatImageView
@@ -24,7 +23,7 @@
 
     <!--中间标题-->
     <TextView
-        android:id="@+id/tv_toolbar_title"
+        android:id="@+id/tv_toolbar_center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"

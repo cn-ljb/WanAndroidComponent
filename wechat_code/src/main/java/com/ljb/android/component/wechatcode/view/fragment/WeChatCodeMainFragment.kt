@@ -53,7 +53,7 @@ class WeChatCodeMainFragment :
 
 
     private fun initTitleView() {
-        mTitleView.setBackgroundResource(R.drawable.comm_shape_green_gradient)
+        mBindTitleBar.layoutToolbar.setBackgroundResource(R.drawable.comm_shape_green_gradient)
 //        mTitleView.setOnClickListener { mBind.rvList.scrollToPosition(0) }
         setTitleText(R.string.wechat_code_main, resources.getColor(R.color.color_white))
         setTitleLeftImage(R.mipmap.comm_icon_home_left_menu, View.OnClickListener {

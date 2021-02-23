@@ -57,7 +57,7 @@ class UserRegisterActivity :
     private fun initTitleView() {
         setTitleText(R.string.user_register, resources.getColor(R.color.color_white))
         setTitleLeftImage(R.mipmap.user_back_white)
-        mTitleView.setBackgroundColor(resources.getColor(R.color.color_6385F8))
+        mBindTitleBar.layoutToolbar.setBackgroundColor(resources.getColor(R.color.color_6385F8))
     }
 
     private fun registerUser() {
