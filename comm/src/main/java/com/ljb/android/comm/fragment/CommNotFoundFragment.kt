@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ToastUtils
 import com.ljb.android.comm.R
 
 class CommNotFoundFragment : Fragment() {
@@ -24,7 +25,7 @@ class CommNotFoundFragment : Fragment() {
             gravity = Gravity.CENTER
             setTextSize(TypedValue.COMPLEX_UNIT_SP , 16f)
             setBackgroundColor(resources.getColor(R.color.bg_page))
-            text = "未找到页面"
+            setText(R.string.comm_not_found_page)
         }
     }
 }

@@ -63,6 +63,7 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
             //TODO  go search
+            showToast(R.string.comm_wait_develop)
         })
     }
 
@@ -79,8 +80,8 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
             layoutManager = LinearLayoutManager(activity)
             adapter = mListAdapter
             mListAdapter.setOnItemClickListener { _, _, position ->
-//                val url = mListAdapter.data[position].link
-//                goWebView(url)
+                // TODO 打开二级分页
+                showToast(R.string.comm_wait_develop)
             }
         }
     }

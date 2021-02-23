@@ -36,7 +36,7 @@ class HomeListAdapter : BaseQuickAdapter<HomeListBean.ListBean, BaseViewHolder>(
         val ivCollect = holder.getView<ImageView>(R.id.iv_collect)
         ivCollect.setOnClickListener { mCollectListener?.invoke(holder.adapterPosition) }
         if (item.collect) {
-            ivCollect.setImageResource(R.mipmap.comm_icon_collect_selected)
+            ivCollect.setImageResource(R.mipmap.home_icon_collect_selected)
         } else {
             ivCollect.setImageResource(R.mipmap.comm_icon_collect_normal)
         }

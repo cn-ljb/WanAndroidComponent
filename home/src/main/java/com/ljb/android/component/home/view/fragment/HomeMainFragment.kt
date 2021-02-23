@@ -97,6 +97,7 @@ class HomeMainFragment :
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
             //TODO  go search
+            showToast(R.string.comm_wait_develop)
         })
     }
 
@@ -178,7 +179,7 @@ class HomeMainFragment :
 
     override fun onLoadPageError() {
         if (mPage == 0) {
-            showToast(R.string.net_error)
+            showToast(R.string.comm_net_error)
             mBind.swRefresh.isRefreshing = false
         } else {
             mListAdapter.loadMoreModule.loadMoreFail()

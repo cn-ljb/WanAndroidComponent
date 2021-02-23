@@ -99,7 +99,7 @@ class CommWebViewActivity :
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if (url.startsWith("jianshu://")) {
+                if (url.startsWith("jianshu://") || url.startsWith("hap://")) {
                     return true
                 }
                 return false

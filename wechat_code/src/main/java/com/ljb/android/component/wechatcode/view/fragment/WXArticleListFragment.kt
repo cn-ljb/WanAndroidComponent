@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.common.LocUser
+import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.comm.weiget.page.PageState
@@ -15,6 +16,7 @@ import com.ljb.android.component.wechatcode.contract.WXArticleListContract
 import com.ljb.android.component.wechatcode.databinding.FragmentWxArticleListBinding
 import com.ljb.android.component.wechatcode.databinding.WechatLayoutArticleListContentBinding
 import com.ljb.android.component.wechatcode.presenter.WXArticleListPresenter
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * @Author Kotlin MVP Plugin
@@ -112,6 +114,7 @@ class WXArticleListFragment :
 
     private fun goSearch() {
         //TODO 搜索公众号文章
+        showToast(R.string.comm_wait_develop)
     }
 
     override fun onArticleListSuccess(data: WXArticleListBean) {
@@ -145,6 +148,22 @@ class WXArticleListFragment :
     override fun onCollectStatus(position: Int, status: Boolean) {
         mListAdapter.data[position].collect = status
         mListAdapter.notifyItemChanged(position)
+    }
+
+    fun scrollToTop(){
+        mBindContentView.rvList.scrollToPosition(0)
+    }
+
+    override fun supportEventBus() = true
+
+    @Subscribe
+    fun onUserEvent(event: UserEvent) {
+        when (event.type) {
+            UserEvent.EventType.TYPE_LOGOUT,
+            UserEvent.EventType.TYPE_LOGIN -> {
+                onRefresh()
+            }
+        }
     }
 }
 

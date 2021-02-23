@@ -1,19 +1,21 @@
 package com.ljb.android.component.wechatcode.view.fragment
 
-import android.os.Bundle
+import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.tabs.TabLayout
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.component.wechatcode.contract.WeChatCodeMainContract
-import com.ljb.android.component.wechatcode.presenter.WeChatCodeMainPresenter
 import com.ljb.android.component.wechatcode.R
+import com.ljb.android.component.wechatcode.adapter.WeChatTabAdapter
 import com.ljb.android.component.wechatcode.bean.WCodeTabBean
+import com.ljb.android.component.wechatcode.contract.WeChatCodeMainContract
 import com.ljb.android.component.wechatcode.databinding.FragmentWeChatCodeMainBinding
+import com.ljb.android.component.wechatcode.presenter.WeChatCodeMainPresenter
 
 /**
  * @Author Kotlin MVP Plugin
@@ -24,6 +26,8 @@ import com.ljb.android.component.wechatcode.databinding.FragmentWeChatCodeMainBi
 class WeChatCodeMainFragment :
     CommMvpFragment<WeChatCodeMainContract.IPresenter, FragmentWeChatCodeMainBinding>(),
     WeChatCodeMainContract.IView {
+
+    private var mTabAdapter: WeChatTabAdapter? = null
 
     override fun registerPresenter() = WeChatCodeMainPresenter::class.java
 
@@ -51,16 +55,16 @@ class WeChatCodeMainFragment :
         getPresenter().getTabList()
     }
 
-
     private fun initTitleView() {
         mBindTitleBar.layoutToolbar.setBackgroundResource(R.drawable.comm_shape_green_gradient)
-//        mTitleView.setOnClickListener { mBind.rvList.scrollToPosition(0) }
+        mBindTitleBar.layoutToolbar.setOnClickListener { scrollToTop() }
         setTitleText(R.string.wechat_code_main, resources.getColor(R.color.color_white))
         setTitleLeftImage(R.mipmap.comm_icon_home_left_menu, View.OnClickListener {
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
             //TODO  go search
+            showToast(R.string.comm_wait_develop)
         })
     }
 
@@ -69,39 +73,44 @@ class WeChatCodeMainFragment :
     }
 
     override fun onTabListSuccess(tabBean: WCodeTabBean) {
-
-        mBind.viewPage.adapter = object : FragmentStatePagerAdapter(childFragmentManager) {
-
-            private val fragmentList = ArrayList<Fragment?>()
-
-            override fun getCount(): Int {
-                return tabBean.data.size
-            }
-
-            override fun getItem(position: Int): Fragment {
-                var f: Fragment? = null
-                if (position < fragmentList.size) {
-                    f = fragmentList.get(position)
-                }
-                if (f == null) {
-                    f = WXArticleListFragment()
-                    val bundle = Bundle()
-                    bundle.putString(WXArticleListFragment.KEY_ID, tabBean.data[position].id)
-                    bundle.putString(WXArticleListFragment.KEY_NAME, tabBean.data[position].name)
-                    f.arguments = bundle
-                }
-                return f
-            }
-
-
-            override fun getPageTitle(position: Int): CharSequence? {
-                return tabBean.data[position].name
-            }
+        mTabAdapter = WeChatTabAdapter(tabBean.data, childFragmentManager)
+        mBind.viewPage.run {
+            offscreenPageLimit = 1
+            adapter = mTabAdapter
         }
 
-        mBind.viewPage.offscreenPageLimit = 1
-        mBind.tabLayout.setupWithViewPager(mBind.viewPage)
+        mBind.tabLayout.run {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    tab.customView = getTabCustomView(tab)
+                }
 
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+                    tab.customView = null
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab) {
+                    if (tab.customView == null) {
+                        tab.customView = getTabCustomView(tab)
+                    }
+                }
+            })
+            setupWithViewPager(mBind.viewPage)
+            selectTab(getTabAt(0))
+        }
+    }
+
+    private fun getTabCustomView(tab: TabLayout.Tab): TextView {
+        return TextView(activity).apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+            setTextColor(resources.getColor(R.color.color_22DD6D))
+            typeface = Typeface.DEFAULT_BOLD
+            text = tab.text
+        }
+    }
+
+    private fun scrollToTop() {
+        mTabAdapter?.getCurFragment()?.scrollToTop()
     }
 
 }

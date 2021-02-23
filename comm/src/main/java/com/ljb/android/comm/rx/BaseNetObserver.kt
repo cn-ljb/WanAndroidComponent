@@ -46,7 +46,7 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
         if (e is CustomNetThrowable) {
             ToastUtils.showShort(e.errMsg)
         } else {
-            ToastUtils.showShort(R.string.net_error)
+            ToastUtils.showShort(R.string.comm_net_error)
         }
 
         if (isLoading && mvpView is ICommView) {

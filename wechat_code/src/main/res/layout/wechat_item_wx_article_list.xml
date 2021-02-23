@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_10"
-    android:background="@drawable/comm_shape_round_color_fff_8"
+    android:background="@drawable/comm_selector_round_color_fff_8"
     android:padding="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="@dimen/dp_25"
         android:layout_height="@dimen/dp_25"
-        android:src="@mipmap/comm_icon_app" />
+        android:src="@mipmap/wechat_icon_github" />
 
     <TextView
         android:id="@+id/tv_user"
@@ -65,7 +65,7 @@
         android:layout_below="@id/tv_title"
         android:scaleType="center"
         android:src="@mipmap/comm_icon_collect_normal"
-        tools:src="@mipmap/comm_icon_collect_selected" />
+        tools:src="@mipmap/wechat_icon_collect_selected" />
 
     <TextView
         android:id="@+id/tv_type"
