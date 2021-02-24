@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50"
+    android:background="@drawable/nav_selector_tab_menu"
+    tools:layout_width="@dimen/dp_150"
+    tools:viewBindingIgnore="true">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/white" />
+
+
+</FrameLayout>

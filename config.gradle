@@ -1,7 +1,7 @@
 ext {
     // true 组件化环境，将所有Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
-    isComponent = false
+    isComponent = true
 
     // true : 测试环境
     // false: 线上环境
@@ -51,11 +51,12 @@ ext {
     ]
     //各模块AppId 字典配置
     appId = [
-            app       : "com.ljb.android.component",
-            user      : "com.ljb.android.component.user",
-            home      : "com.ljb.android.component.home",
-            konw      : "com.ljb.android.component.knowledge",
-            wechat_code: "com.ljb.android.component.wechatcode"
+            app        : "com.ljb.android.component",
+            user       : "com.ljb.android.component.user",
+            home       : "com.ljb.android.component.home",
+            konw       : "com.ljb.android.component.knowledge",
+            wechat_code: "com.ljb.android.component.wechatcode",
+            nav        : "com.ljb.android.component.nav"
     ]
 
     //依赖库
@@ -95,7 +96,7 @@ ext {
             banner                 : "com.youth.banner:banner:$banner_version",
             //SwipeRefreshLayout
             swipe_refresh_layout   : "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version",
-
+            //万能适配器
             rv_adapter             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rv_adapter_version"
     ]
 
@@ -109,8 +110,9 @@ ext {
 
     //注解处理器 - java （如果使用了 kapt 引入注解处理器 ， 则可省略java的 annotationProcessor
     dependenciesAP = [
-//            arouter: "com.alibaba:arouter-compiler:$arouter_compiler_version",
-//            glide  : "com.github.bumptech.glide:compiler:$glide_version",
-//            androidx_room: "androidx.room:room-compiler:$androidx_room_version"
+            arouter      : "com.alibaba:arouter-compiler:$arouter_compiler_version",
+            glide        : "com.github.bumptech.glide:compiler:$glide_version",
+            androidx_room: "androidx.room:room-compiler:$androidx_room_version",
+            eventbus     : "org.greenrobot:eventbus-annotation-processor:$eventbus_version"
     ]
 }

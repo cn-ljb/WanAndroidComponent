@@ -58,6 +58,11 @@ object RouterConfig {
          * 公众号 服务路由
          * */
         const val WECHAT_CODE = "/wechat/WeChatCodeRouterService"
+
+        /**
+         * 导航 服务路由
+         */
+        const val NAV = "/nav/NavRouterService"
     }
 
 

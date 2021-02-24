@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         if (isComponent) {
-            applicationId appId.wechat_code
+            applicationId appId.nav
         }
         minSdkVersion application.minSdkVersion
         targetSdkVersion application.targetSdkVersion
@@ -58,14 +58,14 @@ android {
         //java EventBus索引
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: appId.wechat_code + ".MyEventBusIndex"]
+                arguments = [eventBusIndex: appId.nav + ".MyEventBusIndex"]
             }
         }
 
         // kotlin EventBus索引
         kapt {
             arguments {
-                arg('eventBusIndex', appId.wechat_code + ".MyEventBusIndex")
+                arg('eventBusIndex', appId.nav + ".MyEventBusIndex")
             }
         }
     }
@@ -104,11 +104,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //公共模块所有子模块都引入
     implementation project(path: ':comm')
-
-
-//    if (isComponent) {
-//        implementation project(path: ':user')
-//    }
 
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }

@@ -59,14 +59,14 @@ android {
         //java EventBus索引
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: appId.user + ".MyEventBusIndex"]
+                arguments = [eventBusIndex: appId.know + ".MyEventBusIndex"]
             }
         }
 
         // kotlin EventBus索引
         kapt {
             arguments {
-                arg('eventBusIndex', appId.user + ".MyEventBusIndex")
+                arg('eventBusIndex', appId.know + ".MyEventBusIndex")
             }
         }
     }

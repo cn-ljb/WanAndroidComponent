@@ -13,12 +13,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/apt_annotation" />
-            <option value="$PROJECT_DIR$/apt_compiler" />
             <option value="$PROJECT_DIR$/comm" />
             <option value="$PROJECT_DIR$/home" />
             <option value="$PROJECT_DIR$/knowledge" />
             <option value="$PROJECT_DIR$/mvplib" />
+            <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/netlib" />
             <option value="$PROJECT_DIR$/user" />
             <option value="$PROJECT_DIR$/wechat_code" />
