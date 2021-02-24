@@ -129,6 +129,14 @@ class WXArticleListFragment :
         mPage++
     }
 
+    override fun onArticleListError() {
+        if (mPage == 1) {
+            mBindContentView.swRefresh.isRefreshing = false
+        } else {
+            mListAdapter.loadMoreModule.loadMoreComplete()
+        }
+    }
+
     private fun goWebView(url: String) {
         CommWebViewActivity.startActivity(activity!!, url)
     }
@@ -150,7 +158,7 @@ class WXArticleListFragment :
         mListAdapter.notifyItemChanged(position)
     }
 
-    fun scrollToTop(){
+    fun scrollToTop() {
         mBindContentView.rvList.scrollToPosition(0)
     }
 

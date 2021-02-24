@@ -27,6 +27,10 @@ class WXArticleListPresenter :
                 onNextEx {
                     getMvpView().onArticleListSuccess(it)
                 }
+
+                onErrorEx {
+                    getMvpView().onArticleListError()
+                }
             }
     }
 

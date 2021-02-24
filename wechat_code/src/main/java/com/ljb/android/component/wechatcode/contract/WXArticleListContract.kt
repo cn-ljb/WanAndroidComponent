@@ -17,6 +17,7 @@ interface WXArticleListContract {
     interface IView : IViewContract {
         fun onArticleListSuccess(data: WXArticleListBean)
         fun onCollectStatus(position: Int, status: Boolean)
+        fun onArticleListError()
     }
 
     interface IPresenter : IPresenterContract {
