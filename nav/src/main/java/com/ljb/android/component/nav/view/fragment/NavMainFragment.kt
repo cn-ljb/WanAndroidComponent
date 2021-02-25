@@ -4,8 +4,10 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
+import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.component.nav.R
@@ -21,6 +23,7 @@ import com.ljb.android.component.nav.presenter.NavMainPresenter
  * @Date 2021/02/24
  * @Description input description
  **/
+@Route(path = RouterConfig.Fragment.NAV_MAIN)
 class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavMainBinding>(),
     NavMainContract.IView {
 
@@ -95,6 +98,7 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
                 if (layoutManager is LinearLayoutManager) {
                     val firstItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
                     mTabAdapter.setSelectedItem(firstItemPosition)
+                    scrollToPosition(mBind.rvLeftMenu, firstItemPosition)
                 }
             }
         }

@@ -31,6 +31,10 @@ object RouterConfig {
          * */
         const val WECHAT_CODE_MAIN = "/wechat/WeChatCodeMainFragment"
 
+        /**
+         * 导航模块主页
+         */
+        const val NAV_MAIN = "/nav/NavMainFragment"
     }
 
     object Service {

@@ -114,6 +114,9 @@ class CommWebViewActivity :
             }
 
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                if (newProgress >= 100) {
+                    hideLoading()
+                }
             }
 
             override fun onShowCustomView(

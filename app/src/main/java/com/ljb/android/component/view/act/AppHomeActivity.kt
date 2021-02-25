@@ -60,7 +60,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.KNOW_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.WECHAT_CODE_MAIN),
-        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN),
+        RouterManager.getFragment(RouterConfig.Fragment.NAV_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
     )
 
@@ -100,6 +100,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             .selectTextColor(resources.getColor(R.color.color_39B6DF))//Tab选中时字体颜色
             .scaleType(ImageView.ScaleType.CENTER_INSIDE) //同 ImageView的ScaleType
             .navigationBackground(resources.getColor(R.color.color_white))
+            .navigationHeight(50)
             .setOnTabClickListener(object : OnTabClickListener {
                 override fun onTabSelectEvent(view: View, position: Int): Boolean {
                     //Tab点击事件  return true 页面不会切换
@@ -127,6 +128,9 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             }
             2 -> {
                 colorId = resources.getColor(R.color.color_22DD6D)
+            }
+            3 -> {
+                colorId = resources.getColor(R.color.color_333)
             }
         }
         mBind.navContent.selectTextColor(colorId)

@@ -43,10 +43,12 @@ class App : Application() {
             ARouter.openDebug()
             ARouter.openLog()
         }
-        XLog.i("ARouter.init before")
+
+        val start = System.currentTimeMillis()
         ARouter.init(this)
         RouterManager.init(this)
-        XLog.i("ARouter.init after")
+        val end = System.currentTimeMillis()
+        XLog.i("ARouter.init: ${end - start}ms")
     }
 
     private fun initSP() {
@@ -75,14 +77,14 @@ class App : Application() {
     }
 
     private fun initWebX5() {
-        QbSdk.initX5Environment(this , object: QbSdk.PreInitCallback{
+        QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
 
             override fun onCoreInitFinished() {
                 XLog.i("WebView X5内核初始化完毕")
             }
 
             override fun onViewInitFinished(p0: Boolean) {
-                XLog.i("X5 WebView验证完毕：$p0" )
+                XLog.i("X5 WebView验证完毕：$p0")
             }
 
         })
