@@ -13,14 +13,14 @@ import com.ljb.android.component.user.common.UserConstant
 import com.ljb.android.component.user.view.act.UserLoginActivity
 
 @Route(path = RouterConfig.Service.USER)
-class UserServiceImpl : IUserRouterService {
+class UserRouterServiceImpl : IUserRouterService {
 
     override fun init(context: Context) {
         //初始化工作，服务注入时会调用
         val start = System.currentTimeMillis()
         UserInit.init(context)
         val end = System.currentTimeMillis()
-        XLog.d("=== UserServiceImp  init:${end - start}ms ===")
+        XLog.d("=== UserRouterServiceImpl  init:${end - start}ms ===")
     }
 
     override fun getUserInfo(): String {

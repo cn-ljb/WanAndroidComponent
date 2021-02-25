@@ -8,14 +8,14 @@ import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.wechatcode.WeChatCodeInit
 
 @Route(path = RouterConfig.Service.WECHAT_CODE)
-class WeChatCodeServiceImp : IWeChatCodeRouterService {
+class WeChatCodeRouterServiceImp : IWeChatCodeRouterService {
 
     override fun init(context: Context) {
         //初始化工作，服务注入时会调用
         val start = System.currentTimeMillis()
         WeChatCodeInit.init(context)
         val end = System.currentTimeMillis()
-        XLog.d("=== WeChatCodeServiceImp  init:${end - start}ms ===")
+        XLog.d("=== WeChatCodeRouterServiceImp  init:${end - start}ms ===")
     }
 
 }

@@ -35,6 +35,11 @@ object RouterConfig {
          * 导航模块主页
          */
         const val NAV_MAIN = "/nav/NavMainFragment"
+
+        /**
+         * 项目模块主页
+         */
+        const val PROJECT_MAIN = "/project/ProjectMainFragment"
     }
 
     object Service {
@@ -67,6 +72,11 @@ object RouterConfig {
          * 导航 服务路由
          */
         const val NAV = "/nav/NavRouterService"
+
+        /**
+         * 项目 服务路由
+         * */
+        const val PROJECT = "/project/ProjectRouterService"
     }
 
 

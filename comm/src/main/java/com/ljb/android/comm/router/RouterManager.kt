@@ -18,7 +18,9 @@ object RouterManager {
         getKnowledgeService()
         getWeChatCodeService()
         getNavService()
+        getProjectService()
     }
+
 
     /**
      * 获得Fragment
@@ -156,5 +158,18 @@ object RouterManager {
 
     }
 
+    /**
+     * 获取Project模块服务 - 公众号
+     * */
+    fun getProjectService(): IProjectRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.PROJECT)
+            .navigation()
+
+        if (!checkService(service, IProjectRouterService::class.java)) {
+            return null
+        }
+
+        return service as IProjectRouterService
+    }
 
 }

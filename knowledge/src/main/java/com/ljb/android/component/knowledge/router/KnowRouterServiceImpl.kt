@@ -8,14 +8,14 @@ import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.knowledge.KnowInit
 
 @Route(path = RouterConfig.Service.KNOW)
-class KnowServiceImpl : IKnowRouterService {
+class KnowRouterServiceImpl : IKnowRouterService {
 
     override fun init(context: Context) {
         //初始化工作，服务注入时会调用
         val start = System.currentTimeMillis()
         KnowInit.init(context)
         val end = System.currentTimeMillis()
-        XLog.d("=== KnowServiceImp  init:${end - start}ms ===")
+        XLog.d("=== KnowRouterServiceImpl  init:${end - start}ms ===")
     }
 
 }

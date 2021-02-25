@@ -59,7 +59,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
         RouterManager.getFragment(RouterConfig.Fragment.KNOW_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.WECHAT_CODE_MAIN),
         RouterManager.getFragment(RouterConfig.Fragment.NAV_MAIN),
-        RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
+        RouterManager.getFragment(RouterConfig.Fragment.PROJECT_MAIN)
     )
 
     override fun registerPresenter() = AppHomePresenter::class.java

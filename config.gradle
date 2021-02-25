@@ -1,7 +1,7 @@
 ext {
     // true 组件化环境，将所有Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
-    isComponent = true
+    isComponent = false
 
     // true : 测试环境
     // false: 线上环境
@@ -57,7 +57,8 @@ ext {
             home       : "com.ljb.android.component.home",
             konw       : "com.ljb.android.component.knowledge",
             wechat_code: "com.ljb.android.component.wechatcode",
-            nav        : "com.ljb.android.component.nav"
+            nav        : "com.ljb.android.component.nav",
+            project        : "com.ljb.android.component.project"
     ]
 
     //依赖库

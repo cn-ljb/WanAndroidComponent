@@ -94,7 +94,6 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
         getPresenter().getKnowMainList()
     }
 
-
     override fun onKnowMainListSuccess(data: KnowMainListBean) {
         mBind.swRefresh.isRefreshing = false
         mListAdapter.data.clear()

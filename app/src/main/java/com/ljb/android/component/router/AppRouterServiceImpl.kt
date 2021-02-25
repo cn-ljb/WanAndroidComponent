@@ -10,14 +10,14 @@ import com.ljb.android.component.AppInit
 import com.ljb.android.component.view.act.AppHomeActivity
 
 @Route(path = RouterConfig.Service.APP)
-class AppServiceImpl : IAppRouterService {
+class AppRouterServiceImpl : IAppRouterService {
 
     override fun init(context: Context) {
         //初始化工作，服务注入时会调用，可忽略
         val start = System.currentTimeMillis()
         AppInit.init(context)
         val end = System.currentTimeMillis()
-        XLog.d("=== AppServiceImpl   init:${end - start}ms ===")
+        XLog.d("=== AppRouterServiceImpl   init:${end - start}ms ===")
     }
 
 
