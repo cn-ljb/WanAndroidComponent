@@ -28,10 +28,10 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initUtils()
-        initARoute()
         initSP()
         initHttp()
         initWebX5()
+        initARoute()
     }
 
     private fun initUtils() {

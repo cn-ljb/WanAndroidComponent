@@ -28,8 +28,8 @@ import javax.net.ssl.X509TrustManager
  */
 object HttpClient {
 
-    private const val DEFAULT_TIME_OUT = 3000L * 10
-    private const val DEFAULT_DOWN_TIME_OUT = 1000L * 60 * 3
+    private const val DEFAULT_TIME_OUT = 60000L
+    private const val DEFAULT_DOWN_TIME_OUT = 60000L * 5
 
     private var mHttpConfig: HttpConfig? = null
 

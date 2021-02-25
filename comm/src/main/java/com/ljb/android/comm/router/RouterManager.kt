@@ -17,6 +17,7 @@ object RouterManager {
         getHomeService()
         getKnowledgeService()
         getWeChatCodeService()
+        getNavService()
     }
 
     /**
@@ -136,6 +137,22 @@ object RouterManager {
         }
 
         return service as IWeChatCodeRouterService
+
+    }
+
+    /**
+     * 获取Nav模块服务 - 公众号
+     * */
+    fun getNavService(): INavRouterService? {
+
+        val service = ARouter.getInstance().build(RouterConfig.Service.NAV)
+            .navigation()
+
+        if (!checkService(service, INavRouterService::class.java)) {
+            return null
+        }
+
+        return service as INavRouterService
 
     }
 

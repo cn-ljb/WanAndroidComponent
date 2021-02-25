@@ -2,11 +2,15 @@ package com.ljb.android.component.nav.view.fragment
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.component.nav.NavTabAdapter
+import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.component.nav.R
+import com.ljb.android.component.nav.adapter.NavTabAdapter
+import com.ljb.android.component.nav.adapter.NavTabContentAdapter
 import com.ljb.android.component.nav.bean.NavBean
 import com.ljb.android.component.nav.contract.NavMainContract
 import com.ljb.android.component.nav.databinding.FragmentNavMainBinding
@@ -21,6 +25,7 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
     NavMainContract.IView {
 
     private val mTabAdapter = NavTabAdapter()
+    private val mTabContentAdapter = NavTabContentAdapter()
 
     override fun registerPresenter() = NavMainPresenter::class.java
 
@@ -66,15 +71,46 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
         mBind.rvLeftMenu.run {
             layoutManager = LinearLayoutManager(activity)
             adapter = mTabAdapter
-            mTabAdapter.setOnItemClickListener { adapter, view, position ->
+            mTabAdapter.setOnItemClickListener { _, _, position ->
                 selectTab(position)
+            }
+        }
+
+        mBind.rvRightContent.run {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = mTabContentAdapter
+            addOnScrollListener(mOnContentScrollListener)
+            mTabContentAdapter.onTagClickListener = { item ->
+                val url = item.link
+                goWebView(url)
+            }
+        }
+    }
+
+    private val mOnContentScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == ViewPager.SCROLL_STATE_IDLE) {
+                val layoutManager = recyclerView.layoutManager
+                if (layoutManager is LinearLayoutManager) {
+                    val firstItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+                    mTabAdapter.setSelectedItem(firstItemPosition)
+                }
             }
         }
     }
 
     private fun selectTab(position: Int) {
-        mTabAdapter.data[position].checked = true
-        mTabAdapter.notifyItemChanged(position)
+        mTabAdapter.setSelectedItem(position)
+        scrollToPosition(mBind.rvLeftMenu, position)
+        scrollToPosition(mBind.rvRightContent, position)
+    }
+
+    private fun scrollToPosition(rv: RecyclerView, position: Int) {
+        val layoutManager = rv.layoutManager
+        if (layoutManager is LinearLayoutManager) {
+            layoutManager.scrollToPositionWithOffset(position, 0)
+        }
     }
 
     private fun openOrCloseDrawerLeft() {
@@ -85,5 +121,15 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
         mTabAdapter.data.clear()
         mTabAdapter.data.addAll(data.data)
         mTabAdapter.notifyDataSetChanged()
+
+        mTabContentAdapter.data.clear()
+        mTabContentAdapter.data.addAll(data.data)
+        mTabContentAdapter.notifyDataSetChanged()
+
+        selectTab(0)
+    }
+
+    private fun goWebView(url: String) {
+        CommWebViewActivity.startActivity(activity!!, url)
     }
 }

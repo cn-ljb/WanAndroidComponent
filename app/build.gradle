@@ -117,6 +117,7 @@ dependencies {
         implementation project(path: ':home')
         implementation project(path: ':knowledge')
         implementation project(path: ':wechat_code')
+        implementation project(path: ':nav')
     }
 
 

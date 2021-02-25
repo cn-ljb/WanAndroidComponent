@@ -6,7 +6,7 @@ class NavBean(val data: List<ListBean>) : HttpBean() {
 
 
     class ListBean(
-        val articles: List<ArticlesBean>,
+        val articles: MutableList<ArticlesBean>,
         val cid: String,
         val name: String,
         var checked: Boolean = false
