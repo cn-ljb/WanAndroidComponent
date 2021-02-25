@@ -14,7 +14,7 @@
         android:layout_width="@dimen/dp_35"
         android:layout_height="@dimen/dp_35"
         android:layout_gravity="center"
-        wheel:matProg_barColor="@color/color_39B6DF"
+        wheel:matProg_barColor="@color/color_white"
         wheel:matProg_barWidth="3dp"
         wheel:matProg_progressIndeterminate="true" />
 

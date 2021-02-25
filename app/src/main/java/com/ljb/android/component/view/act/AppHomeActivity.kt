@@ -130,7 +130,7 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
                 colorId = resources.getColor(R.color.color_22DD6D)
             }
             3 -> {
-                colorId = resources.getColor(R.color.color_333)
+                colorId = resources.getColor(R.color.color_black)
             }
         }
         mBind.navContent.selectTextColor(colorId)

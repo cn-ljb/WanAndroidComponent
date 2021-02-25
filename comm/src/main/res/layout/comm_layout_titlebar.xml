@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_75"
+    android:layout_height="@dimen/dp_80"
     android:background="#fff"
     android:gravity="center_vertical"
-    android:paddingTop="@dimen/dp_20">
+    android:paddingTop="@dimen/common_status_bar_height">
 
     <!--左边按钮-->
     <androidx.appcompat.widget.AppCompatImageView

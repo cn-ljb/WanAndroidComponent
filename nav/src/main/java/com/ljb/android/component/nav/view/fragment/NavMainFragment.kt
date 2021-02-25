@@ -91,6 +91,7 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
     }
 
     private val mOnContentScrollListener = object : RecyclerView.OnScrollListener() {
+
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == ViewPager.SCROLL_STATE_IDLE) {
