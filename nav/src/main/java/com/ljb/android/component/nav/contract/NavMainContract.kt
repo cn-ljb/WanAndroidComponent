@@ -4,7 +4,7 @@ import com.ljb.android.component.nav.bean.NavBean
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IModelContract
 import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
+import com.ljb.android.comm.mvp.ICommView
 
 /**
  * @Author Kotlin MVP Plugin
@@ -13,7 +13,7 @@ import mvp.ljb.kt.contract.IViewContract
  **/
 interface NavMainContract {
 
-    interface IView : IViewContract {
+    interface IView : ICommView {
         fun onNavListSuccess(data: NavBean)
     }
 

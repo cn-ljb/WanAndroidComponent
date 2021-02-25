@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppHomeContract
 import com.ljb.android.component.databinding.ActivityAppHomeBinding
@@ -64,7 +62,6 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
         RouterManager.getFragment(RouterConfig.Fragment.HOME_MAIN)
     )
 
-
     override fun registerPresenter() = AppHomePresenter::class.java
 
     override fun getLayoutId() = R.layout.activity_app_home
@@ -80,10 +77,6 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
     override fun initView() {
         initLeftDrawView()
         initCenterView()
-    }
-
-    override fun initData() {
-
     }
 
     private fun initCenterView() {
@@ -131,6 +124,9 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
             }
             3 -> {
                 colorId = resources.getColor(R.color.color_black)
+            }
+            4 -> {
+                colorId = resources.getColor(R.color.color_red)
             }
         }
         mBind.navContent.selectTextColor(colorId)

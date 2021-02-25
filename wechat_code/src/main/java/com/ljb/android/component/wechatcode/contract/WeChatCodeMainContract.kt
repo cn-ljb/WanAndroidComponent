@@ -1,5 +1,6 @@
 package com.ljb.android.component.wechatcode.contract
 
+import com.ljb.android.comm.mvp.ICommView
 import com.ljb.android.component.wechatcode.bean.WCodeTabBean
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IPresenterContract
@@ -13,7 +14,7 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface WeChatCodeMainContract {
 
-    interface IView : IViewContract {
+    interface IView : ICommView {
         fun onTabListSuccess(tabBean: WCodeTabBean)
     }
 

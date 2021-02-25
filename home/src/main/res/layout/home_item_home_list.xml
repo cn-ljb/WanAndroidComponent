@@ -13,7 +13,7 @@
         android:id="@+id/iv_icon"
         android:layout_width="@dimen/dp_25"
         android:layout_height="@dimen/dp_25"
-        android:src="@mipmap/comm_icon_app" />
+        android:src="@mipmap/home_icon_github" />
 
     <TextView
         android:id="@+id/tv_user"

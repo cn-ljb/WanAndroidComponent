@@ -1,11 +1,11 @@
 package com.ljb.android.component.wechatcode.contract
 
 import com.ljb.android.comm.bean.base.HttpBean
+import com.ljb.android.comm.mvp.ICommView
 import com.ljb.android.component.wechatcode.bean.WXArticleListBean
 import io.reactivex.rxjava3.core.Observable
-import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
 import mvp.ljb.kt.contract.IModelContract
+import mvp.ljb.kt.contract.IPresenterContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -14,7 +14,7 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface WXArticleListContract {
 
-    interface IView : IViewContract {
+    interface IView : ICommView {
         fun onArticleListSuccess(data: WXArticleListBean)
         fun onCollectStatus(position: Int, status: Boolean)
         fun onArticleListError()

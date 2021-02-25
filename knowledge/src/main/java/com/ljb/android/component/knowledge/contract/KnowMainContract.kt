@@ -1,10 +1,10 @@
 package com.ljb.android.component.knowledge.contract
 
+import com.ljb.android.comm.mvp.ICommView
 import com.ljb.android.component.knowledge.bean.KnowMainListBean
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IModelContract
 import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -13,7 +13,7 @@ import mvp.ljb.kt.contract.IViewContract
  **/
 interface KnowMainContract {
 
-    interface IView : IViewContract {
+    interface IView : ICommView {
         fun onLoadPageError()
         fun onKnowMainListSuccess(data: KnowMainListBean)
     }

@@ -1,8 +1,8 @@
 package com.ljb.android.component.contract
 
-import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
+import com.ljb.android.comm.mvp.ICommView
 import mvp.ljb.kt.contract.IModelContract
+import mvp.ljb.kt.contract.IPresenterContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -11,7 +11,7 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface AppHomeContract {
 
-    interface IView : IViewContract
+    interface IView : ICommView
 
     interface IPresenter : IPresenterContract
 

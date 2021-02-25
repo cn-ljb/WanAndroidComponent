@@ -80,7 +80,6 @@ abstract class CommMvpActivity<out P : IPresenterContract, B : ViewBinding> :
         initLoadingView(layoutInflater)
 
         setContentView(mParentView)
-
     }
 
     private fun initLoadingView(inflater: LayoutInflater) {
