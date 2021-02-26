@@ -1,8 +1,10 @@
 package com.ljb.android.component.project.contract
 
-import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
+import com.ljb.android.comm.mvp.ICommView
+import com.ljb.android.component.project.bean.ProjectListBean
+import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IModelContract
+import mvp.ljb.kt.contract.IPresenterContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -11,9 +13,16 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface ProjectListContract {
 
-    interface IView : IViewContract
+    interface IView : ICommView {
+        fun onProjectListSuccess(bean: ProjectListBean)
+        fun onProjectListError()
+    }
 
-    interface IPresenter : IPresenterContract
+    interface IPresenter : IPresenterContract {
+        fun getProjectList(id: String, page: Int)
+    }
 
-    interface IModel : IModelContract
+    interface IModel : IModelContract {
+        fun getProjectList(id: String, page: Int):Observable<ProjectListBean>
+    }
 }

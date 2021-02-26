@@ -1,9 +1,9 @@
 package com.ljb.android.component.project.api
 
+import com.ljb.android.component.project.bean.ProjectListBean
 import com.ljb.android.component.project.bean.ProjectTabBean
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
+import retrofit2.http.*
 
 /**
  * Author:Ljb
@@ -18,5 +18,13 @@ interface ProjectProtocol {
     @GET("project/tree/json")
     fun getProjectTabList(): Observable<ProjectTabBean>
 
+    /**
+     * 获取项目列表接口
+     * */
+    @GET("project/list/{page}/json")
+    fun getProjectList(
+        @Path("page") page: Int,
+        @Query("cid") cid: String
+    ): Observable<ProjectListBean>
 
 }

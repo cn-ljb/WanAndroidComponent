@@ -13,7 +13,11 @@ import java.io.InputStream
 @GlideModule
 class OkHttpAppGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        registry.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory(HttpClient.getHttpClient()))
+        registry.replace(
+            GlideUrl::class.java,
+            InputStream::class.java,
+            OkHttpUrlLoader.Factory(HttpClient.getLongHttpClient())
+        )
     }
 
     override fun isManifestParsingEnabled(): Boolean {

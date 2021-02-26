@@ -124,9 +124,15 @@ class WXArticleListFragment :
         } else {
             mListAdapter.loadMoreModule.loadMoreComplete()
         }
-        mListAdapter.data.addAll(data.data.datas)
-        mListAdapter.notifyDataSetChanged()
-        mPage++
+
+        if (data.data.datas.isEmpty()) {
+            //没有更多数据
+            mListAdapter.loadMoreModule.loadMoreEnd(true)
+        } else {
+            mListAdapter.data.addAll(data.data.datas)
+            mListAdapter.notifyDataSetChanged()
+            mPage++
+        }
     }
 
     override fun onArticleListError() {

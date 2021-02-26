@@ -172,9 +172,15 @@ class HomeMainFragment :
         } else {
             mListAdapter.loadMoreModule.loadMoreComplete()
         }
-        mListAdapter.data.addAll(homeListBean.data.datas)
-        mListAdapter.notifyDataSetChanged()
-        mPage++
+
+        if (homeListBean.data.datas.isEmpty()) {
+            //没有更多数据
+            mListAdapter.loadMoreModule.loadMoreEnd(true)
+        } else {
+            mListAdapter.data.addAll(homeListBean.data.datas)
+            mListAdapter.notifyDataSetChanged()
+            mPage++
+        }
     }
 
     override fun onLoadPageError() {

@@ -74,10 +74,6 @@ class ProjectMainFragment :
         RouterManager.getAppService()?.openOrCloseDrawerLeft(activity!!)
     }
 
-    private fun scrollToTop() {
-
-    }
-
     override fun onTabListSuccess(data: ProjectTabBean) {
         mTabViewPagerAdapter = ProjectTabAdapter(data.data, childFragmentManager)
         mBind.viewPage.run {
@@ -116,5 +112,9 @@ class ProjectMainFragment :
             typeface = Typeface.DEFAULT_BOLD
             text = tab.text
         }
+    }
+
+    private fun scrollToTop() {
+        mTabViewPagerAdapter?.getCurFragment()?.scrollToTop()
     }
 }

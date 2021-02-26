@@ -11,7 +11,9 @@ import net.ljb.kt.utils.RxUtils
  * @Date 2021/02/26
  * @Description input description
  **/
-class ProjectMainPresenter : BaseMvpPresenter<ProjectMainContract.IView, ProjectMainContract.IModel>(), ProjectMainContract.IPresenter{
+class ProjectMainPresenter :
+    BaseMvpPresenter<ProjectMainContract.IView, ProjectMainContract.IModel>(),
+    ProjectMainContract.IPresenter {
 
     override fun registerModel() = ProjectMainModel::class.java
 
@@ -19,7 +21,7 @@ class ProjectMainPresenter : BaseMvpPresenter<ProjectMainContract.IView, Project
         getModel().getTabList()
             .compose(RxUtils.schedulerIO2Main())
             .compose(RxUtils.bindToLife(getMvpView()))
-            .subscribeNet(getMvpView()) {
+            .subscribeNet(getMvpView(), true) {
 
                 onNextEx {
                     getMvpView().onTabListSuccess(it)

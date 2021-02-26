@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ljb.android.comm.weiget.page.PageStateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/page_layout"
+    app:page_content="@layout/project_layout_project_list_content"
+    app:page_load="@layout/project_layout_loading"
+    app:page_empty="@layout/project_layout_empty"
+    app:page_error="@layout/project_layout_error"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" />
 
-    <TextView
-        android:ellipsize="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-</FrameLayout>

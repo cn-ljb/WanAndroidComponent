@@ -164,7 +164,8 @@ class ImageLoader private constructor() {
         context?.run {
 
             if (!TextUtils.isEmpty(url)) {
-                Glide.with(this).asBitmap().load(url)
+                Glide.with(this)
+                    .asBitmap().load(url)
                     .apply(format)
                     .into(object : SimpleTarget<Bitmap>() {
 
@@ -268,7 +269,7 @@ class ImageLoader private constructor() {
 
     private fun next(glide: RequestManager, format: RequestOptions, imageView: ImageView) {
 
-        var builder: RequestBuilder<Drawable> = if (!TextUtils.isEmpty(url)) {
+        var builder: RequestBuilder<*> = if (!TextUtils.isEmpty(url)) {
             glide.load(url)
         } else if (resId != 0) {
             glide.load(resId)

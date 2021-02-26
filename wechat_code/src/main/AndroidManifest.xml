@@ -12,13 +12,15 @@
         tools:ignore="ScopedStorage" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name="com.ljb.android.comm.App"
         android:allowBackup="true"
         android:icon="@mipmap/comm_icon_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/comm_icon_app"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroidComponent">
+        android:theme="@style/Theme.WanAndroidComponent"
+        tools:targetApi="m">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
