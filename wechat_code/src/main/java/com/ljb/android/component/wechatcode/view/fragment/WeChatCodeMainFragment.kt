@@ -1,6 +1,7 @@
 package com.ljb.android.component.wechatcode.view.fragment
 
 import android.graphics.Typeface
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -27,7 +28,7 @@ class WeChatCodeMainFragment :
     CommMvpFragment<WeChatCodeMainContract.IPresenter, FragmentWeChatCodeMainBinding>(),
     WeChatCodeMainContract.IView {
 
-    private var mTabAdapter: WeChatTabAdapter? = null
+    private var mTabViewPagerAdapter: WeChatTabAdapter? = null
 
     override fun registerPresenter() = WeChatCodeMainPresenter::class.java
 
@@ -73,10 +74,10 @@ class WeChatCodeMainFragment :
     }
 
     override fun onTabListSuccess(tabBean: WCodeTabBean) {
-        mTabAdapter = WeChatTabAdapter(tabBean.data, childFragmentManager)
+        mTabViewPagerAdapter = WeChatTabAdapter(tabBean.data, childFragmentManager)
         mBind.viewPage.run {
             offscreenPageLimit = 1
-            adapter = mTabAdapter
+            adapter = mTabViewPagerAdapter
         }
 
         mBind.tabLayout.run {
@@ -102,6 +103,8 @@ class WeChatCodeMainFragment :
 
     private fun getTabCustomView(tab: TabLayout.Tab): TextView {
         return TextView(activity).apply {
+            setLines(1)
+            ellipsize = TextUtils.TruncateAt.END
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             setTextColor(resources.getColor(R.color.color_22DD6D))
             typeface = Typeface.DEFAULT_BOLD
@@ -110,7 +113,7 @@ class WeChatCodeMainFragment :
     }
 
     private fun scrollToTop() {
-        mTabAdapter?.getCurFragment()?.scrollToTop()
+        mTabViewPagerAdapter?.getCurFragment()?.scrollToTop()
     }
 
 }

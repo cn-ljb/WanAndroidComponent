@@ -18,13 +18,13 @@ interface WeChatCodeProtocol {
     /**
      * 知识体系首页列表
      */
-    @GET("/wxarticle/chapters/json")
+    @GET("wxarticle/chapters/json")
     fun getWeChatTabList(): Observable<WCodeTabBean>
 
     /**
      * 公众号的文章列表
      * */
-    @GET("/wxarticle/list/{id}/{page}/json")
+    @GET("wxarticle/list/{id}/{page}/json")
     fun getArticleList(
         @Path("id") id: String,
         @Path("page") page: Int

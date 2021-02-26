@@ -89,7 +89,7 @@ class CommWebViewActivity :
     }
 
     override fun initView() {
-        setTitleText(mTitle ?: "")
+        initTitleView()
         mProxy = WebViewProxy(this, mBind.webView, object : WebActionCallBack {
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
@@ -145,6 +145,21 @@ class CommWebViewActivity :
             ) {
             }
         })
+    }
+
+    private fun initTitleView() {
+        setTitleText(mTitle ?: "")
+        setTitleRightImage(R.mipmap.comm_icon_share, View.OnClickListener {
+            goSystemShare()
+        })
+    }
+
+    private fun goSystemShare() {
+        val intent = Intent(Intent.ACTION_SEND);
+        intent.type = "text/plain";
+        val shareTxt = "来自【玩安卓（组件化）】APP的分享：\n$mUrl"
+        intent.putExtra(Intent.EXTRA_TEXT, shareTxt);
+        startActivity(Intent.createChooser(intent, mTitle));
     }
 
     override fun initData() {

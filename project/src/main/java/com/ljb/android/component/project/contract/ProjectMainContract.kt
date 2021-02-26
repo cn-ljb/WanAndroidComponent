@@ -1,9 +1,10 @@
 package com.ljb.android.component.project.contract
 
 import com.ljb.android.comm.mvp.ICommView
-import mvp.ljb.kt.contract.IPresenterContract
-import mvp.ljb.kt.contract.IViewContract
+import com.ljb.android.component.project.bean.ProjectTabBean
+import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.contract.IModelContract
+import mvp.ljb.kt.contract.IPresenterContract
 
 /**
  * @Author Kotlin MVP Plugin
@@ -12,9 +13,15 @@ import mvp.ljb.kt.contract.IModelContract
  **/
 interface ProjectMainContract {
 
-    interface IView : ICommView
+    interface IView : ICommView {
+        fun onTabListSuccess(data: ProjectTabBean)
+    }
 
-    interface IPresenter : IPresenterContract
+    interface IPresenter : IPresenterContract {
+        fun getTabList()
+    }
 
-    interface IModel : IModelContract
+    interface IModel : IModelContract {
+        fun getTabList(): Observable<ProjectTabBean>
+    }
 }

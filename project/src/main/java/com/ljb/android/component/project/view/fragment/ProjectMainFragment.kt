@@ -1,7 +1,12 @@
 package com.ljb.android.component.project.view.fragment
 
+import android.graphics.Typeface
+import android.text.TextUtils
+import android.util.TypedValue
 import android.view.View
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.tabs.TabLayout
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
@@ -10,6 +15,8 @@ import com.ljb.android.component.project.contract.ProjectMainContract
 import com.ljb.android.component.project.presenter.ProjectMainPresenter
 import mvp.ljb.kt.fragment.BaseMvpFragment
 import com.ljb.android.component.project.R
+import com.ljb.android.component.project.adapter.ProjectTabAdapter
+import com.ljb.android.component.project.bean.ProjectTabBean
 import com.ljb.android.component.project.databinding.FragmentProjectMainBinding
 
 /**
@@ -18,14 +25,18 @@ import com.ljb.android.component.project.databinding.FragmentProjectMainBinding
  * @Description input description
  **/
 @Route(path = RouterConfig.Fragment.PROJECT_MAIN)
-class ProjectMainFragment : CommMvpFragment<ProjectMainContract.IPresenter ,  FragmentProjectMainBinding>(), ProjectMainContract.IView {
+class ProjectMainFragment :
+    CommMvpFragment<ProjectMainContract.IPresenter, FragmentProjectMainBinding>(),
+    ProjectMainContract.IView {
+
+    private var mTabViewPagerAdapter: ProjectTabAdapter? = null
 
     override fun registerPresenter() = ProjectMainPresenter::class.java
 
     override fun getLayoutId() = R.layout.fragment_project_main
 
     override fun registerBinding(): FragmentProjectMainBinding {
-        return FragmentProjectMainBinding.inflate(layoutInflater , mParentView , false)
+        return FragmentProjectMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -40,6 +51,10 @@ class ProjectMainFragment : CommMvpFragment<ProjectMainContract.IPresenter ,  Fr
 
     override fun initView() {
         initTitleView()
+    }
+
+    override fun initData() {
+        getPresenter().getTabList()
     }
 
     private fun initTitleView() {
@@ -61,5 +76,45 @@ class ProjectMainFragment : CommMvpFragment<ProjectMainContract.IPresenter ,  Fr
 
     private fun scrollToTop() {
 
+    }
+
+    override fun onTabListSuccess(data: ProjectTabBean) {
+        mTabViewPagerAdapter = ProjectTabAdapter(data.data, childFragmentManager)
+        mBind.viewPage.run {
+            offscreenPageLimit = 1
+            adapter = mTabViewPagerAdapter
+        }
+
+        mBind.tabLayout.run {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    tab.customView = getTabCustomView(tab)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+                    tab.customView = null
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab) {
+                    if (tab.customView == null) {
+                        tab.customView = getTabCustomView(tab)
+                    }
+                }
+            })
+            setupWithViewPager(mBind.viewPage)
+            selectTab(getTabAt(0))
+        }
+
+    }
+
+    private fun getTabCustomView(tab: TabLayout.Tab): TextView {
+        return TextView(activity).apply {
+            setLines(1)
+            ellipsize = TextUtils.TruncateAt.END
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+            setTextColor(resources.getColor(R.color.color_red))
+            typeface = Typeface.DEFAULT_BOLD
+            text = tab.text
+        }
     }
 }

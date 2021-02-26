@@ -24,7 +24,7 @@ interface HomeProtocol {
     /**
      * 首页文章列表
      * */
-    @GET("/article/list/{page}/json")
+    @GET("article/list/{page}/json")
     fun getHomeList(@Path("page") page: Int): Observable<HomeListBean>
 
     /**

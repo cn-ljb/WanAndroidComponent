@@ -14,7 +14,7 @@ interface KnowProtocol {
     /**
      * 知识体系首页列表
      */
-    @GET("/tree/json")
+    @GET("tree/json")
     fun getKnowMainList(): Observable<KnowMainListBean>
 
 

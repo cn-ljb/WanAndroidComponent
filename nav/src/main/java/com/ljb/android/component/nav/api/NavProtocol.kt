@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface NavProtocol {
 
-    @GET("/navi/json")
+    @GET("navi/json")
     fun getNvaTabList(): Observable<NavBean>
 }

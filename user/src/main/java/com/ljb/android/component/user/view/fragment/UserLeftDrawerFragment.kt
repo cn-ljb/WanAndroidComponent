@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.Fragment.USER_LEFT_DRAWER)
 class UserLeftDrawerFragment :
     CommMvpFragment<UserLeftDrawerContract.IPresenter, FragmentUserLeftDrawerBinding>(),
-    UserLeftDrawerContract.IView {
+    UserLeftDrawerContract.IView, View.OnClickListener {
 
     override fun registerPresenter() = UserLeftDrawerPresenter::class.java
 
@@ -45,8 +45,18 @@ class UserLeftDrawerFragment :
     }
 
     override fun initView() {
-        mBind.btnLogout.setOnClickListener { getPresenter().logout() }
+        mBind.btnLogout.setOnClickListener(this)
+        initMenuView()
+    }
+
+    override fun initData() {
         changeUserStatus()
+    }
+
+    fun initMenuView() {
+        mBind.llCollect.setOnClickListener(this)
+        mBind.llWeb.setOnClickListener(this)
+        mBind.llAbout.setOnClickListener(this)
     }
 
     private fun changeUserStatus() {
@@ -67,8 +77,8 @@ class UserLeftDrawerFragment :
             mBind.btnLogout.visibility = View.GONE
             mBind.tvName.setText(R.string.user_login)
             mBind.ivHeader.setImageResource(R.mipmap.comm_def_header)
-            mBind.tvName.setOnClickListener { goActivity(UserLoginActivity::class.java) }
-            mBind.ivHeader.setOnClickListener { goActivity(UserLoginActivity::class.java) }
+            mBind.tvName.setOnClickListener(this)
+            mBind.ivHeader.setOnClickListener(this)
         }
     }
 
@@ -91,6 +101,31 @@ class UserLeftDrawerFragment :
             UserEvent.EventType.TYPE_LOGIN -> {
                 changeUserStatus()
             }
+        }
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_logout -> {
+                getPresenter().logout()
+            }
+            R.id.tv_name,
+            R.id.iv_header -> {
+                goActivity(UserLoginActivity::class.java)
+            }
+            R.id.ll_collect -> {
+                //TODO go collect page
+                showToast(R.string.comm_wait_develop)
+            }
+            R.id.ll_web -> {
+                //TODO go comm web page
+                showToast(R.string.comm_wait_develop)
+            }
+            R.id.ll_about -> {
+                //TODO go about page
+                showToast(R.string.comm_wait_develop)
+            }
+
         }
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/sw_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_page">
@@ -12,7 +11,7 @@
         android:layout_height="@dimen/dp_45"
         android:background="@color/white"
         app:tabGravity="center"
-        app:tabIndicator="@drawable/wechat_list_indicator_line"
+        app:tabIndicator="@drawable/project_list_indicator_line"
         app:tabIndicatorColor="@color/color_22DD6D"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="@dimen/dp_3"
