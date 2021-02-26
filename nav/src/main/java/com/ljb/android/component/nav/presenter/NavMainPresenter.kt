@@ -20,7 +20,7 @@ class NavMainPresenter : BaseMvpPresenter<NavMainContract.IView, NavMainContract
         getModel().getNavData()
             .compose(RxUtils.schedulerIO2Main())
             .compose(RxUtils.bindToLife(getMvpView()))
-            .subscribeNet(getMvpView(), true) {
+            .subscribeNet(getMvpView()) {
                 onNextEx {
                     getMvpView().onNavListSuccess(it)
                 }

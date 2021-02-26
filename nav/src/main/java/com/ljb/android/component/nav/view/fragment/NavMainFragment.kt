@@ -3,6 +3,7 @@ package com.ljb.android.component.nav.view.fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
@@ -25,7 +26,7 @@ import com.ljb.android.component.nav.presenter.NavMainPresenter
  **/
 @Route(path = RouterConfig.Fragment.NAV_MAIN)
 class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavMainBinding>(),
-    NavMainContract.IView {
+    NavMainContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
     private val mTabAdapter = NavTabAdapter()
     private val mTabContentAdapter = NavTabContentAdapter()
@@ -55,7 +56,8 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
 
 
     override fun initData() {
-        getPresenter().getNavList()
+        mBind.swRefresh.isRefreshing = true
+        onRefresh()
     }
 
     private fun initTitleView() {
@@ -71,6 +73,16 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
     }
 
     private fun initRecyclerView() {
+
+        mBind.swRefresh.apply {
+            setColorSchemeResources(
+                R.color.color_333,
+                R.color.color_666,
+                R.color.color_999
+            )
+            setOnRefreshListener(this@NavMainFragment)
+        }
+
         mBind.rvLeftMenu.run {
             layoutManager = LinearLayoutManager(activity)
             adapter = mTabAdapter
@@ -123,6 +135,9 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
     }
 
     override fun onNavListSuccess(data: NavBean) {
+
+        mBind.swRefresh.isRefreshing = false
+
         mTabAdapter.data.clear()
         mTabAdapter.data.addAll(data.data)
         mTabAdapter.notifyDataSetChanged()
@@ -136,5 +151,9 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
 
     private fun goWebView(url: String) {
         CommWebViewActivity.startActivity(activity!!, url)
+    }
+
+    override fun onRefresh() {
+        getPresenter().getNavList()
     }
 }
