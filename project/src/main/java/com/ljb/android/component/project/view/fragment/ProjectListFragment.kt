@@ -1,8 +1,11 @@
 package com.ljb.android.component.project.view.fragment
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.blankj.utilcode.util.SizeUtils
+import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.comm.weiget.page.PageState
@@ -60,8 +63,19 @@ class ProjectListFragment :
     }
 
     private fun initPageView() {
-        val contentView = mBind.pageLayout.getPageView(PageState.STATE_SUCCESS)
-        mBindContentView = ProjectLayoutProjectListContentBinding.bind(contentView)
+        mBind.pageLayout.apply {
+
+            mBindContentView = ProjectLayoutProjectListContentBinding
+                .bind(getPageView(PageState.STATE_SUCCESS))
+
+            getPageView(PageState.STATE_ERROR)
+                .findViewById<View>(R.id.btn_page_error)
+                .setOnClickListener {
+                    showPage(PageState.STATE_LOADING)
+                    onRefresh()
+                }
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -83,11 +97,16 @@ class ProjectListFragment :
                 val url = mListAdapter.data[position].link
                 goWebView(url)
             }
+            addItemDecoration(
+                RVItemDecorationMargin(
+                    bottom = SizeUtils.dp2px(10f),
+                    onlyLastItem = true
+                )
+            )
         }
     }
 
     override fun initData() {
-        mBindContentView.swRefresh.isRefreshing = true
         showPage(PageState.STATE_LOADING)
         onRefresh()
     }
@@ -108,11 +127,19 @@ class ProjectListFragment :
     override fun onProjectListSuccess(bean: ProjectListBean) {
         if (mPage == 1) {
             mBindContentView.swRefresh.isRefreshing = false
-            showPage(PageState.STATE_EMPTY)
             mListAdapter.data.clear()
+
+            if (bean.data.datas.isNullOrEmpty()) {
+                //无数据，显示空页面
+                showPage(PageState.STATE_EMPTY)
+            } else {
+                //有数据，显示成功页面
+                showPage(PageState.STATE_SUCCESS)
+            }
         } else {
             mListAdapter.loadMoreModule.loadMoreComplete()
         }
+
         if (bean.data.datas.isEmpty()) {
             //没有更多数据
             mListAdapter.loadMoreModule.loadMoreEnd(true)
@@ -126,8 +153,11 @@ class ProjectListFragment :
     override fun onProjectListError() {
         if (mPage == 1) {
             mBindContentView.swRefresh.isRefreshing = false
+            //发生错误，显示错误页面
+            showPage(PageState.STATE_ERROR)
         } else {
-            mListAdapter.loadMoreModule.loadMoreComplete()
+            //加载更多失败
+            mListAdapter.loadMoreModule.loadMoreFail()
         }
     }
 

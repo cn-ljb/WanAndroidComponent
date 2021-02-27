@@ -4,10 +4,10 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
+import com.ljb.android.comm.common.Constant
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.comm.utils.XLog
 import com.tencent.smtt.sdk.QbSdk
@@ -53,14 +53,14 @@ class App : Application() {
 
     private fun initSP() {
         SPStaticUtils.setDefaultSPUtils(
-            SPUtils.getInstance()
+            SPUtils.getInstance(Constant.SPKey.SP_NAME)
         )
     }
 
     private fun initHttp() {
         HttpConfig.Builder(BuildConfig.HTTP_HOST)
             .addCommCookie(object : HttpConfig.ICommCookie {
-                //TODO Cookie 持久化
+                //Cookie 持久化
                 override fun saveCookie(host: String, cookie: String) {
                     SPStaticUtils.put(host, cookie)
                 }
