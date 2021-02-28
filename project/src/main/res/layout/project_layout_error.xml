@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:viewBindingIgnore="true"
     android:layout_height="match_parent">
 
 
     <ImageView
         android:id="@+id/iv_page_error"
-        android:layout_width="@dimen/dp_200"
+        android:layout_width="@dimen/dp_220"
         android:layout_height="@dimen/dp_120"
         android:layout_centerInParent="true"
-        android:src="@mipmap/project_icon_error" />
+        android:paddingEnd="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:src="@mipmap/project_icon_error"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/btn_page_error"

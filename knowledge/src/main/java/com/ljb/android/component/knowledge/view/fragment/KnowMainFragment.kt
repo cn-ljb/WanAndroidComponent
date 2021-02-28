@@ -4,7 +4,9 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SizeUtils
 import com.gyf.immersionbar.ImmersionBar
+import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
@@ -83,6 +85,12 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
                 // TODO 打开二级分页
                 showToast(R.string.comm_wait_develop)
             }
+            addItemDecoration(
+                RVItemDecorationMargin(
+                    bottom = SizeUtils.dp2px(10f),
+                    onlyLastItem = true
+                )
+            )
         }
     }
 

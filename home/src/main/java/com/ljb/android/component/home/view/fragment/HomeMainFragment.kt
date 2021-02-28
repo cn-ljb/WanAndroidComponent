@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SizeUtils
 import com.gyf.immersionbar.ImmersionBar
+import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
 import com.ljb.android.comm.common.LocUser
 import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
@@ -123,6 +125,12 @@ class HomeMainFragment :
                 val url = mListAdapter.data[position].link
                 goWebView(url)
             }
+            addItemDecoration(
+                RVItemDecorationMargin(
+                    bottom = SizeUtils.dp2px(10f),
+                    onlyLastItem = true
+                )
+            )
         }
     }
 

@@ -1,5 +1,7 @@
 package com.ljb.android.comm.common
 
+import com.ljb.android.comm.BuildConfig
+
 
 /**
  * 常量池
@@ -14,7 +16,7 @@ object Constant {
      *  SharedPreferences常量池
      * */
     object SPKey {
-
+        const val SP_NAME = "sp.${BuildConfig.APP_ID}"
     }
 
     /**

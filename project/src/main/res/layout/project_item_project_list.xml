@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_10"
-    android:background="@drawable/comm_selector_btn_white_to_gray"
+    android:background="@drawable/comm_selector_round_color_fff_8"
     tools:viewBindingIgnore="true">
 
     <ImageView
