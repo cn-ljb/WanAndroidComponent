@@ -6,6 +6,4 @@ include ':home'
 include ':user'
 include ':app'
 include ':comm'
-include ':netlib'
-include ':mvplib'
 rootProject.name = "WanAndroidComponent"

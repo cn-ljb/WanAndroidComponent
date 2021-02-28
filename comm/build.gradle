@@ -10,6 +10,9 @@ def isDebug = rootProject.ext.isDebug
 def application  = rootProject.ext.application
 def appId = rootProject.ext.appId
 
+def dependenciesImp = rootProject.ext.dependenciesImp
+def dependenciesKapt = rootProject.ext.dependenciesKapt
+
 android {
     compileSdkVersion application.compileSdkVersion
     buildToolsVersion application.buildToolsVersion
@@ -67,10 +70,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(path: ':mvplib')
-    api project(path: ':netlib')
 
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }
-   // dependenciesAP.each { k, v -> annotationProcessor(v) }
 }
