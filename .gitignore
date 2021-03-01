@@ -15,3 +15,11 @@
 local.properties
 *.apk
 /release
+
+/comm
+/home
+/knowledge
+/nav
+/project
+/user
+/wechat_code
