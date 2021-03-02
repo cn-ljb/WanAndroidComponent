@@ -22,13 +22,20 @@ class HomeMainPresenter :
 
     override fun registerModel() = HomeMainModel::class.java
 
+    override fun getBannerAndHomeListCache() {
+//        getModel().getCache
+    }
+
     override fun getBannerAndHomeList(page: Int) {
         Observable.zip(
             getModel().getBanner(),
             getModel().getHomeList(page),
             BiFunction<BannerBean, HomeListBean, List<Any>> { banner, homeList ->
                 listOf(banner, homeList)
-            }).compose(RxUtils.bindToLife(getMvpView()))
+            }).map { list ->
+          //  getModel().saveHomeCache(list)
+            list
+        }.compose(RxUtils.bindToLife(getMvpView()))
             .compose(RxUtils.schedulerIO2Main())
             .subscribeNet(getMvpView()) {
 

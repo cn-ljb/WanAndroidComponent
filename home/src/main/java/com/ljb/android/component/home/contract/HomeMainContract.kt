@@ -27,6 +27,7 @@ interface HomeMainContract {
         fun getHomeList(page: Int)
         fun doCollect(position:Int , id: String)
         fun cancelCollect(position: Int, id: String)
+        fun getBannerAndHomeListCache()
     }
 
     interface IModel : IModelContract {

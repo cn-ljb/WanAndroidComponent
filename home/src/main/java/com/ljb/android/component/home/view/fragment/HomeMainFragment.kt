@@ -78,6 +78,7 @@ class HomeMainFragment :
 
     override fun initData() {
         mBind.swRefresh.isRefreshing = true
+        getPresenter().getBannerAndHomeListCache()
         getPresenter().getBannerAndHomeList(mPage)
     }
 
