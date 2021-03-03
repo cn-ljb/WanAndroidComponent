@@ -17,23 +17,25 @@ interface HomeMainContract {
 
     interface IView : ICommView {
         fun onBannerSuccess(bannerBean: BannerBean)
-        fun onHomeListSuccess( homeListBean: HomeListBean)
+        fun onHomeListSuccess(homeListBean: HomeListBean, isCache: Boolean = false)
         fun onLoadPageError()
-        fun onCollectStatus(position: Int , status: Boolean)
+        fun onCollectStatus(position: Int, status: Boolean)
     }
 
     interface IPresenter : IPresenterContract {
         fun getBannerAndHomeList(page: Int)
         fun getHomeList(page: Int)
-        fun doCollect(position:Int , id: String)
+        fun doCollect(position: Int, id: String)
         fun cancelCollect(position: Int, id: String)
         fun getBannerAndHomeListCache()
     }
 
     interface IModel : IModelContract {
-        fun getBanner():Observable<BannerBean>
+        fun getBanner(): Observable<BannerBean>
         fun getHomeList(page: Int): Observable<HomeListBean>
         fun doCollect(id: String): Observable<HttpBean>
         fun cancelCollect(id: String): Observable<HttpBean>
+        fun saveHomeCache(page: Int, cache: List<Any>): List<Any>
+        fun getHomeCache(): Observable<MutableList<Any>>
     }
 }

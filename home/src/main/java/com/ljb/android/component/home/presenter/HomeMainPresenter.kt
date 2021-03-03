@@ -1,7 +1,7 @@
 package com.ljb.android.component.home.presenter
 
+import com.ljb.android.comm.rx.subscribeEx
 import com.ljb.android.comm.rx.subscribeNet
-import com.ljb.android.component.home.R
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.bean.HomeListBean
 import com.ljb.android.component.home.contract.HomeMainContract
@@ -23,7 +23,18 @@ class HomeMainPresenter :
     override fun registerModel() = HomeMainModel::class.java
 
     override fun getBannerAndHomeListCache() {
-//        getModel().getCache
+        getModel().getHomeCache()
+            .compose(RxUtils.schedulerIO2Main())
+            .compose(RxUtils.bindToLife(getMvpView()))
+            .subscribeEx {
+
+                onNextEx {
+                    if (it.size >= 2) {
+                        getMvpView().onBannerSuccess(it[0] as BannerBean)
+                        getMvpView().onHomeListSuccess(it[1] as HomeListBean , true)
+                    }
+                }
+            }
     }
 
     override fun getBannerAndHomeList(page: Int) {
@@ -32,16 +43,16 @@ class HomeMainPresenter :
             getModel().getHomeList(page),
             BiFunction<BannerBean, HomeListBean, List<Any>> { banner, homeList ->
                 listOf(banner, homeList)
-            }).map { list ->
-          //  getModel().saveHomeCache(list)
-            list
-        }.compose(RxUtils.bindToLife(getMvpView()))
+            }).map { getModel().saveHomeCache(page, it) }
+            .compose(RxUtils.bindToLife(getMvpView()))
             .compose(RxUtils.schedulerIO2Main())
             .subscribeNet(getMvpView()) {
 
                 onNextEx {
-                    getMvpView().onBannerSuccess(it[0] as BannerBean)
-                    getMvpView().onHomeListSuccess(it[1] as HomeListBean)
+                    if (it.size >= 2) {
+                        getMvpView().onBannerSuccess(it[0] as BannerBean)
+                        getMvpView().onHomeListSuccess(it[1] as HomeListBean)
+                    }
                 }
 
                 onErrorEx {

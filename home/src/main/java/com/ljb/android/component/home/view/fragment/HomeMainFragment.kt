@@ -174,7 +174,17 @@ class HomeMainFragment :
         mBannerBind?.banner?.start()
     }
 
-    override fun onHomeListSuccess(homeListBean: HomeListBean) {
+    override fun onHomeListSuccess(homeListBean: HomeListBean, isCache: Boolean) {
+        //缓存数据
+        if (isCache) {
+            if (mListAdapter.data.isNullOrEmpty()) {
+                mListAdapter.data.addAll(homeListBean.data.datas)
+                mListAdapter.notifyDataSetChanged()
+            }
+            return
+        }
+
+        //真实数据
         if (mPage == 0) {
             mBind.swRefresh.isRefreshing = false
             mListAdapter.data.clear()
