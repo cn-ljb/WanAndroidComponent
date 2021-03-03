@@ -42,7 +42,7 @@ ext {
     log_interceptor_version = "3.9.0"
     rv_adapter_version = "3.0.4"
     flexbox_version = "2.0.1"
-    netlib_version = "1.0.0"
+    netlib_version = "1.0.1"
     mvplib_version="1.0.0"
 
     //App编译环境 字典配置
