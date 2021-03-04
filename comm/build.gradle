@@ -27,7 +27,6 @@ android {
         consumerProguardFiles "consumer-rules.pro"
 
         //将当前构建环境状态写入 BuildConfig 文件中
-        //将当前构建环境状态写入 BuildConfig 文件中
         buildConfigField("boolean", "IS_COMPONENT", String.valueOf(isComponent))
         buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
         if (isDebug) {
