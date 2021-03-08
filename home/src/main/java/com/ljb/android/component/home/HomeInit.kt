@@ -5,5 +5,6 @@ import android.content.Context
 object HomeInit {
 
     fun init(context: Context) {
+
     }
 }

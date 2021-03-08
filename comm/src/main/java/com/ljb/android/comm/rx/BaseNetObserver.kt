@@ -1,6 +1,9 @@
 package com.ljb.android.comm.rx
 
-import com.blankj.utilcode.util.ToastUtils
+import android.app.Activity
+import android.content.Context
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.ljb.android.comm.R
 import com.ljb.android.comm.bean.base.HttpBean
 import com.ljb.android.comm.mvp.ICommView
@@ -8,6 +11,7 @@ import com.ljb.android.comm.utils.XLog
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import mvp.ljb.kt.contract.IViewContract
+import net.ljb.kt.utils.RxUtils
 
 /**
  * 网络请求Rx订阅者
@@ -44,9 +48,9 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
         //TODO 可以在此处编写网络请求错误的公共代码
         XLog.e(e)
         if (e is CustomNetThrowable) {
-            ToastUtils.showShort(e.errMsg)
+            Toast.makeText(getContext(mvpView), e.errMsg, Toast.LENGTH_SHORT).show()
         } else {
-            ToastUtils.showShort(R.string.comm_net_error)
+            Toast.makeText(getContext(mvpView), R.string.comm_net_error, Toast.LENGTH_SHORT).show()
         }
 
         if (isLoading && mvpView is ICommView) {
@@ -99,4 +103,10 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
         mOnSubscribeEx = subscribe
     }
 
+
+    private fun getContext(mvpView: IViewContract): Context = when {
+        mvpView is Activity -> mvpView
+        mvpView is Fragment -> mvpView.activity!!
+        else -> throw IllegalStateException("the mvpView not found context")
+    }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.ToastUtils
 import com.ljb.android.comm.fragment.CommNotFoundFragment
 import com.ljb.android.comm.router.service.*
 import com.ljb.android.comm.utils.XLog
@@ -53,7 +52,6 @@ object RouterManager {
         if (service == null) {
             val msg = "not found service: ${superClass.simpleName}"
             XLog.e(msg)
-            ToastUtils.showShort(msg)
             return false
         }
 
@@ -61,7 +59,6 @@ object RouterManager {
             val msg =
                 "service found is error:  ${service::class.java.simpleName} not is ${superClass.simpleName}"
             XLog.e(msg)
-            ToastUtils.showShort(msg)
             return false
         }
         return true

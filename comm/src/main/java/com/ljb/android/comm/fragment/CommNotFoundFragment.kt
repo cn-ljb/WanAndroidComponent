@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.blankj.utilcode.util.ToastUtils
 import com.ljb.android.comm.R
 
 class CommNotFoundFragment : Fragment() {
@@ -21,9 +20,10 @@ class CommNotFoundFragment : Fragment() {
         return TextView(activity).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT)
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
             gravity = Gravity.CENTER
-            setTextSize(TypedValue.COMPLEX_UNIT_SP , 16f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             setBackgroundColor(resources.getColor(R.color.bg_page))
             setText(R.string.comm_not_found_page)
         }
