@@ -105,7 +105,7 @@ ext {
             //RV标签布局
             flexbox                : "com.google.android:flexbox:$flexbox_version",
             //网络封装库
-            netlib                 : "com.github.cn-ljb:netlib2:$netlib_version",
+            //netlib                 : "com.github.cn-ljb:netlib2:$netlib_version",
             //mvp库
             mvplib                 : "com.github.cn-ljb:mvplib:$mvplib_version"
     ]

@@ -14,6 +14,7 @@ import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
+import com.ljb.android.comm.utils.XLog
 import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.component.home.R
 import com.ljb.android.component.home.adapter.HomeBannerAdapter

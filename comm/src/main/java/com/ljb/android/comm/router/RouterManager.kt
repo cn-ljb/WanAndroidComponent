@@ -20,7 +20,6 @@ object RouterManager {
         getProjectService()
     }
 
-
     /**
      * 获得Fragment
      * */
@@ -34,7 +33,6 @@ object RouterManager {
         return fragment
     }
 
-
     /**
      * 跳转Activity
      * */
@@ -43,7 +41,6 @@ object RouterManager {
             .with(bundle)
             .navigation()
     }
-
 
     /**
      * 校验服务
@@ -63,7 +60,6 @@ object RouterManager {
         }
         return true
     }
-
 
     /**
      * 获取App模块服务
@@ -136,7 +132,6 @@ object RouterManager {
         }
 
         return service as IWeChatCodeRouterService
-
     }
 
     /**

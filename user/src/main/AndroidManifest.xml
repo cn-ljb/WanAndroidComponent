@@ -12,7 +12,6 @@
         tools:ignore="ScopedStorage" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:name="com.ljb.android.comm.App"
         android:allowBackup="true"
         android:icon="@mipmap/comm_icon_app"
@@ -20,15 +19,11 @@
         android:roundIcon="@mipmap/comm_icon_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroidComponent"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
         <activity
-            android:name=".view.act.UserRegisterActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".view.act.UserLoginActivity"
-            android:launchMode="singleTask"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -38,6 +33,17 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".view.act.UserRegisterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.act.UserLoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

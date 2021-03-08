@@ -17,6 +17,10 @@ import net.ljb.kt.HttpConfig
  * Author:Ljb
  * Time:2021/1/19
  * There is a lot of misery in life
+ *
+ * 注：非所有组件需要的公共功能，请勿在当前主Application中初始化
+ * 注：各子组件在自身的Init中，初始化当前业务组件所需的功能模块即可
+ * 注：例如app组件的 {@see com.ljb.android.component.AppInit}
  **/
 class App : Application() {
 

@@ -11,7 +11,6 @@ import com.ljb.android.comm.utils.XLog
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import mvp.ljb.kt.contract.IViewContract
-import net.ljb.kt.utils.RxUtils
 
 /**
  * 网络请求Rx订阅者
@@ -85,7 +84,6 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
 
     }
 
-
     //以下方法提供Kotlin Lambda调用
     fun onErrorEx(error: (Throwable) -> Unit) {
         mOnErrorEx = error
@@ -103,10 +101,9 @@ open class BaseNetObserver<T>(var mvpView: IViewContract, var isLoading: Boolean
         mOnSubscribeEx = subscribe
     }
 
-
-    private fun getContext(mvpView: IViewContract): Context = when {
-        mvpView is Activity -> mvpView
-        mvpView is Fragment -> mvpView.activity!!
+    private fun getContext(mvpView: IViewContract): Context = when (mvpView) {
+        is Activity -> mvpView
+        is Fragment -> mvpView.activity!!
         else -> throw IllegalStateException("the mvpView not found context")
     }
 }

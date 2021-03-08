@@ -21,7 +21,6 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class ImageLoader private constructor() {
 
-
     private var context: Context? = null
     private var fragment: Fragment? = null
 

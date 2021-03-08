@@ -12,6 +12,7 @@ import java.io.InputStream
 
 @GlideModule
 class OkHttpAppGlideModule : AppGlideModule() {
+    
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         registry.replace(
             GlideUrl::class.java,
