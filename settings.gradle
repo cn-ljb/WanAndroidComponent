@@ -1,4 +1,3 @@
-include ':netlib'
 include ':project'
 include ':nav'
 include ':wechat_code'

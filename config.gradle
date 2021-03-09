@@ -1,7 +1,7 @@
 ext {
     // true 组件化环境，将所有业务Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
-    isComponent = false
+    isComponent = true
 
     // true : 测试环境
     // false: 线上环境
@@ -42,7 +42,7 @@ ext {
     log_interceptor_version = "3.9.0"
     rv_adapter_version = "3.0.4"
     flexbox_version = "2.0.1"
-    netlib_version = "1.0.1"
+    netlib_version = "1.0.2"
     mvplib_version="1.0.0"
 
     //App编译环境 字典配置
@@ -105,7 +105,7 @@ ext {
             //RV标签布局
             flexbox                : "com.google.android:flexbox:$flexbox_version",
             //网络封装库
-            //netlib                 : "com.github.cn-ljb:netlib2:$netlib_version",
+            netlib                 : "com.github.cn-ljb:netlib2:$netlib_version",
             //mvp库
             mvplib                 : "com.github.cn-ljb:mvplib:$mvplib_version"
     ]
