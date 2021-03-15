@@ -72,4 +72,10 @@ dependencies {
 
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }
+
+    //leakcanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary_version}"
+    //dokit
+    debugImplementation "com.didichuxing.doraemonkit:dokitx:${rootProject.ext.dokit_version}"
+    releaseImplementation "com.didichuxing.doraemonkit:dokitx-no-op:${rootProject.ext.dokit_version}"
 }

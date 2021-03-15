@@ -9,6 +9,7 @@ import com.ljb.android.comm.img.ImageLoader
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
+import com.ljb.android.comm.utils.DefResUtils
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLeftDrawerContract
 import com.ljb.android.component.user.databinding.FragmentUserLeftDrawerBinding
@@ -64,9 +65,6 @@ class UserLeftDrawerFragment :
         if (user != null) {
             mBind.btnLogout.visibility = View.VISIBLE
             mBind.tvName.text = user.nickname
-            if (user.icon.isEmpty()) {
-                user.icon = "https://scpic.chinaz.net/files/pic/pic9/202101/apic30409.jpg"
-            }
             ImageLoader.Builder(user.icon, mBind.ivHeader)
                 .format(ImgFormatEvent.Circle)
                 .build(this)

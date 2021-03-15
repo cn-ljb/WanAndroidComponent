@@ -24,5 +24,6 @@ interface UserLoginContract {
     interface IModel : IModelContract {
         fun login(userName: String, pwd: String): Observable<LoginBean>
         fun saveLoginToSP(loginBean: LoginBean): LoginBean
+        fun checkHeaderUrl(loginBean: LoginBean): LoginBean
     }
 }

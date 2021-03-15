@@ -1,6 +1,8 @@
 package  com.ljb.android.component.user.model
 
+import android.text.TextUtils
 import com.blankj.utilcode.util.SPStaticUtils
+import com.ljb.android.comm.utils.DefResUtils
 import com.ljb.android.component.user.api.UserProtocol
 import com.ljb.android.component.user.bean.LoginBean
 import com.ljb.android.component.user.common.UserConstant
@@ -24,6 +26,14 @@ class UserLoginModel : BaseModel(), UserLoginContract.IModel {
 
     override fun saveLoginToSP(loginBean: LoginBean): LoginBean {
         SPStaticUtils.put(UserConstant.SPKey.KEY_LOGIN_USER, JsonParser.toJson(loginBean.data))
+        return loginBean
+    }
+
+    override fun checkHeaderUrl(loginBean: LoginBean): LoginBean {
+        if (TextUtils.isEmpty(loginBean.data.icon)) {
+            val headerUrl = DefResUtils.getRandomHeaderUrl()
+            loginBean.data.icon = headerUrl
+        }
         return loginBean
     }
 }

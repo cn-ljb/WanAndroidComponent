@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SPStaticUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
+import com.didichuxing.doraemonkit.DoraemonKit
 import com.ljb.android.comm.common.Constant
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.comm.utils.XLog
@@ -31,11 +32,16 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initDokit()
         initUtils()
         initSP()
         initHttp()
         initWebX5()
         initARoute()
+    }
+
+    private fun initDokit() {
+        DoraemonKit.install(this, mutableListOf(), BuildConfig.APP_ID);
     }
 
     private fun initUtils() {

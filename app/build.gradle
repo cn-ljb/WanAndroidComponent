@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.didi.dokit'
 }
 
 //1、取出isComponent字段
@@ -12,8 +13,6 @@ def appId = rootProject.ext.appId
 def application = rootProject.ext.application
 def dependenciesImp = rootProject.ext.dependenciesImp
 def dependenciesKapt = rootProject.ext.dependenciesKapt
-def dependenciesAP = rootProject.ext.dependenciesAP
-
 
 android {
     compileSdkVersion application.compileSdkVersion
@@ -103,13 +102,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //公共模块所有子模块都引入
     implementation project(path: ':comm')
-
-    dependencies {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-    }
-
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }
+
+    //leakcanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary_version}"
+    //dokit
+    debugImplementation "com.didichuxing.doraemonkit:dokitx:${rootProject.ext.dokit_version}"
+    releaseImplementation "com.didichuxing.doraemonkit:dokitx-no-op:${rootProject.ext.dokit_version}"
 
     //2、集成化环境，那么需要引入其它子模块的Library
     if (!isComponent) {
@@ -121,5 +121,41 @@ dependencies {
         implementation project(path: ':project')
     }
 
-
 }
+
+
+dokitExt {
+    //通用设置
+    comm {
+        //地图经纬度开关
+        gpsSwitch true
+        //网络开关
+        networkSwitch true
+        //大图开关
+        bigImgSwitch true
+        //webView js 抓包
+        webViewSwitch true
+    }
+
+    slowMethod {
+        //调用栈模式配置
+        stackMethod {
+            //默认值为 5ms 小于该值的函数在调用栈中不显示
+            thresholdTime 10
+            //调用栈函数入口
+            enterMethods = ["com.ljb.android.comm.onCreate"]
+            //黑名单 粒度最小到类 暂不支持到方法
+            methodBlacklist = []
+        }
+        //普通模式配置
+        normalMethod {
+            //默认值为 500ms 小于该值的函数在运行时不会在控制台中被打印
+            thresholdTime 500
+            //需要针对函数插装的包名
+            packageNames = [appId.app]
+            //不需要针对函数插装的包名&类名
+            methodBlacklist = []
+        }
+    }
+}
+

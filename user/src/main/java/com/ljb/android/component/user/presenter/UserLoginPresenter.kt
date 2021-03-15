@@ -23,6 +23,7 @@ class UserLoginPresenter : BaseMvpPresenter<UserLoginContract.IView, UserLoginCo
             return
         }
         getModel().login(userName, pwd)
+            .map { getModel().checkHeaderUrl(it) }
             .map { getModel().saveLoginToSP(it) }
             .compose(RxUtils.bindToLife(getMvpView()))
             .compose(RxUtils.schedulerIO2Main())
