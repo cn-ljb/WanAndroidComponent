@@ -19,7 +19,7 @@
             <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/project" />
             <option value="$PROJECT_DIR$/user" />
-            <option value="$PROJECT_DIR$/wechat_code" />
+            <option value="$PROJECT_DIR$/wxcode" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
