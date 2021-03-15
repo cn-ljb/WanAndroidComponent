@@ -1,10 +1,9 @@
 package com.ljb.android.component.nav
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.ljb.android.component.nav.view.fragment.NavMainFragment
-import com.ljb.android.component.nav.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

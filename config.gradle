@@ -46,7 +46,7 @@ ext {
     rv_adapter_version = "3.0.4"
     flexbox_version = "2.0.1"
     netlib_version = "1.0.2"
-    mvplib_version="1.0.0"
+    mvplib_version = "1.0.0"
 
     //App编译环境 字典配置
     application = [
@@ -60,8 +60,7 @@ ext {
             app        : "com.ljb.android.component",
             user       : "com.ljb.android.component.user",
             home       : "com.ljb.android.component.home",
-            konw       : "com.ljb.android.component.know",
-            knowledge       : "com.ljb.android.component.knowledge",
+            knowledge  : "com.ljb.android.component.knowledge",
             wechat_code: "com.ljb.android.component.wechatcode",
             nav        : "com.ljb.android.component.nav",
             project    : "com.ljb.android.component.project"

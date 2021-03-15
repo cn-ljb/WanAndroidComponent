@@ -164,4 +164,31 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
         }
     }
 
+
+    private var mBackTime = 0L
+
+    @SuppressLint("RtlHardcoded")
+    override fun onBackPressed() {
+        mBind.dlDrawer.run {
+            if (isDrawerOpen(Gravity.LEFT)) {
+                closeDrawer(Gravity.LEFT, true)
+                return
+            }
+        }
+
+        val tempTime = System.currentTimeMillis()
+        if (mBackTime == 0L) {
+            mBackTime = tempTime
+            showToast(R.string.exit_app)
+            return
+        } else {
+            if (tempTime - mBackTime > 2000) {
+                mBackTime = tempTime
+                showToast(R.string.exit_app)
+                return
+            } else {
+                super.onBackPressed()
+            }
+        }
+    }
 }

@@ -18,8 +18,10 @@ class NavTabAdapter : BaseQuickAdapter<NavBean.ListBean, BaseViewHolder>(
         val tv = holder.getView<TextView>(R.id.tv_name)
         tv.text = item.name
 
-        holder.itemView.isSelected = item.checked
-        if (item.checked) {
+        val isSelected = mSelectedPosition == holder.adapterPosition
+
+        holder.itemView.isSelected = isSelected
+        if (isSelected) {
             tv.typeface = Typeface.DEFAULT_BOLD
         } else {
             tv.typeface = Typeface.DEFAULT
@@ -30,13 +32,16 @@ class NavTabAdapter : BaseQuickAdapter<NavBean.ListBean, BaseViewHolder>(
         if (mSelectedPosition == position) {
             return
         }
+
+        var preSelectedPosition = -1
         if (mSelectedPosition != -1) {
-            data[mSelectedPosition].checked = false
-            notifyItemChanged(mSelectedPosition)
+            preSelectedPosition = mSelectedPosition
         }
 
-        data[position].checked = true
-        notifyItemChanged(position)
         mSelectedPosition = position
+        if (preSelectedPosition != -1) {
+            notifyItemChanged(preSelectedPosition)
+        }
+        notifyItemChanged(position)
     }
 }
