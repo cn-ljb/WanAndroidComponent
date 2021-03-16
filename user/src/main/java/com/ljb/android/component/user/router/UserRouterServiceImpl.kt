@@ -31,7 +31,21 @@ class UserRouterServiceImpl : IUserRouterService {
         val userInfo = getUserInfo()
         if (userInfo.isEmpty()) {
             if (needLogin) {
-                activity.startActivity(Intent(activity, UserLoginActivity::class.java))
+                val intent = Intent(activity, UserLoginActivity::class.java)
+                activity.startActivity(intent)
+            }
+            return false
+        } else {
+            return true
+        }
+    }
+
+    override fun isLoginForResult(activity: Activity, needLogin: Boolean, reqCode: Int): Boolean {
+        val userInfo = getUserInfo()
+        if (userInfo.isEmpty()) {
+            if (needLogin) {
+                val intent = Intent(activity, UserLoginActivity::class.java)
+                activity.startActivityForResult(intent, reqCode)
             }
             return false
         } else {
