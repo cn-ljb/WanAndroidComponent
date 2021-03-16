@@ -77,6 +77,11 @@ object RouterConfig {
          * 项目 服务路由
          * */
         const val PROJECT = "/project/ProjectRouterService"
+
+        /**
+         * Chat 服务路由
+         * */
+        const val CHAT = "/chat/ChatRouterService"
     }
 
 

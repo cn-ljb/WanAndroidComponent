@@ -14,7 +14,7 @@ import mvp.ljb.kt.contract.IPresenterContract
 interface UserLoginContract {
 
     interface IView : ICommView {
-        fun onLoginSuccess(loginBean: LoginBean)
+        fun onLoginSuccess(json: String)
     }
 
     interface IPresenter : IPresenterContract {
@@ -23,7 +23,7 @@ interface UserLoginContract {
 
     interface IModel : IModelContract {
         fun login(userName: String, pwd: String): Observable<LoginBean>
-        fun saveLoginToSP(loginBean: LoginBean): LoginBean
+        fun saveLoginToSP(loginBean: LoginBean): String
         fun checkHeaderUrl(loginBean: LoginBean): LoginBean
     }
 }

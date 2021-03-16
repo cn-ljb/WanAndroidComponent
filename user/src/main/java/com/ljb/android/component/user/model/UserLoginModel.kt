@@ -24,9 +24,10 @@ class UserLoginModel : BaseModel(), UserLoginContract.IModel {
             .loginUser(userName, pwd)
     }
 
-    override fun saveLoginToSP(loginBean: LoginBean): LoginBean {
-        SPStaticUtils.put(UserConstant.SPKey.KEY_LOGIN_USER, JsonParser.toJson(loginBean.data))
-        return loginBean
+    override fun saveLoginToSP(loginBean: LoginBean): String {
+        val toJson = JsonParser.toJson(loginBean.data)
+        SPStaticUtils.put(UserConstant.SPKey.KEY_LOGIN_USER, toJson)
+        return toJson
     }
 
     override fun checkHeaderUrl(loginBean: LoginBean): LoginBean {

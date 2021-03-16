@@ -3,13 +3,13 @@ ext {
     // true 组件化环境，将所有业务Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
     isComponent = [
-            "user"     : false,
-            "home"     : true,
-            "knowledge": true,
-            "wxcode"   : true,
-            "nav"      : true,
-            "project"  : true,
-            "chat"     : true
+            user     : true,
+            home     : true,
+            knowledge: true,
+            wxcode   : true,
+            nav      : true,
+            project  : true,
+            chat     : true
     ]
 
     // true : 测试环境

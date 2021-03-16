@@ -1,5 +1,6 @@
 package com.ljb.android.component.user.bean
 
+import com.ljb.android.comm.bean.UserBean
 import com.ljb.android.comm.bean.base.HttpBean
 
 /**
@@ -7,8 +8,4 @@ import com.ljb.android.comm.bean.base.HttpBean
  * Time:2021/1/23
  * There is a lot of misery in life
  **/
-class LoginBean(var data: DataBean) : HttpBean() {
-
-    class DataBean(var id: String, var nickname: String, var icon: String)
-
-}
+class LoginBean(var data: UserBean) : HttpBean()

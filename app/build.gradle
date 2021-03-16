@@ -6,7 +6,13 @@ plugins {
 }
 
 //1、取出isComponent字段
-def isComponent = rootProject.ext.isComponent
+def isComponent = false
+rootProject.ext.isComponent.each { k, v ->
+    println("======== " + k + " -> " + v + " ========")
+    isComponent = isComponent || v
+}
+println("======== project isComponent -> " + isComponent + " ========")
+
 def isDebug = rootProject.ext.isDebug
 
 def appId = rootProject.ext.appId.app

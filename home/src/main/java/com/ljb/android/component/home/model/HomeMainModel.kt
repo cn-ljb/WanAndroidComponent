@@ -1,13 +1,11 @@
 package  com.ljb.android.component.home.model
 
 import com.blankj.utilcode.util.SPStaticUtils
-import com.google.gson.JsonArray
 import com.ljb.android.comm.bean.base.HttpBean
-import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.home.api.HomeProtocol
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.bean.HomeListBean
-import com.ljb.android.component.home.common.Constant
+import com.ljb.android.component.home.common.HomeConstant
 import com.ljb.android.component.home.contract.HomeMainContract
 import io.reactivex.rxjava3.core.Observable
 import mvp.ljb.kt.model.BaseModel
@@ -45,7 +43,7 @@ class HomeMainModel : BaseModel(), HomeMainContract.IModel {
 
     override fun saveHomeCache(page: Int, cache: List<Any>): List<Any> {
         if (page == 0) {
-            SPStaticUtils.put(Constant.SPKey.KEY_HOME_CACHE, JsonParser.toJson(cache))
+            SPStaticUtils.put(HomeConstant.SPKey.KEY_HOME_CACHE, JsonParser.toJson(cache))
         }
         return cache
     }
@@ -54,7 +52,7 @@ class HomeMainModel : BaseModel(), HomeMainContract.IModel {
         return Observable.create {
             try {
                 val list = mutableListOf<Any>()
-                val cache = SPStaticUtils.getString(Constant.SPKey.KEY_HOME_CACHE, "")
+                val cache = SPStaticUtils.getString(HomeConstant.SPKey.KEY_HOME_CACHE, "")
                 if (cache.isNullOrEmpty()) {
                     it.onNext(list)
                     it.onComplete()

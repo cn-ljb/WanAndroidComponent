@@ -1,5 +1,5 @@
 // 取出isComponent字段
-def isComponent = rootProject.ext.isComponent.wxcode
+def isComponent = rootProject.ext.isComponent.chat
 def isDebug = rootProject.ext.isDebug
 
 // 根据isRelease字段，来确定当前是Library还是可执行Module
@@ -13,7 +13,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 
-def appId = rootProject.ext.appId.wxcode
+def appId = rootProject.ext.appId.chat
 def project_appId = rootProject.ext.appId.app
 def application = rootProject.ext.application
 def dependenciesImp = rootProject.ext.dependenciesImp

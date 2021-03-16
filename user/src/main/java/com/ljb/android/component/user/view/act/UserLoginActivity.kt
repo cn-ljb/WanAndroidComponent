@@ -1,5 +1,6 @@
 package com.ljb.android.component.user.view.act
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -9,10 +10,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
 import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpActivity
-import com.ljb.android.comm.router.RouterConfig
-import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.user.R
-import com.ljb.android.component.user.bean.LoginBean
 import com.ljb.android.component.user.contract.UserLoginContract
 import com.ljb.android.component.user.databinding.ActivityUserLoginBinding
 import com.ljb.android.component.user.presenter.UserLoginPresenter
@@ -88,15 +86,15 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
         getPresenter().login(userName, pwd)
     }
 
-    override fun onLoginSuccess(loginBean: LoginBean) {
-        goHome()
+    override fun onLoginSuccess(json: String) {
+        setLoginResult(json)
     }
 
-    private fun goHome() {
-        EventBus.getDefault().post(
-            UserEvent(UserEvent.EventType.TYPE_LOGIN)
-        )
-        RouterManager.goActivity(RouterConfig.Activity.APP_MAIN)
+    private fun setLoginResult(json: String) {
+        val intent = Intent()
+        intent.putExtra("result", json)
+        setResult(Activity.RESULT_OK, intent)
+        EventBus.getDefault().post(UserEvent(UserEvent.EventType.TYPE_LOGIN))
         finish()
     }
 

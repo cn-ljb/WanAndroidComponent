@@ -1,5 +1,6 @@
 package com.ljb.android.comm.router
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,9 +16,10 @@ object RouterManager {
         getUserService()
         getHomeService()
         getKnowledgeService()
-        getWeChatCodeService()
+        getWXCodeService()
         getNavService()
         getProjectService()
+        getChatService()
     }
 
     /**
@@ -34,13 +36,28 @@ object RouterManager {
     }
 
     /**
-     * 跳转Activity
+     * 跳转 Activity
      * */
     fun goActivity(path: String, bundle: Bundle? = null) {
         ARouter.getInstance().build(path)
             .with(bundle)
             .navigation()
     }
+
+    /**
+     * 跳转 ActivityForResult
+     * */
+    fun goActivityForResult(
+        path: String,
+        bundle: Bundle? = null,
+        activity: Activity,
+        requestCode: Int
+    ) {
+        ARouter.getInstance().build(path)
+            .with(bundle)
+            .navigation(activity, requestCode)
+    }
+
 
     /**
      * 校验服务
@@ -122,7 +139,7 @@ object RouterManager {
     /**
      * 获取WeChatCode模块服务 - 公众号
      * */
-    fun getWeChatCodeService(): IWXCodeRouterService? {
+    fun getWXCodeService(): IWXCodeRouterService? {
 
         val service = ARouter.getInstance().build(RouterConfig.Service.WECHAT_CODE)
             .navigation()
@@ -162,6 +179,20 @@ object RouterManager {
         }
 
         return service as IProjectRouterService
+    }
+
+    /**
+     * 获取IM模块服务 - 聊天室
+     * */
+    fun getChatService(): IChatRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.CHAT)
+            .navigation()
+
+        if (!checkService(service, IChatRouterService::class.java)) {
+            return null
+        }
+
+        return service as IChatRouterService
     }
 
 }
