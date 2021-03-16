@@ -11,7 +11,6 @@ object Constant {
 
     const val APP_ID_BUGLY = "733873bc89"
 
-
     /**
      *  SharedPreferences常量池
      * */
