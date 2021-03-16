@@ -1,5 +1,5 @@
 // 取出isRelease字段
-def isComponent = rootProject.ext.isComponent
+def isComponent = rootProject.ext.isComponent.user
 def isDebug = rootProject.ext.isDebug
 
 // 根据isRelease字段，来确定当前是Library还是可执行Module
@@ -11,8 +11,6 @@ if (isComponent) {
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-
 
 
 def appId = rootProject.ext.appId

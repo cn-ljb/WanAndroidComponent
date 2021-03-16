@@ -66,7 +66,7 @@ object RouterConfig {
         /**
          * 公众号 服务路由
          * */
-        const val WECHAT_CODE = "/wechat/WeChatCodeRouterService"
+        const val WECHAT_CODE = "/wechat/WXCodeRouterService"
 
         /**
          * 导航 服务路由

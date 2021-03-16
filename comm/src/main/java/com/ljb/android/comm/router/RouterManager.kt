@@ -122,16 +122,16 @@ object RouterManager {
     /**
      * 获取WeChatCode模块服务 - 公众号
      * */
-    fun getWeChatCodeService(): IWeChatCodeRouterService? {
+    fun getWeChatCodeService(): IWXCodeRouterService? {
 
         val service = ARouter.getInstance().build(RouterConfig.Service.WECHAT_CODE)
             .navigation()
 
-        if (!checkService(service, IWeChatCodeRouterService::class.java)) {
+        if (!checkService(service, IWXCodeRouterService::class.java)) {
             return null
         }
 
-        return service as IWeChatCodeRouterService
+        return service as IWXCodeRouterService
     }
 
     /**
