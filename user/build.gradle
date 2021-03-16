@@ -13,7 +13,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 
-def appId = rootProject.ext.appId
+def appId = rootProject.ext.appId.user
+def project_appId = rootProject.ext.appId.app
 def application = rootProject.ext.application
 def dependenciesImp = rootProject.ext.dependenciesImp
 def dependenciesKapt = rootProject.ext.dependenciesKapt
@@ -24,7 +25,7 @@ android {
 
     defaultConfig {
         if (isComponent) {
-            applicationId appId.user
+            applicationId appId
         }
         minSdkVersion application.minSdkVersion
         targetSdkVersion application.targetSdkVersion
@@ -37,7 +38,7 @@ android {
 
         //将当前构建环境状态写入 BuildConfig 文件中
         buildConfigField("boolean", "IS_COMPONENT", String.valueOf(isComponent))
-        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+        buildConfigField("String", "APP_ID", "\"" + String.valueOf(project_appId) + "\"")
         if (isDebug) {
             buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_DEBUG) + "\"")
         } else {
@@ -59,14 +60,14 @@ android {
         //java EventBus索引
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: appId.user + ".MyEventBusIndex"]
+                arguments = [eventBusIndex: appId + ".MyEventBusIndex"]
             }
         }
 
         // kotlin EventBus索引
         kapt {
             arguments {
-                arg('eventBusIndex', appId.user + ".MyEventBusIndex")
+                arg('eventBusIndex', appId + ".MyEventBusIndex")
             }
         }
     }
@@ -144,7 +145,7 @@ if (isComponent) {
                 //默认值为 500ms 小于该值的函数在运行时不会在控制台中被打印
                 thresholdTime 500
                 //需要针对函数插装的包名
-                packageNames = [appId.user]
+                packageNames = [appId]
                 //不需要针对函数插装的包名&类名
                 methodBlacklist = []
             }

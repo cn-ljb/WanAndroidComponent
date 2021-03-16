@@ -9,7 +9,7 @@ plugins {
 def isComponent = rootProject.ext.isComponent
 def isDebug = rootProject.ext.isDebug
 
-def appId = rootProject.ext.appId
+def appId = rootProject.ext.appId.app
 def application = rootProject.ext.application
 def dependenciesImp = rootProject.ext.dependenciesImp
 def dependenciesKapt = rootProject.ext.dependenciesKapt
@@ -19,7 +19,7 @@ android {
     buildToolsVersion application.buildToolsVersion
 
     defaultConfig {
-        applicationId appId.app
+        applicationId appId
         minSdkVersion application.minSdkVersion
         targetSdkVersion application.targetSdkVersion
         versionCode 1
@@ -30,7 +30,7 @@ android {
 
         //将当前构建环境状态写入 BuildConfig 文件中
         buildConfigField("boolean", "IS_COMPONENT", String.valueOf(isComponent))
-        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId.app) + "\"")
+        buildConfigField("String", "APP_ID", "\"" + String.valueOf(appId) + "\"")
         if (isDebug) {
             buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_DEBUG) + "\"")
         } else {
@@ -53,29 +53,17 @@ android {
         //java EventBus索引APT 传参
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: appId.app + ".MyEventBusIndex"]
+                arguments = [eventBusIndex: appId + ".MyEventBusIndex"]
             }
         }
 
         // kotlin EventBus索引APT 传参
         kapt {
             arguments {
-                arg('eventBusIndex', appId.app + ".MyEventBusIndex")
+                arg('eventBusIndex', appId + ".MyEventBusIndex")
             }
         }
 
-        //Java项目初始化APT 传参
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [initPath: appId.app + ".InitComponent"]
-            }
-        }
-        //kotlin项目初始化APT 传参
-        kapt {
-            arguments {
-                arg("initPath", appId.app + ".InitComponent")
-            }
-        }
     }
 
     buildTypes {
@@ -152,7 +140,7 @@ dokitExt {
             //默认值为 500ms 小于该值的函数在运行时不会在控制台中被打印
             thresholdTime 500
             //需要针对函数插装的包名
-            packageNames = [appId.app]
+            packageNames = [appId]
             //不需要针对函数插装的包名&类名
             methodBlacklist = []
         }
