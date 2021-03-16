@@ -111,25 +111,25 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
     }
 
     private fun changeTabTextUI(position: Int) {
-        var colorId = resources.getColor(R.color.color_39B6DF)
+        var colorId = R.color.color_39B6DF
         when (position) {
             0 -> {
-                colorId = resources.getColor(R.color.color_39B6DF)
+                colorId = R.color.color_39B6DF
             }
             1 -> {
-                colorId = resources.getColor(R.color.color_FD7A04)
+                colorId = R.color.color_FD7A04
             }
             2 -> {
-                colorId = resources.getColor(R.color.color_22DD6D)
+                colorId = R.color.color_22DD6D
             }
             3 -> {
-                colorId = resources.getColor(R.color.color_black)
+                colorId = R.color.color_black
             }
             4 -> {
-                colorId = resources.getColor(R.color.color_red)
+                colorId = R.color.color_red
             }
         }
-        mBind.navContent.selectTextColor(colorId)
+        mBind.navContent.selectTextColor(resources.getColor(colorId))
     }
 
     private fun initLeftDrawView() {
