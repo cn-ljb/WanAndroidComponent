@@ -11,7 +11,7 @@ if (isComponent) {
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'com.didi.dokit'
 
 
 def appId = rootProject.ext.appId
@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         if (isComponent) {
-            applicationId appId.home
+            applicationId appId.wxcode
         }
         minSdkVersion application.minSdkVersion
         targetSdkVersion application.targetSdkVersion
@@ -45,6 +45,7 @@ android {
             buildConfigField("String", "HTTP_HOST", "\"" + String.valueOf(rootProject.ext.HTTP_HOST_RELEASE) + "\"")
         }
 
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -59,13 +60,14 @@ android {
         //java EventBus索引
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: appId.home + ".MyEventBusIndex"]
+                arguments = [eventBusIndex: appId.wxcode + ".MyEventBusIndex"]
             }
         }
+
         // kotlin EventBus索引
         kapt {
             arguments {
-                arg('eventBusIndex', appId.home + ".MyEventBusIndex")
+                arg('eventBusIndex', appId.wxcode + ".MyEventBusIndex")
             }
         }
     }
@@ -112,7 +114,6 @@ dependencies {
     //dokit
     debugImplementation "com.didichuxing.doraemonkit:dokitx:${rootProject.ext.dokit_version}"
     releaseImplementation "com.didichuxing.doraemonkit:dokitx-no-op:${rootProject.ext.dokit_version}"
-
 }
 
 if (isComponent) {
@@ -144,7 +145,7 @@ if (isComponent) {
                 //默认值为 500ms 小于该值的函数在运行时不会在控制台中被打印
                 thresholdTime 500
                 //需要针对函数插装的包名
-                packageNames = [appId.home]
+                packageNames = [appId.wxcode]
                 //不需要针对函数插装的包名&类名
                 methodBlacklist = []
             }

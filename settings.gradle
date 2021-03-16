@@ -1,6 +1,6 @@
 include ':project'
 include ':nav'
-include ':wechat_code'
+include ':wxcode'
 include ':knowledge'
 include ':home'
 include ':user'

@@ -79,9 +79,9 @@ class App : Application() {
                     return SPStaticUtils.getString(host)
                 }
             }).addCommHeader { headers ->
-                //TODO 公共Header
+                //TODO 添加公共Header
             }.addCommParam { params ->
-                //TODO 公共Param
+                //TODO 添加公共Param
             }.openLog(BuildConfig.DEBUG)
             .build()
     }

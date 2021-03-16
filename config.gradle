@@ -61,7 +61,7 @@ ext {
             user       : "com.ljb.android.component.user",
             home       : "com.ljb.android.component.home",
             knowledge  : "com.ljb.android.component.knowledge",
-            wechat_code: "com.ljb.android.component.wechatcode",
+            wxcode: "com.ljb.android.component.wxcode",
             nav        : "com.ljb.android.component.nav",
             project    : "com.ljb.android.component.project"
     ]
