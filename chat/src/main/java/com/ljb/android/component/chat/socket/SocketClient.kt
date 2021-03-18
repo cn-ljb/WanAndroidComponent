@@ -34,9 +34,9 @@ object SocketClient {
 
     private var mConnectErrorListener: Emitter.Listener? = null
 
-    private var mConnectTimeOutListener: Emitter.Listener? = null
+//    private var mConnectTimeOutListener: Emitter.Listener? = null
 
-    private var mDataErrorListener: Emitter.Listener? = null
+//    private var mDataErrorListener: Emitter.Listener? = null
 
     private var mLoginConflictListener: Emitter.Listener? = null
 
@@ -109,12 +109,12 @@ object SocketClient {
         }
     }
 
-    /**
-     * 重新创建socket 并且重新发送
-     * */
-    private fun reSend(context: Context, sendFun: () -> Unit) {
-
-    }
+//    /**
+//     * 重新创建socket 并且重新发送
+//     * */
+//    private fun reSend(context: Context, sendFun: () -> Unit) {
+//
+//    }
 
     private fun startService(appContext: Context, intent: Intent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -140,7 +140,7 @@ object SocketClient {
             sendMsgImpl(context, event, msg, msgId)
         } else {
             MsgCallError(context, event, msg, msgId).run()
-            reSend(context) { sendMsgImpl(context, event, msg, msgId) }
+//            reSend(context) { sendMsgImpl(context, event, msg, msgId) }
         }
     }
 
@@ -215,8 +215,8 @@ object SocketClient {
             Log.i(SocketService.TAG, "socket 连接发生错误 -> $result")
             isLinked = false
         }
-        mConnectTimeOutListener = ConnectTimeOutListener(context, mSocket)
-        mDataErrorListener = DataErrorListener(context)
+//        mConnectTimeOutListener = ConnectTimeOutListener(context, mSocket)
+//        mDataErrorListener = DataErrorListener(context)
 
         mSocket?.apply {
             Log.i(SocketService.TAG, "socket 初始化监听器")
