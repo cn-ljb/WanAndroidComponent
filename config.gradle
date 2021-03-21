@@ -3,13 +3,12 @@ ext {
     // true 组件化环境，将所有业务Library组件化为可执行Module，供开发人员开发
     // false 集成环境，将所有可执行Module集成化为Library，打包到App主模块里
     isComponent = [
-            user     : false,
+            user     : true,
             home     : true,
             knowledge: true,
             wxcode   : true,
             nav      : true,
-            project  : true,
-            chat     : true
+            project  : true
     ]
 
     // true : 测试环境
@@ -26,8 +25,7 @@ ext {
             knowledge: "com.ljb.android.component.knowledge",
             wxcode   : "com.ljb.android.component.wxcode",
             nav      : "com.ljb.android.component.nav",
-            project  : "com.ljb.android.component.project",
-            chat     : "com.ljb.android.component.chat"
+            project  : "com.ljb.android.component.project"
     ]
 
     leakcanary_version = "2.6"

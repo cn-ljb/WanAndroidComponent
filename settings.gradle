@@ -1,4 +1,3 @@
-include ':chat'
 include ':project'
 include ':nav'
 include ':wxcode'

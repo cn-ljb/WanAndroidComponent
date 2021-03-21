@@ -118,7 +118,7 @@ dependencies {
     //注：单独引入情况下，需注意 解耦！解耦！！解耦！！！
     // 可在调试完成后，注掉单独引入的模块，看看是否存在耦合问题
     if (isComponent) {
-        implementation project(path: ':user')
+//        implementation project(path: ':user')
     }
 }
 

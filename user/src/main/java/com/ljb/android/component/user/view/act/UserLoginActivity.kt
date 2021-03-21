@@ -10,6 +10,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
 import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpActivity
+import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLoginContract
 import com.ljb.android.component.user.databinding.ActivityUserLoginBinding
@@ -86,7 +87,13 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
         getPresenter().login(userName, pwd)
     }
 
+    /**
+     * 登录成功
+     * */
     override fun onLoginSuccess(json: String) {
+        // 连接Socket
+        RouterManager.getChatService()?.loginSocket(json)
+        // 返回登录结果
         setLoginResult(json)
     }
 

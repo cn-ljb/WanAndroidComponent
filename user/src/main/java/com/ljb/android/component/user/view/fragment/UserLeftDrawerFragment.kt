@@ -9,6 +9,7 @@ import com.ljb.android.comm.img.ImageLoader
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
+import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.comm.utils.DefResUtils
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLeftDrawerContract
@@ -80,7 +81,11 @@ class UserLeftDrawerFragment :
         }
     }
 
+    /**
+     * 退出登录
+     * */
     override fun onLogoutSuccess() {
+        RouterManager.getChatService()?.logoutSocket()
         showToast(R.string.user_logout_success)
         changeUserStatus()
         EventBus.getDefault().post(
