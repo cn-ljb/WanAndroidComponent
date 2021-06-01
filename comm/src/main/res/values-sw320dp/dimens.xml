@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="ResourceName">
 	<dimen name="common_margin">@dimen/dp_15</dimen>
 	<dimen name="dp_m_60">-53.3333dp</dimen>
 	<dimen name="dp_m_30">-26.6667dp</dimen>

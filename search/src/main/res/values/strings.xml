@@ -1,0 +1,6 @@
+<resources>
+    <string name="search_app_name">搜索模块</string>
+    <string name="search_do">搜索</string>
+    <string name="search_input_content">请输入搜索内容</string>
+    <string name="search_result_empty">未找到内容…</string>
+</resources>

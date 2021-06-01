@@ -41,7 +41,7 @@ class HomeMainPresenter :
         Observable.zip(
             getModel().getBanner(),
             getModel().getHomeList(page),
-            BiFunction<BannerBean, HomeListBean, List<Any>> { banner, homeList ->
+            { banner, homeList ->
                 listOf(banner, homeList)
             }).map { getModel().saveHomeCache(page, it) }
             .compose(RxUtils.bindToLife(getMvpView()))

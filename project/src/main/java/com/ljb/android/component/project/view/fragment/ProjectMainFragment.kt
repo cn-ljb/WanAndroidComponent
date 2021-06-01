@@ -11,13 +11,12 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.component.project.contract.ProjectMainContract
-import com.ljb.android.component.project.presenter.ProjectMainPresenter
-import mvp.ljb.kt.fragment.BaseMvpFragment
 import com.ljb.android.component.project.R
 import com.ljb.android.component.project.adapter.ProjectTabAdapter
 import com.ljb.android.component.project.bean.ProjectTabBean
-import com.ljb.android.component.project.databinding.FragmentProjectMainBinding
+import com.ljb.android.component.project.contract.ProjectMainContract
+import com.ljb.android.component.project.databinding.ProjectFragmentMainBinding
+import com.ljb.android.component.project.presenter.ProjectMainPresenter
 
 /**
  * @Author Kotlin MVP Plugin
@@ -26,17 +25,17 @@ import com.ljb.android.component.project.databinding.FragmentProjectMainBinding
  **/
 @Route(path = RouterConfig.Fragment.PROJECT_MAIN)
 class ProjectMainFragment :
-    CommMvpFragment<ProjectMainContract.IPresenter, FragmentProjectMainBinding>(),
+    CommMvpFragment<ProjectMainContract.IPresenter, ProjectFragmentMainBinding>(),
     ProjectMainContract.IView {
 
     private var mTabViewPagerAdapter: ProjectTabAdapter? = null
 
     override fun registerPresenter() = ProjectMainPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_project_main
+    override fun getLayoutId() = R.layout.project_fragment_main
 
-    override fun registerBinding(): FragmentProjectMainBinding {
-        return FragmentProjectMainBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): ProjectFragmentMainBinding {
+        return ProjectFragmentMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -65,8 +64,8 @@ class ProjectMainFragment :
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
-            //TODO  go search
-            showToast(R.string.comm_wait_develop)
+            // go search
+            goSearch()
         })
     }
 
@@ -116,5 +115,9 @@ class ProjectMainFragment :
 
     private fun scrollToTop() {
         mTabViewPagerAdapter?.getCurFragment()?.scrollToTop()
+    }
+
+    private fun goSearch() {
+        RouterManager.goActivity(RouterConfig.Activity.SEARCH_MAIN)
     }
 }

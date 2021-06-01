@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.blankj.utilcode.util.SizeUtils
-import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
 import com.ljb.android.comm.common.LocUser
 import com.ljb.android.comm.eventbus.UserEvent
@@ -15,7 +14,7 @@ import com.ljb.android.component.wxcode.R
 import com.ljb.android.component.wxcode.adapter.WXArticleListAdapter
 import com.ljb.android.component.wxcode.bean.WXArticleListBean
 import com.ljb.android.component.wxcode.contract.WXArticleListContract
-import com.ljb.android.component.wxcode.databinding.FragmentWxArticleListBinding
+import com.ljb.android.component.wxcode.databinding.WechatFragmentArticleListBinding
 import com.ljb.android.component.wxcode.databinding.WechatLayoutArticleListContentBinding
 import com.ljb.android.component.wxcode.presenter.WXArticleListPresenter
 import org.greenrobot.eventbus.Subscribe
@@ -26,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe
  * @Description input description
  **/
 class WXArticleListFragment :
-    CommMvpFragment<WXArticleListContract.IPresenter, FragmentWxArticleListBinding>(),
+    CommMvpFragment<WXArticleListContract.IPresenter, WechatFragmentArticleListBinding>(),
     WXArticleListContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
     companion object {
@@ -45,10 +44,10 @@ class WXArticleListFragment :
 
     override fun registerPresenter() = WXArticleListPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_wx_article_list
+    override fun getLayoutId() = R.layout.wechat_fragment_article_list
 
-    override fun registerBinding(): FragmentWxArticleListBinding {
-        return FragmentWxArticleListBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): WechatFragmentArticleListBinding {
+        return WechatFragmentArticleListBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun immersionBarEnabled() = false

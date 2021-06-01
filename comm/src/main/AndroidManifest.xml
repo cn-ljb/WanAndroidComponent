@@ -6,7 +6,7 @@
         android:name="com.ljb.android.comm.App"
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroidComponent">
+        android:theme="@style/Comm.Theme.WanAndroidComponent">
 
         <activity android:name=".view.act.CommWebViewActivity"
             android:screenOrientation="portrait"

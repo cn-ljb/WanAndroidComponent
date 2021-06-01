@@ -56,7 +56,7 @@ class App : Application() {
 
         val start = System.currentTimeMillis()
         ARouter.init(this)
-        RouterManager.init(this)
+        RouterManager.init()
         val end = System.currentTimeMillis()
         XLog.i("ARouter.init: ${end - start}ms")
     }

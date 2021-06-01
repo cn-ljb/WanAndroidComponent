@@ -16,7 +16,7 @@ import com.ljb.android.component.nav.adapter.NavTabAdapter
 import com.ljb.android.component.nav.adapter.NavTabContentAdapter
 import com.ljb.android.component.nav.bean.NavBean
 import com.ljb.android.component.nav.contract.NavMainContract
-import com.ljb.android.component.nav.databinding.FragmentNavMainBinding
+import com.ljb.android.component.nav.databinding.NavFragmentMainBinding
 import com.ljb.android.component.nav.presenter.NavMainPresenter
 
 /**
@@ -25,7 +25,7 @@ import com.ljb.android.component.nav.presenter.NavMainPresenter
  * @Description input description
  **/
 @Route(path = RouterConfig.Fragment.NAV_MAIN)
-class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavMainBinding>(),
+class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, NavFragmentMainBinding>(),
     NavMainContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
     private val mTabAdapter = NavTabAdapter()
@@ -33,10 +33,10 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
 
     override fun registerPresenter() = NavMainPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_nav_main
+    override fun getLayoutId() = R.layout.nav_fragment_main
 
-    override fun registerBinding(): FragmentNavMainBinding {
-        return FragmentNavMainBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): NavFragmentMainBinding {
+        return NavFragmentMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -67,8 +67,8 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
-            //TODO  go search
-            showToast(R.string.comm_wait_develop)
+            //go search
+            goSearch()
         })
     }
 
@@ -155,5 +155,9 @@ class NavMainFragment : CommMvpFragment<NavMainContract.IPresenter, FragmentNavM
 
     override fun onRefresh() {
         getPresenter().getNavList()
+    }
+
+    private fun goSearch() {
+        RouterManager.goActivity(RouterConfig.Activity.SEARCH_MAIN)
     }
 }

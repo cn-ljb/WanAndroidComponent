@@ -28,7 +28,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <EditText
-                android:theme="@style/WechatEditText"
+                android:theme="@style/WeChat_WechatEditText"
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"

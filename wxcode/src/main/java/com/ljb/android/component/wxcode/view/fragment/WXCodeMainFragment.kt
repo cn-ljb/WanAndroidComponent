@@ -15,7 +15,7 @@ import com.ljb.android.component.wxcode.R
 import com.ljb.android.component.wxcode.adapter.WXCodeTabAdapter
 import com.ljb.android.component.wxcode.bean.WXCodeTabBean
 import com.ljb.android.component.wxcode.contract.WXCodeMainContract
-import com.ljb.android.component.wxcode.databinding.FragmentWXCodeMainBinding
+import com.ljb.android.component.wxcode.databinding.WechatFragmentMainBinding
 import com.ljb.android.component.wxcode.presenter.WXCodeMainPresenter
 
 /**
@@ -25,17 +25,17 @@ import com.ljb.android.component.wxcode.presenter.WXCodeMainPresenter
  **/
 @Route(path = RouterConfig.Fragment.WECHAT_CODE_MAIN)
 class WXCodeMainFragment :
-    CommMvpFragment<WXCodeMainContract.IPresenter, FragmentWXCodeMainBinding>(),
+    CommMvpFragment<WXCodeMainContract.IPresenter, WechatFragmentMainBinding>(),
     WXCodeMainContract.IView {
 
     private var mTabViewPagerAdapter: WXCodeTabAdapter? = null
 
     override fun registerPresenter() = WXCodeMainPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_w_x_code_main
+    override fun getLayoutId() = R.layout.wechat_fragment_main
 
-    override fun registerBinding(): FragmentWXCodeMainBinding {
-        return FragmentWXCodeMainBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): WechatFragmentMainBinding {
+        return WechatFragmentMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -64,8 +64,8 @@ class WXCodeMainFragment :
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
-            //TODO  go search
-            showToast(R.string.comm_wait_develop)
+            // go search
+            goSearch()
         })
     }
 
@@ -114,6 +114,10 @@ class WXCodeMainFragment :
 
     private fun scrollToTop() {
         mTabViewPagerAdapter?.getCurFragment()?.scrollToTop()
+    }
+
+    private fun goSearch() {
+        RouterManager.goActivity(RouterConfig.Activity.SEARCH_MAIN)
     }
 
 }

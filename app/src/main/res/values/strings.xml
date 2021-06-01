@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">玩安卓（组件化）</string>
+    <string name="know_app_name">玩安卓（组件化）</string>
     <string name="app_welcome_info">玩安卓\nto\n组件化</string>
     <string name="app_home">首页</string>
     <string name="app_setup">知识体系</string>
     <string name="app_public_wchat">公众号</string>
     <string name="app_navigation">导航</string>
     <string name="app_project">项目</string>
-    <string name="exit_app">再按一次，退出应用</string>
+    <string name="app_exit">再按一次，退出应用</string>
 </resources>

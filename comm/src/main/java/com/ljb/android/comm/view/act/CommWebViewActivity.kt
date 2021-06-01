@@ -11,7 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import com.ljb.android.comm.R
 import com.ljb.android.comm.contract.CommWebViewContract
-import com.ljb.android.comm.databinding.ActivityWebViewBinding
+import com.ljb.android.comm.databinding.CommActivityWebViewBinding
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.comm.presenter.CommWebViewPresenter
 import com.ljb.android.comm.utils.XLog
@@ -28,7 +28,7 @@ import com.tencent.smtt.sdk.WebView
  * @Description input description
  **/
 class CommWebViewActivity :
-    CommMvpActivity<CommWebViewContract.IPresenter, ActivityWebViewBinding>(),
+    CommMvpActivity<CommWebViewContract.IPresenter, CommActivityWebViewBinding>(),
     CommWebViewContract.IView {
 
     companion object {
@@ -51,10 +51,10 @@ class CommWebViewActivity :
 
     override fun registerPresenter() = CommWebViewPresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_web_view
+    override fun getLayoutId() = R.layout.comm_activity_web_view
 
-    override fun registerBinding(): ActivityWebViewBinding {
-        return ActivityWebViewBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): CommActivityWebViewBinding {
+        return CommActivityWebViewBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

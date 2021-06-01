@@ -4,10 +4,10 @@ import android.os.Bundle
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.component.user.R
-import com.ljb.android.component.user.contract.UserRegisterContract
-import com.ljb.android.component.user.presenter.UserRegisterPresenter
 import com.ljb.android.component.user.bean.LoginBean
-import com.ljb.android.component.user.databinding.ActivityUserRegisterBinding
+import com.ljb.android.component.user.contract.UserRegisterContract
+import com.ljb.android.component.user.databinding.UserActivityRegisterBinding
+import com.ljb.android.component.user.presenter.UserRegisterPresenter
 
 /**
  * @Author Kotlin MVP Plugin
@@ -15,7 +15,7 @@ import com.ljb.android.component.user.databinding.ActivityUserRegisterBinding
  * @Description input description
  **/
 class UserRegisterActivity :
-    CommMvpActivity<UserRegisterContract.IPresenter, ActivityUserRegisterBinding>(),
+    CommMvpActivity<UserRegisterContract.IPresenter, UserActivityRegisterBinding>(),
     UserRegisterContract.IView {
 
     private var userName: String = ""
@@ -28,10 +28,10 @@ class UserRegisterActivity :
 
     override fun registerPresenter() = UserRegisterPresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_user_register
+    override fun getLayoutId() = R.layout.user_activity_register
 
-    override fun registerBinding(): ActivityUserRegisterBinding {
-        return ActivityUserRegisterBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): UserActivityRegisterBinding {
+        return UserActivityRegisterBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun supportTitle() = true
@@ -71,8 +71,8 @@ class UserRegisterActivity :
     override fun onRegisterUserSuccess(it: LoginBean) {
         showToast(R.string.user_register_success)
         val bundle = Bundle()
-        bundle.putString(UserLoginActivity.KEY_USER_NAME , userName)
-        goActivity(UserLoginActivity::class.java , bundle)
+        bundle.putString(UserLoginActivity.KEY_USER_NAME, userName)
+        goActivity(UserLoginActivity::class.java, bundle)
         finish()
     }
 

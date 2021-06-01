@@ -13,7 +13,7 @@ import com.ljb.android.component.project.R
 import com.ljb.android.component.project.adapter.ProjectListAdapter
 import com.ljb.android.component.project.bean.ProjectListBean
 import com.ljb.android.component.project.contract.ProjectListContract
-import com.ljb.android.component.project.databinding.FragmentProjectListBinding
+import com.ljb.android.component.project.databinding.ProjectFragmentMainListBinding
 import com.ljb.android.component.project.databinding.ProjectLayoutProjectListContentBinding
 import com.ljb.android.component.project.presenter.ProjectListPresenter
 
@@ -23,7 +23,7 @@ import com.ljb.android.component.project.presenter.ProjectListPresenter
  * @Description input description
  **/
 class ProjectListFragment :
-    CommMvpFragment<ProjectListContract.IPresenter, FragmentProjectListBinding>(),
+    CommMvpFragment<ProjectListContract.IPresenter, ProjectFragmentMainListBinding>(),
     ProjectListContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
     companion object {
@@ -41,10 +41,10 @@ class ProjectListFragment :
 
     override fun registerPresenter() = ProjectListPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_project_list
+    override fun getLayoutId() = R.layout.project_fragment_main_list
 
-    override fun registerBinding(): FragmentProjectListBinding {
-        return FragmentProjectListBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): ProjectFragmentMainListBinding {
+        return ProjectFragmentMainListBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun immersionBarEnabled() = false

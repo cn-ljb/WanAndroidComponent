@@ -18,12 +18,12 @@
             <option value="$PROJECT_DIR$/knowledge" />
             <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/search" />
             <option value="$PROJECT_DIR$/user" />
             <option value="$PROJECT_DIR$/wxcode" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

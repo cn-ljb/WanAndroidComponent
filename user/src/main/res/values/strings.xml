@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">用户子模块</string>
+    <string name="user_app_name">用户子模块</string>
     <string name="user_register_password_hint">请输入密码</string>
     <string name="user_register_account_hint">邮箱 \\ 手机号</string>
     <string name="user_register_confirm_password_hint">请确认密码</string>

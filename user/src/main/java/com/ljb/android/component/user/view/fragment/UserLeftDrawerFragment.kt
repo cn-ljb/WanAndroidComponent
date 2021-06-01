@@ -9,11 +9,9 @@ import com.ljb.android.comm.img.ImageLoader
 import com.ljb.android.comm.img.format.ImgFormatEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
-import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.comm.utils.DefResUtils
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLeftDrawerContract
-import com.ljb.android.component.user.databinding.FragmentUserLeftDrawerBinding
+import com.ljb.android.component.user.databinding.UserFragmentLeftDrawerBinding
 import com.ljb.android.component.user.presenter.UserLeftDrawerPresenter
 import com.ljb.android.component.user.view.act.UserLoginActivity
 import org.greenrobot.eventbus.EventBus
@@ -27,15 +25,15 @@ import org.greenrobot.eventbus.ThreadMode
  **/
 @Route(path = RouterConfig.Fragment.USER_LEFT_DRAWER)
 class UserLeftDrawerFragment :
-    CommMvpFragment<UserLeftDrawerContract.IPresenter, FragmentUserLeftDrawerBinding>(),
+    CommMvpFragment<UserLeftDrawerContract.IPresenter, UserFragmentLeftDrawerBinding>(),
     UserLeftDrawerContract.IView, View.OnClickListener {
 
     override fun registerPresenter() = UserLeftDrawerPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_user_left_drawer
+    override fun getLayoutId() = R.layout.user_fragment_left_drawer
 
-    override fun registerBinding(): FragmentUserLeftDrawerBinding {
-        return FragmentUserLeftDrawerBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): UserFragmentLeftDrawerBinding {
+        return UserFragmentLeftDrawerBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -85,7 +83,6 @@ class UserLeftDrawerFragment :
      * 退出登录
      * */
     override fun onLogoutSuccess() {
-        RouterManager.getChatService()?.logoutSocket()
         showToast(R.string.user_logout_success)
         changeUserStatus()
         EventBus.getDefault().post(

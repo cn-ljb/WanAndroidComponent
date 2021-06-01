@@ -7,10 +7,11 @@ buildscript {
         maven { url 'https://jitpack.io' }
         google()
         jcenter()
+        maven { url "https://maven.google.com" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0"
         classpath 'com.didichuxing.doraemonkit:dokitx-plugin:3.3.5'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -23,6 +24,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         google()
         jcenter()
+        maven { url "https://maven.google.com" }
     }
 }
 

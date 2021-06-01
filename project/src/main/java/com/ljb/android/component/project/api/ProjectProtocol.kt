@@ -3,7 +3,9 @@ package com.ljb.android.component.project.api
 import com.ljb.android.component.project.bean.ProjectListBean
 import com.ljb.android.component.project.bean.ProjectTabBean
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Author:Ljb

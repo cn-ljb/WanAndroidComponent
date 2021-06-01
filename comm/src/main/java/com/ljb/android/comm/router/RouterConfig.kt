@@ -8,6 +8,11 @@ object RouterConfig {
          * */
         const val APP_MAIN = "/app/AppHomeActivity"
 
+        /**
+         * 搜索模块 主界面
+         * */
+        const val SEARCH_MAIN = "/search/SearchActivity"
+
     }
 
     object Fragment {
@@ -79,9 +84,10 @@ object RouterConfig {
         const val PROJECT = "/project/ProjectRouterService"
 
         /**
-         * Chat 服务路由
-         * */
-        const val CHAT = "/chat/ChatRouterService"
+         * 搜索 服务路由
+         */
+        const val SEARCH = "/search/SearchRouterService"
+
     }
 
 

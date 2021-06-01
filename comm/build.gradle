@@ -63,6 +63,7 @@ android {
     viewBinding {
         enabled = true
     }
+    resourcePrefix 'comm_'
 }
 
 dependencies {

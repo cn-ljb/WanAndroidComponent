@@ -18,16 +18,17 @@
         android:name="com.ljb.android.comm.App"
         android:allowBackup="true"
         android:icon="@mipmap/comm_icon_app"
-        android:label="@string/app_name"
+        android:label="@string/know_app_name"
         android:roundIcon="@mipmap/comm_icon_app"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroidComponent"
+        android:theme="@style/Comm.Theme.WanAndroidComponent"
+        tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
 
         <activity
             android:name=".view.act.AppWelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Launcher">
+            android:theme="@style/App.Theme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

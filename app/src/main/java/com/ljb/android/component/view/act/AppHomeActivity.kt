@@ -13,7 +13,7 @@ import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppHomeContract
-import com.ljb.android.component.databinding.ActivityAppHomeBinding
+import com.ljb.android.component.databinding.AppActivityHomeBinding
 import com.ljb.android.component.presenter.AppHomePresenter
 import com.next.easynavigation.view.EasyNavigationBar.OnTabClickListener
 import com.yanzhenjie.permission.AndPermission
@@ -25,7 +25,7 @@ import com.yanzhenjie.permission.AndPermission
  * @Description input description
  **/
 @Route(path = RouterConfig.Activity.APP_MAIN)
-class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppHomeBinding>(),
+class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, AppActivityHomeBinding>(),
     AppHomeContract.IView {
 
     private val mTabText by lazy {
@@ -64,10 +64,10 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
 
     override fun registerPresenter() = AppHomePresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_app_home
+    override fun getLayoutId() = R.layout.app_activity_home
 
-    override fun registerBinding(): ActivityAppHomeBinding {
-        return ActivityAppHomeBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): AppActivityHomeBinding {
+        return AppActivityHomeBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -179,12 +179,12 @@ class AppHomeActivity : CommMvpActivity<AppHomeContract.IPresenter, ActivityAppH
         val tempTime = System.currentTimeMillis()
         if (mBackTime == 0L) {
             mBackTime = tempTime
-            showToast(R.string.exit_app)
+            showToast(R.string.app_exit)
             return
         } else {
             if (tempTime - mBackTime > 2000) {
                 mBackTime = tempTime
-                showToast(R.string.exit_app)
+                showToast(R.string.app_exit)
                 return
             } else {
                 super.onBackPressed()

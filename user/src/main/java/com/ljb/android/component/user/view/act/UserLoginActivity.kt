@@ -10,10 +10,9 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
 import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpActivity
-import com.ljb.android.comm.router.RouterManager
 import com.ljb.android.component.user.R
 import com.ljb.android.component.user.contract.UserLoginContract
-import com.ljb.android.component.user.databinding.ActivityUserLoginBinding
+import com.ljb.android.component.user.databinding.UserActivityLoginBinding
 import com.ljb.android.component.user.presenter.UserLoginPresenter
 import org.greenrobot.eventbus.EventBus
 
@@ -23,7 +22,7 @@ import org.greenrobot.eventbus.EventBus
  * @Date 2021/01/23
  * @Description input description
  **/
-class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, ActivityUserLoginBinding>(),
+class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, UserActivityLoginBinding>(),
     UserLoginContract.IView {
 
     private var userName: String = ""
@@ -36,10 +35,10 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
 
     override fun registerPresenter() = UserLoginPresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_user_login
+    override fun getLayoutId() = R.layout.user_activity_login
 
-    override fun registerBinding(): ActivityUserLoginBinding {
-        return ActivityUserLoginBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): UserActivityLoginBinding {
+        return UserActivityLoginBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun supportTitle() = true
@@ -91,8 +90,6 @@ class UserLoginActivity : CommMvpActivity<UserLoginContract.IPresenter, Activity
      * 登录成功
      * */
     override fun onLoginSuccess(json: String) {
-        // 连接Socket
-        RouterManager.getChatService()?.loginSocket(json)
         // 返回登录结果
         setLoginResult(json)
     }

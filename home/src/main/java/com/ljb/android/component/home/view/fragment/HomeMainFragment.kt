@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
@@ -14,7 +15,6 @@ import com.ljb.android.comm.eventbus.UserEvent
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.comm.utils.XLog
 import com.ljb.android.comm.view.act.CommWebViewActivity
 import com.ljb.android.component.home.R
 import com.ljb.android.component.home.adapter.HomeBannerAdapter
@@ -22,7 +22,7 @@ import com.ljb.android.component.home.adapter.HomeListAdapter
 import com.ljb.android.component.home.bean.BannerBean
 import com.ljb.android.component.home.bean.HomeListBean
 import com.ljb.android.component.home.contract.HomeMainContract
-import com.ljb.android.component.home.databinding.FragmentHomeMainFragmentBinding
+import com.ljb.android.component.home.databinding.HomeFragmentMainBinding
 import com.ljb.android.component.home.databinding.HomeLayoutBannerBinding
 import com.ljb.android.component.home.presenter.HomeMainPresenter
 import com.youth.banner.BannerConfig
@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe
  **/
 @Route(path = RouterConfig.Fragment.HOME_MAIN)
 class HomeMainFragment :
-    CommMvpFragment<HomeMainContract.IPresenter, FragmentHomeMainFragmentBinding>(),
+    CommMvpFragment<HomeMainContract.IPresenter, HomeFragmentMainBinding>(),
     HomeMainContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
     private var mBannerBind: HomeLayoutBannerBinding? = null
@@ -45,10 +45,10 @@ class HomeMainFragment :
 
     override fun registerPresenter() = HomeMainPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_home_main_fragment
+    override fun getLayoutId() = R.layout.home_fragment_main
 
-    override fun registerBinding(): FragmentHomeMainFragmentBinding {
-        return FragmentHomeMainFragmentBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): HomeFragmentMainBinding {
+        return HomeFragmentMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -100,8 +100,8 @@ class HomeMainFragment :
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
-            //TODO  go search
-            showToast(R.string.comm_wait_develop)
+            //go search
+            goSearch()
         })
     }
 
@@ -118,7 +118,6 @@ class HomeMainFragment :
         mBind.rvList.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = mListAdapter
-            mListAdapter.removeAllHeaderView()
             mListAdapter.loadMoreModule.isEnableLoadMore = true
             mListAdapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false
             mListAdapter.loadMoreModule.setOnLoadMoreListener { onLoadMore() }
@@ -245,6 +244,11 @@ class HomeMainFragment :
     private fun goWebView(url: String) {
         CommWebViewActivity.startActivity(activity!!, url)
     }
+
+    private fun goSearch() {
+       RouterManager.goActivity(RouterConfig.Activity.SEARCH_MAIN)
+    }
+
 
     override fun supportEventBus() = true
 

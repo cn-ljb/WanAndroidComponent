@@ -1,5 +1,5 @@
 // 取出isComponent字段
-def isComponent = rootProject.ext.isComponent.knowledge
+def isComponent = rootProject.ext.isComponent
 def isDebug = rootProject.ext.isDebug
 
 // 根据isRelease字段，来确定当前是Library还是可执行Module
@@ -100,6 +100,8 @@ android {
     viewBinding {
         enabled = true
     }
+
+    resourcePrefix 'know_'
 }
 
 dependencies {

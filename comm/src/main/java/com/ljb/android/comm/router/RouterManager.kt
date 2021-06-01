@@ -1,7 +1,6 @@
 package com.ljb.android.comm.router
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
@@ -11,15 +10,15 @@ import com.ljb.android.comm.utils.XLog
 
 object RouterManager {
 
-    fun init(app: Context) {
+    fun init() {
         getAppService()
         getUserService()
         getHomeService()
-        getKnowledgeService()
+        getKnowService()
         getWXCodeService()
         getNavService()
         getProjectService()
-        getChatService()
+        getSearchService()
     }
 
     /**
@@ -123,7 +122,7 @@ object RouterManager {
     /**
      * 获取Know模块服务 - 知识体系
      * */
-    fun getKnowledgeService(): IKnowRouterService? {
+    fun getKnowService(): IKnowRouterService? {
 
         val service = ARouter.getInstance().build(RouterConfig.Service.KNOW)
             .navigation()
@@ -140,22 +139,18 @@ object RouterManager {
      * 获取WeChatCode模块服务 - 公众号
      * */
     fun getWXCodeService(): IWXCodeRouterService? {
-
         val service = ARouter.getInstance().build(RouterConfig.Service.WECHAT_CODE)
             .navigation()
-
         if (!checkService(service, IWXCodeRouterService::class.java)) {
             return null
         }
-
         return service as IWXCodeRouterService
     }
 
     /**
-     * 获取Nav模块服务 - 公众号
+     * 获取Nav模块服务 - 导航
      * */
     fun getNavService(): INavRouterService? {
-
         val service = ARouter.getInstance().build(RouterConfig.Service.NAV)
             .navigation()
 
@@ -164,11 +159,10 @@ object RouterManager {
         }
 
         return service as INavRouterService
-
     }
 
     /**
-     * 获取Project模块服务 - 公众号
+     * 获取Project模块服务 - 项目
      * */
     fun getProjectService(): IProjectRouterService? {
         val service = ARouter.getInstance().build(RouterConfig.Service.PROJECT)
@@ -182,17 +176,17 @@ object RouterManager {
     }
 
     /**
-     * 获取IM模块服务 - 聊天室
+     * 获取Search模块服务 - 搜索
      * */
-    fun getChatService(): IChatRouterService? {
-        val service = ARouter.getInstance().build(RouterConfig.Service.CHAT)
+    fun getSearchService(): ISearchRouterService? {
+        val service = ARouter.getInstance().build(RouterConfig.Service.SEARCH)
             .navigation()
 
-        if (!checkService(service, IChatRouterService::class.java)) {
+        if (!checkService(service, ISearchRouterService::class.java)) {
             return null
         }
 
-        return service as IChatRouterService
+        return service as ISearchRouterService
     }
 
 }

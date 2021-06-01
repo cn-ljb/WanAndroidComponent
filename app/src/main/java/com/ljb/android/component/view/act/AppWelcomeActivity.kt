@@ -5,7 +5,7 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ljb.android.comm.mvp.CommMvpActivity
 import com.ljb.android.component.R
 import com.ljb.android.component.contract.AppWelcomeContract
-import com.ljb.android.component.databinding.ActivityAppWelcomeBinding
+import com.ljb.android.component.databinding.AppActivityWelcomeBinding
 import com.ljb.android.component.presenter.AppWelcomePresenter
 import java.util.concurrent.TimeUnit
 
@@ -15,15 +15,15 @@ import java.util.concurrent.TimeUnit
  * @Description input description
  **/
 class AppWelcomeActivity :
-    CommMvpActivity<AppWelcomeContract.IPresenter, ActivityAppWelcomeBinding>(),
+    CommMvpActivity<AppWelcomeContract.IPresenter, AppActivityWelcomeBinding>(),
     AppWelcomeContract.IView {
 
     override fun registerPresenter() = AppWelcomePresenter::class.java
 
-    override fun getLayoutId() = R.layout.activity_app_welcome
+    override fun getLayoutId() = R.layout.app_activity_welcome
 
-    override fun registerBinding(): ActivityAppWelcomeBinding {
-        return ActivityAppWelcomeBinding.inflate(layoutInflater, mParentView, false)
+    override fun registerBinding(): AppActivityWelcomeBinding {
+        return AppActivityWelcomeBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {

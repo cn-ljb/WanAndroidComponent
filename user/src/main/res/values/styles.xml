@@ -2,7 +2,7 @@
 <resources>
 
 
-    <style name="style_login_edit">
+    <style name="user_style_login_edit">
         <item name="android:textColor">@color/color_333</item>
         <item name="android:textColorHint">@color/color_999</item>
         <item name="android:textSize">@dimen/sp_18</item>

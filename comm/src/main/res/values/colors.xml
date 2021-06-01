@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
     <color name="bg_page">#E8E9E7</color>
     <color name="color_red">#f00</color>
     <color name="color_white">#fff</color>
@@ -24,4 +25,6 @@
     <color name="color_5EA279">#5EA279</color>
     <color name="color_388347">#388347</color>
     <color name="color_FF9D9D">#FF9D9D</color>
+    <color name="color_1296DB">#1296DB</color>
+    <color name="color_FF3333">#FF3333</color>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
 
     <!-- 自定义AlertDialog的样式 -->
     <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">

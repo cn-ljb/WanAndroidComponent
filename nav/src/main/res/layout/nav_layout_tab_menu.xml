@@ -21,7 +21,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/white" />
+        android:background="@color/color_white" />
 
 
 </FrameLayout>

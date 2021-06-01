@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ljb.android.component.search">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <application
+        android:name="com.ljb.android.comm.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/comm_icon_app"
+        android:label="@string/search_app_name"
+        android:roundIcon="@mipmap/comm_icon_app"
+        android:supportsRtl="true"
+        android:theme="@style/Comm.Theme.WanAndroidComponent"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
+        <activity android:name=".view.act.SearchActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+</manifest>

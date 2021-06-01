@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.Launcher" parent="Theme.WanAndroidComponent">
+    <style name="App.Theme.Launcher" parent="Comm.Theme.WanAndroidComponent">
         <item name="android:windowBackground">@drawable/app_welcome_bg</item>
     </style>
 </resources>

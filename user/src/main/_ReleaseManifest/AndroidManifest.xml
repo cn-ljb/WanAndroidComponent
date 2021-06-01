@@ -14,7 +14,7 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroidComponent">
+        android:theme="@style/Comm.Theme.WanAndroidComponent">
 
         <activity
             android:name=".view.act.UserRegisterActivity"

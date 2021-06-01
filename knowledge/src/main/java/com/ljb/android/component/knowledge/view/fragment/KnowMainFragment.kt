@@ -10,12 +10,12 @@ import com.ljb.android.comm.adapter.decoration.RVItemDecorationMargin
 import com.ljb.android.comm.mvp.CommMvpFragment
 import com.ljb.android.comm.router.RouterConfig
 import com.ljb.android.comm.router.RouterManager
-import com.ljb.android.component.knowledge.contract.KnowMainContract
-import com.ljb.android.component.knowledge.presenter.KnowMainPresenter
 import com.ljb.android.component.knowledge.R
 import com.ljb.android.component.knowledge.adapter.KnowMainListAdapter
 import com.ljb.android.component.knowledge.bean.KnowMainListBean
-import com.ljb.android.component.knowledge.databinding.FragmentKnowMainBinding
+import com.ljb.android.component.knowledge.contract.KnowMainContract
+import com.ljb.android.component.knowledge.databinding.KnowFragmentMainBinding
+import com.ljb.android.component.knowledge.presenter.KnowMainPresenter
 
 /**
  * @Author Kotlin MVP Plugin
@@ -23,17 +23,18 @@ import com.ljb.android.component.knowledge.databinding.FragmentKnowMainBinding
  * @Description input description
  **/
 @Route(path = RouterConfig.Fragment.KNOW_MAIN)
-class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentKnowMainBinding>(), KnowMainContract.IView,
+class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter, KnowFragmentMainBinding>(),
+    KnowMainContract.IView,
     SwipeRefreshLayout.OnRefreshListener {
 
     private val mListAdapter = KnowMainListAdapter()
 
     override fun registerPresenter() = KnowMainPresenter::class.java
 
-    override fun getLayoutId() = R.layout.fragment_know_main
+    override fun getLayoutId() = R.layout.know_fragment_main
 
-    override fun registerBinding(): FragmentKnowMainBinding {
-        return FragmentKnowMainBinding.inflate(layoutInflater , mParentView , false)
+    override fun registerBinding(): KnowFragmentMainBinding {
+        return KnowFragmentMainBinding.inflate(layoutInflater, mParentView, false)
     }
 
     override fun initStatusBar() {
@@ -64,8 +65,8 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
             openOrCloseDrawerLeft()
         })
         setTitleRightImage(R.mipmap.comm_icon_search, View.OnClickListener {
-            //TODO  go search
-            showToast(R.string.comm_wait_develop)
+            // go search
+            goSearch()
         })
     }
 
@@ -112,5 +113,10 @@ class KnowMainFragment : CommMvpFragment<KnowMainContract.IPresenter , FragmentK
     override fun onLoadPageError() {
         mBind.swRefresh.isRefreshing = false
     }
+
+    private fun goSearch() {
+        RouterManager.goActivity(RouterConfig.Activity.SEARCH_MAIN)
+    }
+
 
 }
