@@ -1,5 +1,10 @@
 package com.ljb.android.component.search.presenter
 
+import android.os.Looper
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.ljb.android.comm.presenter.getLifecycle
+import com.ljb.android.comm.presenter.presenterScope
 import com.ljb.android.comm.utils.XLog
 import com.ljb.android.component.search.contract.SearchContract
 import com.ljb.android.component.search.model.SearchModel
@@ -17,7 +22,9 @@ class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IM
     override fun registerModel() = SearchModel::class.java
 
     override fun doSearch(page: Int, text: String) {
-        test()
+        test3()
+//        test2()
+//        test()
 //        GlobalScope.launch(Dispatchers.Main) {
 //            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
 //            try {
@@ -41,6 +48,7 @@ class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IM
 
     }
 
+    //    ---------- 同步请求演示代码 ------------
     private var mJob: Job? = null
     private fun test() {
         mJob?.cancel()
@@ -57,6 +65,7 @@ class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IM
             val endTime = System.currentTimeMillis()
             XLog.d("耗时：${endTime - startTime}ms")
 
+            XLog.d("数据1：${list[0]} 数据2：${list[1]}")
             getMvpView().showToast("数据1：${list[0]} 数据2：${list[1]}")
         }
     }
@@ -65,4 +74,44 @@ class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IM
         super.onDestroy()
         mJob?.cancel()
     }
+
+    //    ---------- life ------------
+    private fun test2() {
+        if (getContext() is LifecycleOwner) {
+            val life = getContext() as LifecycleOwner
+            life.lifecycleScope.launch {
+                XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
+
+                XLog.d("Start Thread :" + Thread.currentThread().name)
+                val data2 = getModel().test2()
+                XLog.d("End Thread :" + Thread.currentThread().name)
+
+                XLog.d("数据2：${data2}")
+                getMvpView().showToast("数据2：${data2}")
+            }
+        }
+    }
+
+    //    ---------- lifeEx ------------
+    private fun test3() {
+//        getLifecycle().lifecycleScope.launch {
+//
+//            val data2 = getModel().test2()
+//            XLog.d("数据2：${data2}")
+//            getMvpView().showToast("数据2：${data2}")
+//        }
+
+        val launch = presenterScope.launch {
+            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
+
+            XLog.d("Start Thread :" + Thread.currentThread().name)
+            val data2 = getModel().test2()
+            XLog.d("End Thread :" + Thread.currentThread().name)
+
+            XLog.d("数据2：${data2}")
+            getMvpView().showToast("数据2：${data2}")
+        }
+
+    }
+
 }

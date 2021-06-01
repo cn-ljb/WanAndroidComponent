@@ -4,6 +4,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
@@ -19,6 +20,7 @@ import com.ljb.android.component.search.contract.SearchContract
 import com.ljb.android.component.search.databinding.SearchActivityMainBinding
 import com.ljb.android.component.search.databinding.SearchLayoutRecyclerViewBinding
 import com.ljb.android.component.search.presenter.SearchPresenter
+import kotlinx.coroutines.launch
 
 /**
  * @Author Kotlin MVP Plugin
@@ -67,8 +69,13 @@ class SearchActivity : CommMvpActivity<SearchContract.IPresenter, SearchActivity
         mBind.ivClear.setOnClickListener {
             clearText()
         }
-
         initPageContentView()
+    }
+
+    override fun initData() {
+        lifecycleScope.launch {
+            
+        }
     }
 
     private fun initPageContentView() {
