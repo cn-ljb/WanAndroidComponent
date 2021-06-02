@@ -1,6 +1,7 @@
 package com.ljb.android.component.search.api
 
 import com.ljb.android.component.search.bean.SearchBean
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -13,14 +14,14 @@ import retrofit2.http.Path
  **/
 interface SearchProtocol {
 
-//    /**
-//     * 搜索文章
-//     */
-//    @POST("article/query/{page}/json")
-//    fun doSearch(
-//        @Path("page") page: Int,
-//        @Field("k") key: String
-//    ): Observable<SearchBean>
+    /**
+     * 搜索文章
+     */
+    @POST("article/query/{page}/json")
+    fun doSearchRx(
+        @Path("page") page: Int,
+        @Field("k") key: String
+    ): Observable<SearchBean>
 
     /**
      * 搜索文章 - 协程

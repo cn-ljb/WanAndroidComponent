@@ -1,55 +1,124 @@
 package com.ljb.android.component.search.presenter
 
 import android.os.Looper
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.ljb.android.comm.presenter.getLifecycle
 import com.ljb.android.comm.presenter.presenterScope
+import com.ljb.android.comm.rx.subscribeNet
 import com.ljb.android.comm.utils.XLog
+import com.ljb.android.component.search.api.SearchProtocol
 import com.ljb.android.component.search.contract.SearchContract
 import com.ljb.android.component.search.model.SearchModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
 import mvp.ljb.kt.presenter.BaseMvpPresenter
+import net.ljb.kt.HttpFactory
+import net.ljb.kt.client.HttpClient
+import okhttp3.*
+import java.io.IOException
+import java.net.ResponseCache
 
 /**
  * @Author Kotlin MVP Plugin
  * @Date 2021/05/30
  * @Description input description
  **/
-class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IModel>(),
-    SearchContract.IPresenter {
+class SearchPresenter() : BaseMvpPresenter<SearchContract.IView, SearchContract.IModel>(),
+    SearchContract.IPresenter, Parcelable {
 
     override fun registerModel() = SearchModel::class.java
 
     override fun doSearch(page: Int, text: String) {
-        test3()
-//        test2()
-//        test()
-//        GlobalScope.launch(Dispatchers.Main) {
-//            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
-//            try {
-//                if (page == 0) {
-//                    getMvpView().showLoading()
-//                }
-//
-//                XLog.d("Start Thread :" + Thread.currentThread().name)
-//                val searchBean = getModel().doSearch(page, text)
-//                XLog.d("End Thread :" + Thread.currentThread().name)
-//
-//                getMvpView().onSearchResult(searchBean)
-//            } catch (e: Exception) {
-//                XLog.e(e)
-//            } finally {
-//                if (page == 0) {
-//                    getMvpView().hideLoading()
-//                }
-//            }
-//        }
+        GlobalScope.launch(Dispatchers.Main) {
+            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
+            try {
+                if (page == 0) {
+                    getMvpView().showLoading()
+                }
+
+                XLog.d("Start Thread :" + Thread.currentThread().name)
+                val searchBean = getModel().doSearch(page, text)
+                val searchBean2 = getModel().doSearch(page, searchBean.toString())
+                val searchBean3 = getModel().doSearch(page, searchBean2.toString())
+                XLog.d("End Thread :" + Thread.currentThread().name)
+
+                getMvpView().onSearchResult(searchBean3)
+            } catch (e: Exception) {
+                XLog.e(e)
+            } finally {
+                if (page == 0) {
+                    getMvpView().hideLoading()
+                }
+            }
+        }
+    }
+
+    fun doSearchCallBack(page: Int, text: String) {
+        val request: Request = Request.Builder().url("http://www.baidu.com").get().build()
+        val httpClient = HttpClient.getHttpClient()
+        httpClient.newCall(request).enqueue(object : Callback{
+
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                httpClient.newCall(request).enqueue(object : Callback{
+
+                    override fun onFailure(call: Call, e: IOException) {
+
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        httpClient.newCall(request).enqueue(object : Callback{
+
+                            override fun onFailure(call: Call, e: IOException) {
+
+                            }
+
+                            override fun onResponse(call: Call, response: Response) {
+
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    fun doSearchRX(page: Int, text: String) {
+       HttpFactory.getProtocol(SearchProtocol::class.java)
+           .doSearchRx(0 , "kotlin")
+           .flatMap {  HttpFactory.getProtocol(SearchProtocol::class.java)
+               .doSearchRx(0 , "kotlin") }
+           .flatMap {  HttpFactory.getProtocol(SearchProtocol::class.java)
+               .doSearchRx(0 , "kotlin") }
+           .subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
+           .subscribeNet(getMvpView()){
+               onNextEx {
+
+               }
+
+               onErrorEx {
+
+               }
+           }
 
     }
 
+
     //    ---------- 同步请求演示代码 ------------
     private var mJob: Job? = null
+
+    constructor(parcel: Parcel) : this() {
+
+    }
+
     private fun test() {
         mJob?.cancel()
         mJob = GlobalScope.launch(Dispatchers.Main) {
@@ -101,17 +170,35 @@ class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IM
 //            getMvpView().showToast("数据2：${data2}")
 //        }
 
-        val launch = presenterScope.launch {
-            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
+//        val launch = presenterScope.launch {
+//            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
+//
+//            XLog.d("Start Thread :" + Thread.currentThread().name)
+//            val data2 = getModel().test2()
+//            XLog.d("End Thread :" + Thread.currentThread().name)
+//
+//            XLog.d("数据2：${data2}")
+//            getMvpView().showToast("数据2：${data2}")
+//        }
 
-            XLog.d("Start Thread :" + Thread.currentThread().name)
-            val data2 = getModel().test2()
-            XLog.d("End Thread :" + Thread.currentThread().name)
+    }
 
-            XLog.d("数据2：${data2}")
-            getMvpView().showToast("数据2：${data2}")
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<SearchPresenter> {
+        override fun createFromParcel(parcel: Parcel): SearchPresenter {
+            return SearchPresenter(parcel)
         }
 
+        override fun newArray(size: Int): Array<SearchPresenter?> {
+            return arrayOfNulls(size)
+        }
     }
 
 }

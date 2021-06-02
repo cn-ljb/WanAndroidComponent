@@ -37,6 +37,4 @@ class SearchModel : BaseModel(), SearchContract.IModel {
             "data2"
         }
     }
-
-
 }
