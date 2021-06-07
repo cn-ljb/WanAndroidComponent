@@ -108,6 +108,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //公共模块所有子模块都引入
     implementation project(path: ':comm')
+
     dependenciesImp.each { k, v -> implementation(v) }
     dependenciesKapt.each { k, v -> kapt(v) }
 
@@ -116,6 +117,9 @@ dependencies {
     //dokit
     debugImplementation "com.didichuxing.doraemonkit:dokitx:${rootProject.ext.dokit_version}"
     releaseImplementation "com.didichuxing.doraemonkit:dokitx-no-op:${rootProject.ext.dokit_version}"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
 }
 
 if (isComponent) {
