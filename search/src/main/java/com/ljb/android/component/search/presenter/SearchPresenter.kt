@@ -12,15 +12,16 @@ import com.ljb.android.component.search.api.SearchProtocol
 import com.ljb.android.component.search.contract.SearchContract
 import com.ljb.android.component.search.model.SearchModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
 import mvp.ljb.kt.presenter.BaseMvpPresenter
 import net.ljb.kt.HttpFactory
 import net.ljb.kt.client.HttpClient
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Request
+import okhttp3.Response
 import java.io.IOException
-import java.net.ResponseCache
 
 /**
  * @Author Kotlin MVP Plugin
@@ -28,25 +29,51 @@ import java.net.ResponseCache
  * @Description input description
  **/
 class SearchPresenter() : BaseMvpPresenter<SearchContract.IView, SearchContract.IModel>(),
-    SearchContract.IPresenter, Parcelable {
+    SearchContract.IPresenter {
 
     override fun registerModel() = SearchModel::class.java
 
     override fun doSearch(page: Int, text: String) {
+        presenterScope.launch {
+            try {
+                if (page == 0) {
+                    getMvpView().showLoading()
+                }
+                val searchBean = getModel().doSearch(page, text)
+                getMvpView().onSearchResult(searchBean)
+            } catch (e: Exception) {
+                XLog.e(e)
+            } finally {
+                if (page == 0) {
+                    getMvpView().hideLoading()
+                }
+            }
+        }
+    }
+
+    private fun <T> launch(next: () -> T, onNext: ((T) -> Unit)?=null, onError: ((Throwable) -> Unit)?=null) {
+        presenterScope.launch {
+            try {
+                val result = next.invoke()
+                onNext?.invoke(result)
+            } catch (e: Exception) {
+                onError?.invoke(e)
+            }
+        }
+    }
+
+    fun doSearchAll(page: Int, text: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            XLog.d("is Main Thread:" + "${Thread.currentThread() == Looper.getMainLooper().thread}")
             try {
                 if (page == 0) {
                     getMvpView().showLoading()
                 }
 
-                XLog.d("Start Thread :" + Thread.currentThread().name)
                 val searchBean = getModel().doSearch(page, text)
-                val searchBean2 = getModel().doSearch(page, searchBean.toString())
-                val searchBean3 = getModel().doSearch(page, searchBean2.toString())
-                XLog.d("End Thread :" + Thread.currentThread().name)
+//                val searchBean2 = getModel().doSearch(page, searchBean.toString())
+//                val searchBean3 = getModel().doSearch(page, searchBean2.toString())
 
-                getMvpView().onSearchResult(searchBean3)
+                getMvpView().onSearchResult(searchBean)
             } catch (e: Exception) {
                 XLog.e(e)
             } finally {
@@ -60,21 +87,21 @@ class SearchPresenter() : BaseMvpPresenter<SearchContract.IView, SearchContract.
     fun doSearchCallBack(page: Int, text: String) {
         val request: Request = Request.Builder().url("http://www.baidu.com").get().build()
         val httpClient = HttpClient.getHttpClient()
-        httpClient.newCall(request).enqueue(object : Callback{
+        httpClient.newCall(request).enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
 
             }
 
             override fun onResponse(call: Call, response: Response) {
-                httpClient.newCall(request).enqueue(object : Callback{
+                httpClient.newCall(request).enqueue(object : Callback {
 
                     override fun onFailure(call: Call, e: IOException) {
 
                     }
 
                     override fun onResponse(call: Call, response: Response) {
-                        httpClient.newCall(request).enqueue(object : Callback{
+                        httpClient.newCall(request).enqueue(object : Callback {
 
                             override fun onFailure(call: Call, e: IOException) {
 
@@ -91,34 +118,33 @@ class SearchPresenter() : BaseMvpPresenter<SearchContract.IView, SearchContract.
     }
 
     fun doSearchRX(page: Int, text: String) {
-       HttpFactory.getProtocol(SearchProtocol::class.java)
-           .doSearchRx(0 , "kotlin")
-           .flatMap {  HttpFactory.getProtocol(SearchProtocol::class.java)
-               .doSearchRx(0 , "kotlin") }
-           .flatMap {  HttpFactory.getProtocol(SearchProtocol::class.java)
-               .doSearchRx(0 , "kotlin") }
-           .subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
-           .subscribeNet(getMvpView()){
-               onNextEx {
+        HttpFactory.getProtocol(SearchProtocol::class.java)
+            .doSearchRx(0, "kotlin")
+            .flatMap {
+                HttpFactory.getProtocol(SearchProtocol::class.java)
+                    .doSearchRx(0, "kotlin")
+            }
+            .flatMap {
+                HttpFactory.getProtocol(SearchProtocol::class.java)
+                    .doSearchRx(0, "kotlin")
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeNet(getMvpView()) {
+                onNextEx {
 
-               }
+                }
 
-               onErrorEx {
+                onErrorEx {
 
-               }
-           }
+                }
+            }
 
     }
 
 
     //    ---------- 同步请求演示代码 ------------
     private var mJob: Job? = null
-
-    constructor(parcel: Parcel) : this() {
-
-    }
-
     private fun test() {
         mJob?.cancel()
         mJob = GlobalScope.launch(Dispatchers.Main) {
@@ -181,24 +207,6 @@ class SearchPresenter() : BaseMvpPresenter<SearchContract.IView, SearchContract.
 //            getMvpView().showToast("数据2：${data2}")
 //        }
 
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<SearchPresenter> {
-        override fun createFromParcel(parcel: Parcel): SearchPresenter {
-            return SearchPresenter(parcel)
-        }
-
-        override fun newArray(size: Int): Array<SearchPresenter?> {
-            return arrayOfNulls(size)
-        }
     }
 
 }

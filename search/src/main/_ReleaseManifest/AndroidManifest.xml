@@ -16,17 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Comm.Theme.WanAndroidComponent">
 
-
         <activity android:name=".view.act.SearchActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"/>
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
 
     </application>
 

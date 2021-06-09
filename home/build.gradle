@@ -95,9 +95,8 @@ android {
             }
         }
     }
-
-    viewBinding {
-        enabled = true
+    buildFeatures{
+        viewBinding = true
     }
 
     resourcePrefix 'home_'

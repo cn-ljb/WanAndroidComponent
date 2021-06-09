@@ -12,8 +12,6 @@ if (isComponent) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-
-
 def appId = rootProject.ext.appId.nav
 def project_appId = rootProject.ext.appId.app
 def application = rootProject.ext.application
@@ -97,9 +95,8 @@ android {
             }
         }
     }
-
-    viewBinding {
-        enabled = true
+    buildFeatures{
+        viewBinding = true
     }
 
     resourcePrefix 'nav_'

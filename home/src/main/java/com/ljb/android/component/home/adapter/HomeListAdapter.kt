@@ -1,5 +1,6 @@
 package com.ljb.android.component.home.adapter
 
+import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,7 +32,7 @@ class HomeListAdapter : BaseQuickAdapter<HomeListBean.ListBean, BaseViewHolder>(
         } else {
             tvUser.text = item.shareUser
         }
-        holder.setText(R.id.tv_title, item.title)
+        holder.setText(R.id.tv_title, Html.fromHtml(item.title))
 
         val ivCollect = holder.getView<ImageView>(R.id.iv_collect)
         ivCollect.setOnClickListener { mCollectListener?.invoke(holder.adapterPosition) }
